@@ -4,6 +4,7 @@
     <title>Stack Overflow</title>
 </head>
 <body>
-    <p>Go to /home to see test homepage servlet.</p>
+    <h1>Welcome to Stack Overflow - Home</h1>
+    <p>${question.author} asks "${question.content}"</p>
 </body>
 </html>
