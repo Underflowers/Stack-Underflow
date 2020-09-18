@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  flow:
+    image: undeflowers/stack-underflow
+    environment:
+     - ADMIN_PASSWORD=RRH
+    ports:
+     - "8080:8080"
+     - "4848:4848"
