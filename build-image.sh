@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Use this script to build a StackUnderflow image
-TEAM_NAME="undeflowers"
+TEAM_NAME="underflowers"
 APP_NAME="stack-underflow"
 
 # https://stackoverflow.com/questions/59895/how-to-get-the-source-directory-of-a-bash-script-from-within-the-script-itself

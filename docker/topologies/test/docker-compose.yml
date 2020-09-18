@@ -2,7 +2,7 @@ version: '3'
 
 services:
   flow:
-    image: undeflowers/stack-underflow
+    image: underflowers/stack-underflow
     environment:
      - ADMIN_PASSWORD=RRH
     ports:
