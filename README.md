@@ -3,7 +3,7 @@
 Since this project uses [Tailwindcss](https://tailwindcss.com/), you'll need to install it (with it's dependencies) in order to change the styling.
 > Note: If you don't want to change the styling you can skip this whole section since a default stylesheet was added to the repo
 > 
-> The following commands need to bu executed in `src/main/webapp`.
+> The following commands need to be executed in `src/main/webapp`.
 
 First install the dependencies:
 ```
@@ -21,6 +21,7 @@ $ npm run build
 
 And voila!
 > Note: You need to redeploy the war to the server in order to see changes
+> 
 > TODO find better way?
 
 ## Pages
