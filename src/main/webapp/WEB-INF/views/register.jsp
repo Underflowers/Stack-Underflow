@@ -13,7 +13,7 @@
     </c:if>
 
     <c:if test="${user != null}">
-        <p class="connectedUser">User connected: ${user.firstname} ${user.lastname}</p>
+        <p class="connectedUser">User created: ${user.firstname} ${user.lastname}</p>
     </c:if>
 
     <form action="registerCommand" method="post">

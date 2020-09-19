@@ -37,7 +37,7 @@ Scenario('Created successfully', (I) => {
     I.fillField('Repeat password', 'john');
     I.click('Register');
     I.dontSeeElement('.error');
-    I.see('User connected: John Doe');
+    I.see('User created: John Doe');
     I.see('1 registered users');
 });
 
