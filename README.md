@@ -19,8 +19,8 @@ The footer displays various information about the authors and the legal stuff. I
 
 ### Home page
 
-Description of the website
-statistics (nb users, nb of questions)
+Description of the website and also shows some
+statistics (nb users, nb of questions, nb of tags)
 
 ### Login
 
@@ -83,6 +83,8 @@ The page also displays all the answers (and the number of them). An answer conta
 If the user viewing the page has asked the question, he can edit it. He can also select an answer to notify his question has been solved.
 
 Every logged user can fill a form to send an answer and upvote or downvote the question or any answer.
+
+At the top of the page we can found a "<- All questions" button that redirect the user to the all questions page.
 
 ### New question
 
