@@ -4,6 +4,6 @@
     <title>Stack Overflow</title>
 </head>
 <body>
-    <p>Go to /home to see test homepage servlet.</p>
+    <p>Go to <a href="home">/home</a> to see test homepage servlet.</p>
 </body>
 </html>

@@ -9,7 +9,11 @@
     <p>Content : ${question.content}</p>
 
     <p>
-        You can see all questions <a href="/stack-underflow/questions">here</a>
+        You can see all questions <a href="questions">here</a>
+    </p>
+
+    <p>
+        Register <a href="register">here</a>
     </p>
 </body>
 </html>
