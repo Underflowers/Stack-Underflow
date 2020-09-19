@@ -35,4 +35,14 @@ Scenario('Login successfully', (I) => {
     I.fillField('Email', email);
     I.fillField('Password', pass);
     I.click('Login');
+    I.amOnPage('http://localhost:8080/stack-underflow/questions');
+});
+
+Scenario('Login failed', (I) => {
+    I.amOnPage("http://localhost:8080/stack-underflow/login");
+    I.see("Login");
+    I.fillField('Email', "hello@hello.com");
+    I.fillField('Password', "nopass");
+    I.click('Login');
+    I.amOnPage('http://localhost:8080/stack-underflow/login');
 });
