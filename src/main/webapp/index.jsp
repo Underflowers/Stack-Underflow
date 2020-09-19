@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Stack Underflow</title>
+    <title>Stack Overflow</title>
+    <link href="${pageContext.request.contextPath}/assets/dist/main.css" rel="stylesheet">
 </head>
 <body>
-    <p>Go to <a href="home">/home</a> to see test homepage servlet.</p>
+    <div class="container">
+        <p>Go to /home to see test homepage servlet.</p>
+    </div>
 </body>
 </html>
