@@ -2,6 +2,7 @@ package presentation;
 
 import model.User;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,6 +22,19 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
         return users.containsKey(email) && users.get(email).getPassword().equals(password);
     }
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        User newUser = User.builder()
+                .firstname("firstname")
+                .lastname("lastname")
+                .email("test@email.com")
+                .password("test")
+                .build();
+        users.put("test@email.com", newUser);
+    }
+
+    @Override
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         boolean hasError = false;
 
