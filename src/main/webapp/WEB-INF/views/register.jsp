@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Stack Underflow - Register</title>
@@ -6,6 +7,15 @@
 <body>
     <h1>Register</h1>
     <p>${usersCount} registered users</p>
+
+    <c:if test="${errorMsg != null}">
+        <p class="error">Error: ${errorMsg}</p>
+    </c:if>
+
+    <c:if test="${user != null}">
+        <p class="connectedUser">User connected: ${user.firstname} ${user.lastname}</p>
+    </c:if>
+
     <form action="registerCommand" method="post">
         <label for="firstname">
             Firstname

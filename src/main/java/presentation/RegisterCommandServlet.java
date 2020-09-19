@@ -5,6 +5,8 @@ import model.User;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 @WebServlet(name = "RegisterCommandServlet", urlPatterns = "/registerCommand")
 public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
@@ -20,22 +22,42 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
     }
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        // Verify both password fields
+        boolean hasError = false;
+
+        // Both password field doesn't match
         if(!request.getParameter("password").equals(request.getParameter("passwordRepeat"))) {
-            response.sendRedirect("/stack-underflow/register");
-            return;
+            request.setAttribute("errorMsg", "Password and password repeat must correspond");
+            hasError = true;
+        }
+        // Email already used
+        else {
+            Iterator it = users.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry mapEntry = (Map.Entry) it.next();
+                User user = ((User) mapEntry.getValue());
+                if (user.getEmail().equals(request.getParameter("email"))) {
+                    request.setAttribute("errorMsg", "Email already used");
+                    hasError = true;
+                    break;
+                }
+            }
         }
 
-        User newUser = User.builder()
-                .firstname(request.getParameter("firstname"))
-                .lastname(request.getParameter("lastname"))
-                .email(request.getParameter("email"))
-                .password(request.getParameter("password"))
-                .build();
-        users.put(request.getParameter("email"), newUser);
+        // Passwords and email OK
+        if(!hasError){
+            User newUser = User.builder()
+                    .firstname(request.getParameter("firstname"))
+                    .lastname(request.getParameter("lastname"))
+                    .email(request.getParameter("email"))
+                    .password(request.getParameter("password"))
+                    .build();
+            users.put(request.getParameter("email"), newUser);
 
-        request.setAttribute("user", newUser);
-        response.sendRedirect("/stack-underflow/register");
+            request.setAttribute("user", newUser);
+        }
+
+        request.setAttribute("usersCount", usersCount());
+        request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
     }
 
 }
