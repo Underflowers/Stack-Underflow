@@ -34,7 +34,7 @@
         <br/>
         <button type="submit">Register</button>
         <br/>
-        <a href="">Already have an account?</a>
+        <a href="login">Already have an account?</a>
     </form>
 </body>
 </html>

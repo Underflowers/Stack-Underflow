@@ -15,7 +15,17 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
         return users.size();
     }
 
+    public static boolean userAuthentication(String email, String password) {
+        return users.containsKey(email) && users.get(email).getPassword().equals(password);
+    }
+
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        // Verify both password fields
+        if(!request.getParameter("password").equals(request.getParameter("passwordRepeat"))) {
+            response.sendRedirect("/stack-underflow/register");
+            return;
+        }
+
         User newUser = User.builder()
                 .firstname(request.getParameter("firstname"))
                 .lastname(request.getParameter("lastname"))
