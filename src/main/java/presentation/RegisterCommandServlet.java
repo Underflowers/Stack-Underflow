@@ -25,6 +25,7 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+        // Used to put one fake user in the array for e2e tests
         User newUser = User.builder()
                 .firstname("firstname")
                 .lastname("lastname")

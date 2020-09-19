@@ -9,11 +9,15 @@
     <p>Content : ${question.content}</p>
 
     <p>
-        You can see all questions <a href="questions">here</a>
+        You can see all questions <a class="questionsLink" href="questions">here</a>
     </p>
 
     <p>
-        Register <a href="register">here</a>
+        Register <a class="registerLink" href="register">here</a>
+    </p>
+
+    <p>
+        Login <a class="loginLink" href="login">here</a>
     </p>
 </body>
 </html>
