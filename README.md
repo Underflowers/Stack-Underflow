@@ -3,7 +3,7 @@
 Since this project uses [Tailwindcss](https://tailwindcss.com/), you'll need to install it (with it's dependencies) in order to change the styling.
 > Note: If you don't want to change the styling you can skip this whole section since a default stylesheet was added to the repo
 > 
-> The following commands need to be executed in `src/main/webapp`.
+> The following commands need to be executed in the root of the project.
 
 First install the dependencies:
 ```
