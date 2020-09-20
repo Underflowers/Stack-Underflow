@@ -31,3 +31,4 @@
             </div>
         </nav>
     </header>
+    <main class="flex-grow">
