@@ -6,6 +6,8 @@
     <meta name="author" content="SitePoint">
 
     <link href="${pageContext.request.contextPath}/assets/dist/main.css" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/75e6517d2f.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-hof min-h-screen flex flex-col">
     <header class="bg-white">
