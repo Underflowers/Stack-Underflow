@@ -9,7 +9,7 @@
 
     <script src="https://kit.fontawesome.com/75e6517d2f.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-hof min-h-screen flex flex-col">
+<body class="h-full flex flex-col">
     <header class="bg-white">
         <nav class="flex flex-wrap items-center justify-between p-6">
             <div class="container flex flex-wrap mx-auto items-center justify-between">
@@ -18,7 +18,7 @@
                         <span class="font-semibold text-xl tracking-tight">Stack Underflow</span>
                     </a>
                 </div>
-                <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                <div class="block flex-grow flex items-center w-auto">
                     <div class="text-md lg:flex-grow">
                         <a href="/" class="link">Questions</a>
                         <a href="/" class="link">Tags</a>
