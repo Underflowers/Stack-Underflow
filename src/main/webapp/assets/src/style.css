@@ -58,4 +58,11 @@
     @apply rounded-full outline-none shadow-lg
 }
 
+.circle {
+    @apply flex mx-auto rounded-full shadow-lg text-center items-center justify-center border-rausch  border-8
+}
+.circle--big {
+    @apply font-semibold text-3xl w-48 h-48
+}
+
 @tailwind utilities;
