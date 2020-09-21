@@ -5,7 +5,7 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
-    <link href="${pageContext.request.contextPath}/assets/dist/main.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/dist/style.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/75e6517d2f.js" crossorigin="anonymous"></script>
 </head>
