@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </main>
 <footer class="relative bg-gray-300 pt-8 pb-6">
     <div class="container mx-auto px-4">
@@ -8,7 +9,6 @@
                     <a href="https://github.com/kayoumido/AMT_Project" target="_blank">
                         <i class="fab fa-github icon icon--rounded"></i>
                     </a>
-                </button>
                 </div>
             </div>
             <div class="w-full lg:w-6/12 px-4">
@@ -17,10 +17,10 @@
                         <h4 class="h4">Links</h4>
                         <ul class="list-unstyled">
                             <li>
-                                <a class="footer__link footer__text" href="/">Questions</a>
+                                <a class="footer__link footer__text" href="questions">Questions</a>
                             </li>
                             <li>
-                                <a class="footer__link footer__text" href="/">Tags</a>
+                                <a class="footer__link footer__text" href="#">Tags</a>
                             </li>
                             <li>
                                 <a class="footer__link footer__text" href="https://github.com/kayoumido/AMT_Project" target="_blank">Github</a>
