@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </main>
 <footer class="relative bg-gray-300 pt-8 pb-6">
     <div class="container mx-auto px-4">
