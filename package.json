@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "codeceptjs": "^2.6.10",
     "autoprefixer": "^9.8.6",
     "faker": "^5.1.0",
     "postcss-cli": "^7.1.2",
