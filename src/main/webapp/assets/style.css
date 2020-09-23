@@ -1,0 +1,68 @@
+@tailwind base;
+
+@tailwind components;
+
+.h2 {
+    @apply text-3xl font-semibold
+}
+.h4 {
+    @apply block uppercase text-gray-600 text-sm font-semibold mb-2
+}
+
+.btn {
+    @apply inline-block px-4 py-2 leading-none border rounded
+}
+.btn--small {
+    @apply text-sm
+}
+.btn--default {
+    @apply text-hof bg-white
+ }
+.btn--default:hover {
+    @apply bg-gray-200
+}
+.btn--primary {
+    @apply border-rausch bg-rausch text-white
+}
+.btn--primary:hover {
+    @apply text-rausch bg-gray-100
+}
+.btn--secondary-border {
+    @apply border-babu bg-gray-100
+}
+.btn--secondary-border:hover {
+    @apply bg-babu text-white
+}
+
+.link {
+    @apply text-hof border-rausch border-b-2 border-opacity-0 mr-4
+}
+.link:hover {
+    @apply border-opacity-100
+}
+.footer__text {
+    @apply text-gray-700 font-semibold block pb-2 text-sm
+}
+.footer__link:hover {
+    @apply text-gray-900
+}
+
+.icon {
+    @apply bg-white text-gray-900 font-normal p-3 items-center justify-center mr-2 inline-block text-center
+
+}
+.icon--big {
+    @apply text-xl h-16 w-16 inline-flex
+}
+.icon--rounded {
+    @apply rounded-full outline-none shadow-lg
+}
+
+.circle {
+    @apply flex mx-auto rounded-full shadow-lg text-center items-center justify-center border-rausch  border-8
+}
+.circle--big {
+    @apply font-semibold text-3xl w-48 h-48
+}
+
+@tailwind utilities;
