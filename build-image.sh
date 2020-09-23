@@ -20,7 +20,7 @@ then
 fi
 
 echo "Building WAR package..."
-mvn package
+mvn clean package
 
 PACKAGE="$(ls "$WAR_PACKAGE_DIR" | grep ".war")"
 if [ ! -f "$WAR_PACKAGE_DIR/$PACKAGE" ]
