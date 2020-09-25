@@ -12,6 +12,7 @@ import java.util.Map;
 @WebServlet(name = "RegisterCommandServlet", urlPatterns = "/registerCommand")
 public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
 
+    // TODO: move to a service
     private static HashMap<String, User> users = new HashMap<>(); // Temporary user "database"
 
     public static int usersCount() {
@@ -46,6 +47,7 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
         }
         // Email already used
         else {
+            // TODO replace with this: users.get(request.getParameter("email"));
             Iterator it = users.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry mapEntry = (Map.Entry) it.next();
