@@ -32,5 +32,6 @@ jobs:
       - name: Build Docker Image 
         run: |
           echo {{ secrets.GOLLGOT_PAT }} | docker login ghcr.io -u gollgot --password-stdin
-          docker build -t underflowers/stackunderflow
+          docker build -t underflowers/stackunderflow .
+          docker tag underflowers/stackunderflow ghcr.io/underflowers/stackunderflow
           docker push ghcr.io/underflowers/stackunderflow
