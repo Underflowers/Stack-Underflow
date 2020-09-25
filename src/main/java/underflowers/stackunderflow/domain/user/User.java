@@ -1,4 +1,4 @@
-package model;
+package underflowers.stackunderflow.domain.user;
 
 import lombok.*;
 

@@ -1,6 +1,6 @@
-package presentation;
+package underflowers.stackunderflow.ui.web.user;
 
-import model.User;
+import underflowers.stackunderflow.domain.user.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
