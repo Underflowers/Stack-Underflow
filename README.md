@@ -1,5 +1,8 @@
 # AMT\_Project
 ## Frontend
+### Mockups
+You can find our mockups [here](https://www.figma.com/file/Om6DSpFPd9A3lZUuTmFboE/Stackunderflow?node-id=0%3A1).
+### Usage
 Since this project uses [Tailwindcss](https://tailwindcss.com/), you'll need to install it (with it's dependencies) in order to change the styling.
 > Note: If you don't want to change the styling you can skip this whole section since a default stylesheet was added to the repo
 > 
