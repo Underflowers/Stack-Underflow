@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryQuestionRepository implements IQuestionRepository {
-    private Map<QuestionId, Question> store = new ConcurrentHashMap<>();
+    private final Map<QuestionId, Question> store = new ConcurrentHashMap<>();
 
 
     @Override
