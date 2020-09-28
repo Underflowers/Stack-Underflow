@@ -22,7 +22,7 @@
                                 <a class="footer__link footer__text" href="#">Tags</a>
                             </li>
                             <li>
-                                <a class="footer__link footer__text" href="https://github.com/kayoumido/AMT_Project" target="_blank">Github</a>
+                                <a class="footer__link footer__text" href="https://github.com/Underflowers/Stack-Underflow" target="_blank">GitHub</a>
                             </li>
                         </ul>
                     </div>
