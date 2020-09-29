@@ -11,7 +11,6 @@ public class User implements IEntity<User, UserId> {
     @Setter(AccessLevel.NONE)
     private UserId id;
 
-    private String username;
     private String firstname;
     private String lastname;
     private String email;
@@ -39,9 +38,6 @@ public class User implements IEntity<User, UserId> {
             if (id == null)
                 id = new UserId();
 
-            if (username == null || username.isEmpty())
-                throw new java.lang.IllegalArgumentException("Username is mandatory!");
-
             if (firstname == null || firstname.isEmpty())
                 throw new java.lang.IllegalArgumentException("First name is mandatory!");
 
@@ -52,7 +48,7 @@ public class User implements IEntity<User, UserId> {
                 throw new java.lang.IllegalArgumentException("Email is mandatory!");
 
 
-            return new User(id, username, email, firstname, lastname, password);
+            return new User(id, email, firstname, lastname, password);
         }
     }
 }
