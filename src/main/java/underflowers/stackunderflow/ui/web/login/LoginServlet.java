@@ -1,4 +1,4 @@
-package underflowers.stackunderflow.ui.web.user;
+package underflowers.stackunderflow.ui.web.login;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;

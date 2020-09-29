@@ -18,16 +18,24 @@ public class User implements IEntity<User, UserId> {
     @EqualsAndHashCode.Exclude
     private String password;
 
+    public boolean authenticate(String clearPassword) {
+        // TODO hash the clear password before comparing
+        return clearPassword.equals(password);
+    }
+
     @Override
     public User deepClone() {
         return this.toBuilder().id(new UserId(id.asString())).build();
     }
 
     public static class UserBuilder {
-        public UserBuilder clearTextPassword(String clearTextPassword) {
+        public UserBuilder clearTextPassword(String clearTextPassword, String repeat) {
 
-            if (clearTextPassword == null || clearTextPassword.isEmpty())
-                throw new java.lang.IllegalArgumentException("Password is mandatory!");
+            if (clearTextPassword == null || clearTextPassword.isEmpty() || repeat == null || repeat.isEmpty())
+                throw new java.lang.IllegalArgumentException("Password and repeat password are mandatory!");
+
+            if (!clearTextPassword.equals(repeat))
+                throw new java.lang.IllegalArgumentException("Passwords don't match");
 
             // TODO hash password
             password = clearTextPassword;

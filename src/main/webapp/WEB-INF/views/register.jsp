@@ -16,7 +16,7 @@
         <p class="connectedUser">User created: ${user.firstname} ${user.lastname}</p>
     </c:if>
 
-    <form action="registerCommand" method="post">
+    <form action="register.do" method="post">
         <label for="firstname">
             Firstname
             <input id="firstname" name="firstname" type="text"/>

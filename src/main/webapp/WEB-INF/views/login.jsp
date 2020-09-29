@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Login</h1>
-<form action="loginCommand" method="post">
+<form action="login.do" method="post">
     <label for="email">
         Email
         <input id="email" name="email" type="email"/>
