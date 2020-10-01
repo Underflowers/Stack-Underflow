@@ -1,36 +1,29 @@
 Feature('login');
 
-var faker = require('faker');
-var firstName = faker.name.firstName();
-var lastname = faker.name.lastName();
-var email = firstName + "." + lastname + "@me.com";
-var pass = "test";
+const faker = require('faker');
+const common = require("./pages/common");
+const registerPage = require("./pages/registerPage");
+const firstName = faker.name.firstName();
+const lastname = faker.name.lastName();
+const email = firstName + "." + lastname + "@me.com";
+const pass = "test";
 
 Scenario('Register link redirect', (I) => {
-    I.amOnPage("http://localhost:9080/StackUnderflow/login");
+    common.landOnPageSafely("/login", "Login");
     I.see("Don't have an account?");
     I.clickLink("Don't have an account?");
-    I.amOnPage("http://localhost:9080/StackUnderflow/register");
-    I.see("Register");
+    common.landOnPageSafely("/register", "Register");
 });
 
 Scenario('Created successfully for login', (I) => {
-    I.amOnPage("http://localhost:9080/StackUnderflow/register");
-    I.see("Register");
-    I.dontSeeElement('.error');
-    I.fillField('firstname', firstName);
-    I.fillField('lastname', lastname);
-    I.fillField('email', email);
-    I.fillField('password', pass);
-    I.fillField('passwordRepeat', pass);
-    I.click('registerBtn');
+    common.landOnPageSafely("/register", "Register");
+    registerPage.fillAndRegisterUser(firstName, lastname, email, pass, pass);
     I.dontSeeElement('.error');
     I.see('Authenticated user: ' + firstName + ' ' + lastname);
 });
 
 Scenario('Login successfully', (I) => {
-    I.amOnPage("http://localhost:9080/StackUnderflow/login");
-    I.see("Login");
+    common.landOnPageSafely("/login", "Login");
     I.fillField('email', email);
     I.fillField('password', pass);
     I.click('loginBtn');
@@ -38,10 +31,9 @@ Scenario('Login successfully', (I) => {
 });
 
 Scenario('Login failed', (I) => {
-    I.amOnPage("http://localhost:9080/StackUnderflow/login");
-    I.see("Login");
+    common.landOnPageSafely("/login", "Login");
     I.fillField('email', "hello@hello.com");
     I.fillField('password', "nopass");
     I.click('loginBtn');
-    I.amOnPage('http://localhost:9080/StackUnderflow/login');
+    I.amOnPage('/login');
 });
