@@ -31,8 +31,6 @@ public class IdentityManagementFacade {
                     .build();
 
             repository.save(user);
-
-            System.out.println(repository.findAll());
         } catch (Exception e) {
             throw new RegistrationFailedException(e.getMessage());
         }
@@ -40,7 +38,6 @@ public class IdentityManagementFacade {
 
     public AuthenticatedUserDTO authenticate(AuthenticateCommand command) throws AuthenticationFailedException {
         // check that the user exists
-        System.out.println(repository.findByEmail(command.getEmail()));
         User user = repository.findByEmail(command.getEmail()).orElseThrow(() -> new AuthenticationFailedException("User doesn't exist"));
 
         // try and authenticate the user

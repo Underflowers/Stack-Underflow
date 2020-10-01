@@ -56,7 +56,7 @@ public class User implements IEntity<User, UserId> {
                 throw new java.lang.IllegalArgumentException("Email is mandatory!");
 
 
-            return new User(id, email, firstname, lastname, password);
+            return new User(id, firstname, lastname, email, password);
         }
     }
 }

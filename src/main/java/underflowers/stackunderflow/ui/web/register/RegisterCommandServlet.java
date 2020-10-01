@@ -40,5 +40,4 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
             response.sendRedirect(" register");
         }
     }
-
 }

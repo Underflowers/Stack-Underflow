@@ -31,6 +31,5 @@ public class LoginCommandServlet extends javax.servlet.http.HttpServlet {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
             response.sendRedirect(" login");
         }
-        System.out.println("login yay");
     }
 }
