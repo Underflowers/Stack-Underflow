@@ -98,7 +98,7 @@ The user must be logged in to access this page. Then, he can submit a form conta
 #### Search results
 
 ## Installation and run (linux)
-To install and test the application, you must have docker and a github Personal Access Token. If you already logged into the GHCR with a personal access token that have read:packages rights, go to steps 3.
+To install and run the application, you must have docker and a github Personal Access Token. If you already logged into the GHCR with a personal access token that have read:packages rights, go to steps 3.
 
  1. Generate a Personal Access Token to be able to log into the ghcr (GitHub Container Registry). On your github account, go to Settings -> developer settings -> Personal Access Token -> Generate new token.
  Give a name for your token an select the `read:packages` box. Don't forget to copy your token !
