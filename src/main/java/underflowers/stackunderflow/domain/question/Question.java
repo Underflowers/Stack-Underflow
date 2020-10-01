@@ -5,7 +5,7 @@ import underflowers.stackunderflow.domain.IEntity;
 
 @Data
 @Builder (toBuilder = true)
-public class Question implements IEntity {
+public class Question implements IEntity<Question, QuestionId> {
 
     @Setter(AccessLevel.NONE)
     private QuestionId id = new QuestionId();
@@ -33,6 +33,12 @@ public class Question implements IEntity {
 
             return new Question(id, author, title, content);
         }
+    }
+
+    @Override
+    public Question deepClone() {
+        // TODO
+        return null;
     }
 }
 

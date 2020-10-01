@@ -3,16 +3,16 @@ var faker = require('faker');
 Feature('register');
 
 Scenario('Login link redirect', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
+    I.amOnPage("http://localhost:9080/StackUnderflow/register");
     I.see("Register");
     I.see("Already have an account?");
     I.clickLink("Already have an account?");
-    I.amOnPage("http://localhost:8080/stack-underflow/login")
+    I.amOnPage("http://localhost:9080/StackUnderflow/login")
     I.see("Login");
 });
 
 Scenario('Both passwords dont match', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
+    I.amOnPage("http://localhost:9080/StackUnderflow/register");
     I.see("Register");
     I.dontSeeElement('.error');
     I.fillField('Firstname', 'John');
@@ -22,14 +22,14 @@ Scenario('Both passwords dont match', (I) => {
     I.fillField('Repeat password', 'doe');
     I.click('Register');
     I.seeElement('.error');
-    I.see('Error: Password and password repeat must correspond');
+    I.see('Error: Passwords don\'t match');
 });
 
 Scenario('Created successfully', (I) => {
     var firstname = faker.name.firstName();
     var lastname = faker.name.lastName();
 
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
+    I.amOnPage("http://localhost:9080/StackUnderflow/register");
     I.see("Register");
     I.dontSeeElement('.error');
     I.fillField('Firstname', firstname);
@@ -39,12 +39,12 @@ Scenario('Created successfully', (I) => {
     I.fillField('Repeat password', 'pwd');
     I.click('Register');
     I.dontSeeElement('.error');
-    I.see('User created: ' + firstname + ' ' + lastname);
-    I.dontSee('0 registered users');
+    I.see('Authenticated user: ' + firstname + ' ' + lastname);
+    I.amOnPage("http://localhost:9080/StackUnderflow/questions");
 });
 
 Scenario('Email already used', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
+    I.amOnPage("http://localhost:9080/StackUnderflow/register");
     I.see("Register");
     I.dontSeeElement('.error');
     I.fillField('Firstname', 'test');
@@ -54,5 +54,5 @@ Scenario('Email already used', (I) => {
     I.fillField('Repeat password', 'test');
     I.click('Register');
     I.seeElement('.error');
-    I.see('Error: Email already used');
+    I.see('Error: Email address already in use!');
 });
