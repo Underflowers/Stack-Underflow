@@ -6,13 +6,11 @@
 <div class="flex h-full">
     <div class="max-w-md m-auto text-center">
         <p class="subtitle">${usersCount} registered users</p>
-
-        <c:if test="${errorMsg != null}">
-            <p class="error">Error: ${errorMsg}</p>
-        </c:if>
-
-        <c:if test="${user != null}">
-            <p class="connectedUser">User created: ${user.firstname} ${user.lastname}</p>
+        <c:forEach var="error" items="${errors}">
+            <p class="error">Error: ${error}</p>
+        </c:forEach>
+        <c:if test="${authUser != null}">
+            <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
         </c:if>
 
         <h1 class="text-4xl font-bold text-rausch">Register</h1>
@@ -24,7 +22,7 @@
             <input id="password" name="password" type="password" placeholder="Password" class="input-text"/>
             <input id="passwordRepeat" name="passwordRepeat" type="password" placeholder="Repeat password" class="input-text"/>
             <br/>
-            <button type="submit" class="btn btn--primary my-2">Register</button>
+            <button id="registerBtn" name="registerBtn" type="submit" class="btn btn--primary my-2">Register</button>
             <p class="my-2">
                 <a href="login" class="link subtitle">Already have an account?</a>
             </p>

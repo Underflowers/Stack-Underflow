@@ -19,7 +19,7 @@
             <input id="email" name="email" type="email" placeholder="Email address" class="input-text"/>
             <input id="password" name="password" type="password" placeholder="Password" class="input-text"/>
             <br/>
-            <button type="submit" class="btn btn--primary my-2">Login</button>
+            <button id="loginBtn" name="loginBtn" type="submit" class="btn btn--primary my-2">Login</button>
             <p class="my-2">
                 <a href="register" class="link subtitle">Don't have an account?</a>
             </p>
