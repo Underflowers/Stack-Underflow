@@ -1,11 +1,16 @@
 const { I } = inject();
 
 module.exports = {
+    fields: {
+        email: 'email',
+        password: 'password',
+    },
+    submitButton: 'loginBtn',
 
     loginAs(email, pwd) {
-        I.fillField('email', email);
-        I.fillField('password', pwd);
-        I.click('loginBtn');
+        I.fillField(this.fields.email, email);
+        I.fillField(this.fields.email, pwd);
+        I.click(this.submitButton);
     }
 
 }
