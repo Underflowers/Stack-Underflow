@@ -10,7 +10,8 @@ exports.config = {
   },
   include: {
     I: './steps_file.js',
-    registerPage: './pages/registerPage.js'
+    registerPage: './pages/registerPage.js',
+    common: './pages/common.js'
   },
   bootstrap: null,
   mocha: {},
