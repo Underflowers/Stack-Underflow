@@ -2,7 +2,6 @@ package underflowers.stackunderflow.domain.user;
 
 import lombok.*;
 import underflowers.stackunderflow.domain.IEntity;
-import underflowers.stackunderflow.domain.question.QuestionId;
 
 @Data
 @Builder (toBuilder = true)
