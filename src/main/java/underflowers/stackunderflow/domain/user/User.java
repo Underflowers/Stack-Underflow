@@ -1,6 +1,8 @@
 package underflowers.stackunderflow.domain.user;
 
 import lombok.*;
+import org.mindrot.jbcrypt.*;
+
 import underflowers.stackunderflow.domain.IEntity;
 
 @Data
@@ -18,8 +20,7 @@ public class User implements IEntity<User, UserId> {
     private String password;
 
     public boolean authenticate(String clearPassword) {
-        // TODO hash the clear password before comparing
-        return clearPassword.equals(password);
+        return BCrypt.checkpw(clearPassword, password);
     }
 
     @Override
@@ -36,8 +37,7 @@ public class User implements IEntity<User, UserId> {
             if (!clearTextPassword.equals(repeat))
                 throw new java.lang.IllegalArgumentException("Passwords don't match");
 
-            // TODO hash password
-            password = clearTextPassword;
+            password = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }
 
