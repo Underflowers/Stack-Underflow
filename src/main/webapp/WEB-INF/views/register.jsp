@@ -6,15 +6,9 @@
 </head>
 <body>
     <h1>Register</h1>
-    <p>${usersCount} registered users</p>
-
-    <c:if test="${errorMsg != null}">
-        <p class="error">Error: ${errorMsg}</p>
-    </c:if>
-
-    <c:if test="${user != null}">
-        <p class="connectedUser">User created: ${user.firstname} ${user.lastname}</p>
-    </c:if>
+    <c:forEach var="error" items="${errors}">
+        <p class="error">Error: ${error}</p>
+    </c:forEach>
 
     <form action="register.do" method="post">
         <label for="firstname">

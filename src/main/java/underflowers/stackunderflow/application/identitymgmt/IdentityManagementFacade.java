@@ -37,11 +37,11 @@ public class IdentityManagementFacade {
     }
 
     public AuthenticatedUserDTO authenticate(AuthenticateCommand command) throws AuthenticationFailedException {
-        // check that the user exists
-        User user = repository.findByEmail(command.getEmail()).orElseThrow(() -> new AuthenticationFailedException("User doesn't exist"));
+        // get the user
+        User user = repository.findByEmail(command.getEmail()).orElse(null);//.orElseThrow(() -> new AuthenticationFailedException("User doesn't exist"));
 
-        // try and authenticate the user
-        if (!user.authenticate(command.getClearPassword()))
+        // check if the user was found and then try and authenticate her/him
+        if (user == null || !user.authenticate(command.getClearPassword()))
             throw new AuthenticationFailedException("Bad credentials");
 
         // all gucci :D we can create a new DTO and return it

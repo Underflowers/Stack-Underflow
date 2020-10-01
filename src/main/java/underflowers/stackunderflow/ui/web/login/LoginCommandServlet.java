@@ -3,8 +3,8 @@ package underflowers.stackunderflow.ui.web.login;
 import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticateCommand;
+import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticationFailedException;
-import underflowers.stackunderflow.ui.web.register.RegisterCommandServlet;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -25,7 +25,8 @@ public class LoginCommandServlet extends javax.servlet.http.HttpServlet {
                 .build();
 
         try {
-            identityManagementFacade.authenticate(command);
+            AuthenticatedUserDTO user = identityManagementFacade.authenticate(command);
+            request.getSession().setAttribute("authUser", user);
             response.sendRedirect(" questions");
         } catch (AuthenticationFailedException e) {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));

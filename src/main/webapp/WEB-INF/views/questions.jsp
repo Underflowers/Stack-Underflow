@@ -5,7 +5,13 @@
     <title>Stack Underflow - Questions</title>
 </head>
 <body>
+    <c:forEach var="error" items="${errors}">
+        <p class="error">Error: ${error}</p>
+    </c:forEach>
 
+    <c:if test="${authUser != null}">
+        <p class="connectedUser">Authenticated used: ${authUser.firstname} ${authUser.lastname}</p>
+    </c:if>
     <h1>All questions</h1>
     <h2>${questions.size()} questions</h2>
 
