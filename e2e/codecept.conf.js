@@ -11,6 +11,7 @@ exports.config = {
   include: {
     I: './steps_file.js',
     registerPage: './pages/registerPage.js',
+    loginPage: './pages/loginPage.js',
     common: './pages/common.js'
   },
   bootstrap: null,

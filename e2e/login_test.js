@@ -3,6 +3,7 @@ Feature('login');
 const faker = require('faker');
 const common = require("./pages/common");
 const registerPage = require("./pages/registerPage");
+const loginPage = require("./pages/loginPage");
 const firstname = faker.name.firstName();
 const lastname = faker.name.lastName();
 const email = firstname + "." + lastname + "@me.com";
@@ -24,16 +25,12 @@ Scenario('Created successfully for login', (I) => {
 
 Scenario('Login successfully', (I) => {
     common.landOnPageSafely("/login", "Login");
-    I.fillField('email', email);
-    I.fillField('password', pass);
-    I.click('loginBtn');
+    loginPage.loginAs(email, pass);
     I.amOnPage('/questions');
 });
 
 Scenario('Login failed', (I) => {
     common.landOnPageSafely("/login", "Login");
-    I.fillField('email', "hello@hello.com");
-    I.fillField('password', "nopass");
-    I.click('loginBtn');
+    loginPage.loginAs("hello@hello.com", "nopass");
     I.amOnPage('/login');
 });
