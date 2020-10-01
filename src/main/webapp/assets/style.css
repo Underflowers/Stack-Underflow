@@ -35,11 +35,19 @@
 }
 
 .link {
-    @apply text-hof border-rausch border-b-2 border-opacity-0 mr-4
+    @apply text-rausch border-rausch border-b-2 border-opacity-0
 }
 .link:hover {
     @apply border-opacity-100
 }
+.link--nav {
+    @apply text-hof mr-4
+}
+
+.subtitle {
+    @apply text-sm
+}
+
 .footer__text {
     @apply text-gray-700 font-semibold block pb-2 text-sm
 }
@@ -63,6 +71,14 @@
 }
 .circle--big {
     @apply font-semibold text-3xl w-48 h-48
+}
+
+.input-text {
+    @apply px-5 py-3 bg-gray-300 my-2 rounded
+}
+
+.input-text::placeholder {
+    @apply text-foggy
 }
 
 @tailwind utilities;
