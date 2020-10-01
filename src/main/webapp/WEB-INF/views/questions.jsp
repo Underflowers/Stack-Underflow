@@ -5,6 +5,17 @@
     <title>Stack Underflow - Questions</title>
 </head>
 <body>
+    <c:forEach var="error" items="${errors}">
+        <p class="error">Error: ${error}</p>
+    </c:forEach>
+
+    <c:if test="${authUser != null}">
+        <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
+    </c:if>
+
+    <form action="logout.do" method="post">
+        <button type="submit">Logout</button>
+    </form>
 
     <h1>All questions</h1>
     <h2>${questions.size()} questions</h2>

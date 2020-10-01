@@ -1,7 +1,7 @@
 package underflowers.stackunderflow.application;
 
+import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.question.QuestionFacade;
-import underflowers.stackunderflow.application.user.UserFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.infrastucture.persistence.memory.InMemoryQuestionRepository;
@@ -14,7 +14,7 @@ public class ServiceRegistry {
     private static IQuestionRepository questionRepository;
     private static QuestionFacade questionFacade;
     private static IUserRepository userRepository;
-    private static UserFacade userFacade;
+    private static IdentityManagementFacade identityManagementFacade;
 
     public static ServiceRegistry getServiceRegistry() {
         if (singleton == null) {
@@ -29,14 +29,14 @@ public class ServiceRegistry {
         questionRepository = new InMemoryQuestionRepository();
         questionFacade = new QuestionFacade(questionRepository);
         userRepository = new InMemoryUserRepository();
-        userFacade = new UserFacade(userRepository);
+        identityManagementFacade = new IdentityManagementFacade(userRepository);
     }
 
     public static QuestionFacade getQuestionFacade() {
         return questionFacade;
     }
 
-    public static UserFacade getUserFacade() {
-        return userFacade;
+    public static IdentityManagementFacade getIdentityManagementFacade() {
+        return identityManagementFacade;
     }
 }

@@ -6,38 +6,11 @@ import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
 
 import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-
-public class InMemoryQuestionRepository implements IQuestionRepository {
-    private final Map<QuestionId, Question> store = new ConcurrentHashMap<>();
 
 
+public class InMemoryQuestionRepository extends InMemoryRepository<Question, QuestionId> implements IQuestionRepository {
     @Override
     public Collection<Question> find(QuestionsQuery query) {
-        // TODO
-        return null;
-    }
-
-    @Override
-    public void save(Question question) {
-        // TODO
-    }
-
-    @Override
-    public void remove(QuestionId questionId) {
-        // TODO
-    }
-
-    @Override
-    public Optional<Question> findById(QuestionId questionId) {
-        // TODO
-        return Optional.empty();
-    }
-
-    @Override
-    public Collection<Question> findAll() {
         // TODO
         return null;
     }

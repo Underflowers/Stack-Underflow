@@ -17,7 +17,7 @@
 
         <h1 class="text-4xl font-bold text-rausch">Register</h1>
 
-        <form action="registerCommand" method="post">
+        <form action="register.do" method="post">
             <input id="firstname" name="firstname" type="text" placeholder="Firstname" class="input-text"/>
             <input id="lastname" name="lastname" type="text" placeholder="Lastname" class="input-text"/>
             <input id="email" name="email" type="email" placeholder="Email address" class="input-text"/>
