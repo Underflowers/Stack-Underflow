@@ -3,9 +3,9 @@ Feature('login');
 const faker = require('faker');
 const common = require("./pages/common");
 const registerPage = require("./pages/registerPage");
-const firstName = faker.name.firstName();
+const firstname = faker.name.firstName();
 const lastname = faker.name.lastName();
-const email = firstName + "." + lastname + "@me.com";
+const email = firstname + "." + lastname + "@me.com";
 const pass = "test";
 
 Scenario('Register link redirect', (I) => {
@@ -17,9 +17,9 @@ Scenario('Register link redirect', (I) => {
 
 Scenario('Created successfully for login', (I) => {
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(firstName, lastname, email, pass, pass);
+    registerPage.fillAndRegisterUser(firstname, lastname, email, pass, pass);
     I.dontSeeElement('.error');
-    I.see('Authenticated user: ' + firstName + ' ' + lastname);
+    common.checkLoggedIn(firstname, lastname);
 });
 
 Scenario('Login successfully', (I) => {
@@ -27,7 +27,7 @@ Scenario('Login successfully', (I) => {
     I.fillField('email', email);
     I.fillField('password', pass);
     I.click('loginBtn');
-    I.amOnPage('http://localhost:9080/StackUnderflow/questions');
+    I.amOnPage('/questions');
 });
 
 Scenario('Login failed', (I) => {

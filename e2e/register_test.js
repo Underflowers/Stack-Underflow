@@ -27,7 +27,7 @@ Scenario('Created successfully', (I) => {
     common.landOnPageSafely("/register", "Register");
     registerPage.fillAndRegisterUser(firstname, lastname, email, 'pwd', 'pwd');
     I.dontSeeElement('.error');
-    I.see('Authenticated user: ' + firstname + ' ' + lastname);
+    common.checkLoggedIn(firstname, lastname);
     I.amOnPage("/questions");
 });
 
