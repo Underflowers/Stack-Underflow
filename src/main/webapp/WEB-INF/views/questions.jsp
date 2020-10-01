@@ -12,6 +12,11 @@
     <c:if test="${authUser != null}">
         <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
     </c:if>
+
+    <form action="logout.do" method="post">
+        <button type="submit">Logout</button>
+    </form>
+
     <h1>All questions</h1>
     <h2>${questions.size()} questions</h2>
 
