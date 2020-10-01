@@ -1,27 +1,4 @@
 # AMT\_Project
-## Frontend
-Since this project uses [Tailwindcss](https://tailwindcss.com/), you'll need to install it (with it's dependencies) in order to change the styling.
-> Note: If you don't want to change the styling you can skip this whole section since a default stylesheet was added to the repo
-> 
-> The following commands need to be executed at the root of the project.
-
-First install the dependencies:
-```
-$ npm i
-```
-
-You then need to run the following to compile the css:
-```sh
-# development
-$ npm run watch
-
-# production
-$ npm run build
-```
-
-And voila!
-> Note: You need to redeploy the war to the server in order to see changes
-
 ## Pages
 
 ### Common elements
@@ -119,3 +96,35 @@ The user must be logged in to access this page. Then, he can submit a form conta
 ### Optional
 #### All tags
 #### Search results
+
+## Installation and run (linux)
+To install and test the application, you must have docker. Use this command to pull the latest stable version of StackUnderflow : `docker pull ghcr.io/underflowers/stack-underflow:latest` 
+
+After that, run `docker run underflowers/stack-underflow:latest`
+
+To access the website, you must have the IP of the container you launched. To do that, run this command `docker inspect CONTAINER_ID`, and copy the container's id.
+
+Open your browser and type: `http://CONTAINER_IP:9080/stack-underflow/` to show our app.
+
+## Frontend
+Since this project uses [Tailwindcss](https://tailwindcss.com/), you'll need to install it (with it's dependencies) in order to change the styling.
+> Note: If you don't want to change the styling you can skip this whole section since a default stylesheet was added to the repo
+> 
+> The following commands need to be executed at the root of the project.
+
+First install the dependencies:
+```
+$ npm i
+```
+
+You then need to run the following to compile the css:
+```sh
+# development
+$ npm run watch
+
+# production
+$ npm run build
+```
+
+And voila!
+> Note: You need to redeploy the war to the server in order to see changes
