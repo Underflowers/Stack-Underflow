@@ -34,6 +34,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
             
+      - name: NPM install
+        run: npm install
+              
       - name: Build CSS 
         run: npm run build
       
