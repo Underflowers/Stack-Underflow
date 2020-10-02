@@ -1,48 +1,36 @@
 Feature('login');
 
-var faker = require('faker');
-var firstName = faker.name.firstName();
-var lastname = faker.name.lastName();
-var email = firstName + "." + lastname + "@me.com";
-var pass = "test";
+const faker = require('faker');
+const common = require("./pages/common");
+const registerPage = require("./pages/registerPage");
+const loginPage = require("./pages/loginPage");
+const firstname = faker.name.firstName();
+const lastname = faker.name.lastName();
+const email = firstname + "." + lastname + "@me.com";
+const pass = "test";
 
 Scenario('Register link redirect', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/login");
+    common.landOnPageSafely("/login", "Login");
     I.see("Don't have an account?");
     I.clickLink("Don't have an account?");
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
-    I.see("Register");
+    common.landOnPageSafely("/register", "Register");
 });
 
 Scenario('Created successfully for login', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
-    I.see("Register");
+    common.landOnPageSafely("/register", "Register");
+    registerPage.fillAndRegisterUser(firstname, lastname, email, pass, pass);
     I.dontSeeElement('.error');
-    I.fillField('Firstname', firstName);
-    I.fillField('Lastname', lastname);
-    I.fillField('Email', email);
-    I.fillField('Password', pass);
-    I.fillField('Repeat password', pass);
-    I.click('Register');
-    I.dontSeeElement('.error');
-    I.see('User created: ' + firstName + ' ' + lastname);
-    I.dontSee('0 registered users');
+    common.checkLoggedIn(firstname, lastname);
 });
 
 Scenario('Login successfully', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/login");
-    I.see("Login");
-    I.fillField('Email', email);
-    I.fillField('Password', pass);
-    I.click('Login');
-    I.amOnPage('http://localhost:8080/stack-underflow/questions');
+    common.landOnPageSafely("/login", "Login");
+    loginPage.loginAs(email, pass);
+    I.amOnPage('/questions');
 });
 
 Scenario('Login failed', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/login");
-    I.see("Login");
-    I.fillField('Email', "hello@hello.com");
-    I.fillField('Password', "nopass");
-    I.click('Login');
-    I.amOnPage('http://localhost:8080/stack-underflow/login');
+    common.landOnPageSafely("/login", "Login");
+    loginPage.loginAs("hello@hello.com", "nopass");
+    I.amOnPage('/login');
 });

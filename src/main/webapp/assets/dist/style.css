@@ -614,9 +614,17 @@ video {
   }
 }
 
+.h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #FF5A5F;
+  color: rgba(255, 90, 95, var(--text-opacity))
+}
+
 .h2 {
-  font-size: 1.875rem;
-  font-weight: 600
+  font-weight: 700;
+  font-size: 1.25rem
 }
 
 .h4 {
@@ -628,6 +636,47 @@ video {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.5rem
+}
+
+.subtitle {
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+  font-size: 0.75rem
+}
+
+.oneLineContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+.container-content {
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem
+}
+
+.card {
+  max-width: 48rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition-property: all;
+  transition-duration: 75ms
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
 }
 
 .btn {
@@ -701,18 +750,28 @@ video {
 
 .link {
   --text-opacity: 1;
-  color: #484848;
-  color: rgba(72, 72, 72, var(--text-opacity));
+  color: #FF5A5F;
+  color: rgba(255, 90, 95, var(--text-opacity));
   --border-opacity: 1;
   border-color: #FF5A5F;
   border-color: rgba(255, 90, 95, var(--border-opacity));
   border-bottom-width: 2px;
-  --border-opacity: 0;
-  margin-right: 1rem
+  --border-opacity: 0
 }
 
 .link:hover {
   --border-opacity: 1
+}
+
+.link--nav {
+  --text-opacity: 1;
+  color: #484848;
+  color: rgba(72, 72, 72, var(--text-opacity));
+  margin-right: 1rem
+}
+
+.subtitle {
+  font-size: 0.875rem
 }
 
 .footer__text {
@@ -780,6 +839,50 @@ video {
   font-size: 1.875rem;
   width: 12rem;
   height: 12rem
+}
+
+.input-text {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem
+}
+
+.input-text::-moz-placeholder {
+  --text-opacity: 1;
+  color: #767676;
+  color: rgba(118, 118, 118, var(--text-opacity))
+}
+
+.input-text:-ms-input-placeholder {
+  --text-opacity: 1;
+  color: #767676;
+  color: rgba(118, 118, 118, var(--text-opacity))
+}
+
+.input-text::placeholder {
+  --text-opacity: 1;
+  color: #767676;
+  color: rgba(118, 118, 118, var(--text-opacity))
+}
+
+.textLimiter {
+  /*https://stackoverflow.com/questions/3922739/limit-text-length-to-n-lines-using-css*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.textLimiter--2 {
+  -webkit-line-clamp: 2;
 }
 
 .space-y-0 > :not(template) ~ :not(template) {

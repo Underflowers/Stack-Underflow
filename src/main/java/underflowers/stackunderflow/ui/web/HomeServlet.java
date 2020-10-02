@@ -1,6 +1,6 @@
-package presentation;
+package underflowers.stackunderflow.ui.web;
 
-import model.Question;
+import underflowers.stackunderflow.domain.question.Question;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;

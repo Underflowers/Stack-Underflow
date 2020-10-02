@@ -1,58 +1,42 @@
-var faker = require('faker');
+const faker = require('faker');
+const registerPage = require("./pages/registerPage");
+const common = require("./pages/common");
 
 Feature('register');
 
 Scenario('Login link redirect', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
-    I.see("Register");
+    common.landOnPageSafely("/register", "Register");
     I.see("Already have an account?");
     I.clickLink("Already have an account?");
-    I.amOnPage("http://localhost:8080/stack-underflow/login")
+    I.amOnPage("/login")
     I.see("Login");
 });
 
 Scenario('Both passwords dont match', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
-    I.see("Register");
-    I.dontSeeElement('.error');
-    I.fillField('Firstname', 'John');
-    I.fillField('Lastname', 'Doe');
-    I.fillField('Email', 'john.doe@me.com');
-    I.fillField('Password', 'john');
-    I.fillField('Repeat password', 'doe');
-    I.click('Register');
+    common.landOnPageSafely("/register", "Register");
+    registerPage.fillAndRegisterUser('John', 'Doe', 'john.doe@me.com', 'john', 'doe');
     I.seeElement('.error');
-    I.see('Error: Password and password repeat must correspond');
+    I.see('Error: Passwords don\'t match');
 });
 
 Scenario('Created successfully', (I) => {
-    var firstname = faker.name.firstName();
-    var lastname = faker.name.lastName();
+    const firstname = faker.name.firstName();
+    const lastname = faker.name.lastName();
+    const email = firstname + "." + lastname + '@me.com';
 
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
-    I.see("Register");
+    common.landOnPageSafely("/register", "Register");
+    registerPage.fillAndRegisterUser(firstname, lastname, email, 'pwd', 'pwd');
     I.dontSeeElement('.error');
-    I.fillField('Firstname', firstname);
-    I.fillField('Lastname', lastname);
-    I.fillField('Email', firstname + "." + lastname + "@me.com");
-    I.fillField('Password', 'pwd');
-    I.fillField('Repeat password', 'pwd');
-    I.click('Register');
-    I.dontSeeElement('.error');
-    I.see('User created: ' + firstname + ' ' + lastname);
-    I.dontSee('0 registered users');
+    common.checkLoggedIn(firstname, lastname);
+    I.amOnPage("/questions");
 });
 
 Scenario('Email already used', (I) => {
-    I.amOnPage("http://localhost:8080/stack-underflow/register");
+    I.amOnPage("/register");
     I.see("Register");
     I.dontSeeElement('.error');
-    I.fillField('Firstname', 'test');
-    I.fillField('Lastname', 'test');
-    I.fillField('Email', 'test@email.com');
-    I.fillField('Password', 'test');
-    I.fillField('Repeat password', 'test');
-    I.click('Register');
+    common.landOnPageSafely("/register", "Register");
+    registerPage.fillAndRegisterUser('test', 'test', 'test@email.com', 'test', 'test');
     I.seeElement('.error');
-    I.see('Error: Email already used');
+    I.see('Error: Email address already in use!');
 });

@@ -1,30 +1,4 @@
 # AMT\_Project
-## Frontend
-### Mockups
-You can find our mockups [here](https://www.figma.com/file/Om6DSpFPd9A3lZUuTmFboE/Stackunderflow?node-id=0%3A1).
-### Usage
-Since this project uses [Tailwindcss](https://tailwindcss.com/), you'll need to install it (with it's dependencies) in order to change the styling.
-> Note: If you don't want to change the styling you can skip this whole section since a default stylesheet was added to the repo
-> 
-> The following commands need to be executed at the root of the project.
-
-First install the dependencies:
-```
-$ npm i
-```
-
-You then need to run the following to compile the css:
-```sh
-# development
-$ npm run watch
-
-# production
-$ npm run build
-```
-
-And voila!
-> Note: You need to redeploy the war to the server in order to see changes
-
 ## Pages
 
 ### Common elements
@@ -122,3 +96,42 @@ The user must be logged in to access this page. Then, he can submit a form conta
 ### Optional
 #### All tags
 #### Search results
+
+## Installation and run (linux)
+To install and run the application, you must have docker and a github Personal Access Token. If you already logged into the GHCR with a personal access token that have read:packages rights, go to steps 3.
+
+ 1. Generate a Personal Access Token to be able to log into the ghcr (GitHub Container Registry). On your github account, go to Settings -> developer settings -> Personal Access Token -> Generate new token.
+ Give a name for your token an select the `read:packages` box. Don't forget to copy your token !
+ 
+ 2. You have to connect to the GHCR with this command: `docker login ghcr.io -u <YOUR_GITHUB_USERNAME>` and enter your personal access token as password.
+ 
+ 3. Use this command to pull the latest stable version of StackUnderflow: `docker pull ghcr.io/underflowers/stack-underflow:latest` 
+ 
+ 4. Use this command to run the container: `docker run ghcr.io/underflowers/stack-underflow:latest`
+
+ 5. To access the website, you must have the IP of the container you launched. To do that, run this command `docker inspect CONTAINER_ID`, and copy the container's id (The CONTAINER_ID can be found with `docker ps`).
+    
+ 6. Open your browser and type: `http://CONTAINER_IP:9080/stack-underflow/` to show our app.
+
+## Frontend
+Since this project uses [Tailwindcss](https://tailwindcss.com/), you'll need to install it (with it's dependencies) in order to change the styling.
+> Note: If you don't want to change the styling you can skip this whole section since a default stylesheet was added to the repo
+> 
+> The following commands need to be executed at the root of the project.
+
+First install the dependencies:
+```
+$ npm i
+```
+
+You then need to run the following to compile the css:
+```sh
+# development
+$ npm run watch
+
+# production
+$ npm run build
+```
+
+And voila!
+> Note: You need to redeploy the war to the server in order to see changes
