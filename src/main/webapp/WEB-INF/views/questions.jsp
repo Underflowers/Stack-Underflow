@@ -17,7 +17,10 @@
 
     <div class="oneLineContainer mb-5">
         <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${questions.size()})</span></h1>
-        <a href="#" class="btn btn--primary my-2">+ New Question</a> <!-- TODO add link to newQuestion page -->
+
+        <c:if test="${authUser != null}">
+            <a href="#" class="btn btn--primary my-2">+ New Question</a> <!-- TODO add link to newQuestion page -->
+        </c:if>
     </div>
 
     <div class="flex justify-center flex-wrap">
