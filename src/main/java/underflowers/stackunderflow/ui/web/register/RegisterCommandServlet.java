@@ -6,6 +6,7 @@ import underflowers.stackunderflow.application.identitymgmt.registration.Registr
 import underflowers.stackunderflow.application.identitymgmt.registration.RegistrationFailedException;
 import underflowers.stackunderflow.domain.user.User;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -17,7 +18,8 @@ import java.util.Map;
 @WebServlet(name = "RegisterCommandServlet", urlPatterns = "/register.do")
 public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
 
-    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
+    @Inject
+    ServiceRegistry serviceRegistry;
     private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
 
     @Override

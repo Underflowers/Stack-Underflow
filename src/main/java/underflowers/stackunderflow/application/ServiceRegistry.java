@@ -11,16 +11,15 @@ import javax.inject.Named;
 
 @ApplicationScoped
 public class ServiceRegistry {
-    private static ServiceRegistry singleton; // Will be replaced soon ( 35:00 )
 
-    @Inject @Named("InMemoryQuestionRepository")
+    @Inject //@Named("InMemoryQuestionRepository")
     IQuestionRepository questionRepository;
-    @Inject @Named("JdbcUserRepository")
+    @Inject //@Named("JdbcUserRepository")
     IUserRepository userRepository;
 
     private static QuestionFacade questionFacade;
     private static IdentityManagementFacade identityManagementFacade;
-
+    /*
     public static ServiceRegistry getServiceRegistry() {
         if (singleton == null) {
             singleton = new ServiceRegistry();
@@ -28,18 +27,21 @@ public class ServiceRegistry {
 
         return singleton;
     }
+    */
 
+    /*
     private ServiceRegistry() {
         singleton = this;
         questionFacade = new QuestionFacade(questionRepository);
         identityManagementFacade = new IdentityManagementFacade(userRepository);
     }
+     */
 
     public static QuestionFacade getQuestionFacade() {
         return questionFacade;
     }
 
-    public static IdentityManagementFacade getIdentityManagementFacade() {
-        return identityManagementFacade;
+    public IdentityManagementFacade getIdentityManagementFacade() {
+        return new IdentityManagementFacade(userRepository);
     }
 }
