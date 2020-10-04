@@ -4,16 +4,21 @@ import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFa
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
-import underflowers.stackunderflow.infrastructure.persistence.jdbc.JdbcUserRepository;
-import underflowers.stackunderflow.infrastucture.persistence.memory.InMemoryQuestionRepository;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+@ApplicationScoped
 public class ServiceRegistry {
     private static ServiceRegistry singleton; // Will be replaced soon ( 35:00 )
 
-    // Will be replaced with dependency injection
-    private static IQuestionRepository questionRepository;
+    @Inject @Named("InMemoryQuestionRepository")
+    IQuestionRepository questionRepository;
+    @Inject @Named("JdbcUserRepository")
+    IUserRepository userRepository;
+
     private static QuestionFacade questionFacade;
-    private static IUserRepository userRepository;
     private static IdentityManagementFacade identityManagementFacade;
 
     public static ServiceRegistry getServiceRegistry() {
@@ -26,10 +31,7 @@ public class ServiceRegistry {
 
     private ServiceRegistry() {
         singleton = this;
-        questionRepository = new InMemoryQuestionRepository();
         questionFacade = new QuestionFacade(questionRepository);
-        //userRepository = new InMemoryUserRepository();
-        userRepository = new JdbcUserRepository(); // User JDBC in place of Memory
         identityManagementFacade = new IdentityManagementFacade(userRepository);
     }
 

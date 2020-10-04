@@ -1,10 +1,9 @@
-package underflowers.stackunderflow.infrastucture.persistence.memory;
+package underflowers.stackunderflow.infrastructure.persistence.memory;
 
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 import underflowers.stackunderflow.domain.user.UserId;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
