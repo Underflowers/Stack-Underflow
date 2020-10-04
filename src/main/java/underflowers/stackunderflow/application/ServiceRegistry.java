@@ -4,8 +4,8 @@ import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFa
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
+import underflowers.stackunderflow.infrastructure.persistence.jdbc.JdbcUserRepository;
 import underflowers.stackunderflow.infrastucture.persistence.memory.InMemoryQuestionRepository;
-import underflowers.stackunderflow.infrastucture.persistence.memory.InMemoryUserRepository;
 
 public class ServiceRegistry {
     private static ServiceRegistry singleton; // Will be replaced soon ( 35:00 )
@@ -28,7 +28,8 @@ public class ServiceRegistry {
         singleton = this;
         questionRepository = new InMemoryQuestionRepository();
         questionFacade = new QuestionFacade(questionRepository);
-        userRepository = new InMemoryUserRepository();
+        //userRepository = new InMemoryUserRepository();
+        userRepository = new JdbcUserRepository(); // User JDBC in place of Memory
         identityManagementFacade = new IdentityManagementFacade(userRepository);
     }
 
