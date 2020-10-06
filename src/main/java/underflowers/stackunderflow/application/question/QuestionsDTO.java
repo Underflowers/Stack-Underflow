@@ -23,5 +23,5 @@ public class QuestionsDTO {
     }
 
     @Singular
-    private List<Question> questions;
+    private List<QuestionDTO> questions;
 }

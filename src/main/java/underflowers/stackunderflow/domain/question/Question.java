@@ -37,8 +37,12 @@ public class Question implements IEntity<Question, QuestionId> {
 
     @Override
     public Question deepClone() {
-        // TODO
-        return null;
+        return Question.builder()
+                .id(new QuestionId())
+                .author(author)
+                .content(content)
+                .title(title)
+                .build();
     }
 }
 
