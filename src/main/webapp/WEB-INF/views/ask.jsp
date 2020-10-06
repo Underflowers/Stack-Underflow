@@ -7,15 +7,17 @@
     <p class="error">Error: ${error}</p>
 </c:forEach>
 
-<c:if test="${authUser != null}">
-    <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
-</c:if>
+<c:choose>
+    <c:when test="${authUser != null}">
+        <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
+    </c:when>
+</c:choose>
 
 <div class="flex h-full">
     <div class="max-w-md m-auto">
         <h1 class="text-4xl font-bold text-rausch">Ask your question</h1>
 
-        <form action="submitQuestion.do" method="post">
+        <form action="ask.do" method="post">
             <input id="title" name="title" type="text" placeholder="Title" class="input-text"/>
             <textarea id="content" name="content" type="text" placeholder="Write your question here..." class="form-textarea"></textarea>
             <br/>

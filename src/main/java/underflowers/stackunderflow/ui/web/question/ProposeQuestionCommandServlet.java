@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ProposeQuestionCommandServlet", urlPatterns ="/submitQuestion.do")
+@WebServlet(name = "ProposeQuestionCommandServlet", urlPatterns ="/ask.do")
 public class ProposeQuestionCommandServlet extends HttpServlet {
 
     private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
