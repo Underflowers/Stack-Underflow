@@ -3,6 +3,8 @@ package underflowers.stackunderflow.domain.question;
 import lombok.*;
 import underflowers.stackunderflow.domain.IEntity;
 
+import java.time.LocalDate;
+
 @Data
 @Builder (toBuilder = true)
 public class Question implements IEntity<Question, QuestionId> {
@@ -12,6 +14,7 @@ public class Question implements IEntity<Question, QuestionId> {
     private String author;
     private String title;
     private String content;
+    private LocalDate creationDate;
 
     public static class QuestionBuilder {
         public Question build() {
@@ -31,7 +34,11 @@ public class Question implements IEntity<Question, QuestionId> {
                 content = "";
             }
 
-            return new Question(id, author, title, content);
+            if (creationDate == null) {
+                creationDate = LocalDate.now();
+            }
+
+            return new Question(id, author, title, content, creationDate);
         }
     }
 
@@ -42,6 +49,7 @@ public class Question implements IEntity<Question, QuestionId> {
                 .author(author)
                 .content(content)
                 .title(title)
+                .creationDate(creationDate)
                 .build();
     }
 }

@@ -25,7 +25,7 @@
 
     <div class="flex justify-center flex-wrap">
         <c:forEach var="question" items="${questions.questions}">
-            <a style="display:block" href="#"> <!-- TODO add link to detailed question page -->
+            <a class="w-full" style="display:block" href="#"> <!-- TODO add link to detailed question page -->
                 <div class="card my-4">
                     <span class="subtitle">${question.author} asks</span>
                     <h2 class="h2 textLimiter">${question.title}</h2>
@@ -33,7 +33,7 @@
                     <hr class="my-3 border-gray-300">
                     <div class="oneLineContainer">
                         <span class="subtitle">0 votes • 0 answers</span>
-                        <span class="subtitle">01.10.2020</span>
+                        <span class="subtitle">${question.creationDate.toString()}</span>
                     </div>
                 </div>
             </a>

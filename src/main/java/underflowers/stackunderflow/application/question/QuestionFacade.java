@@ -31,6 +31,7 @@ public class QuestionFacade {
             .author(question.getAuthor())
             .title(question.getTitle())
             .content(question.getContent())
+            .creationDate(question.getCreationDate())
             .build()).collect(Collectors.toList());
 
         return QuestionsDTO.builder()
