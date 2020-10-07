@@ -1,6 +1,7 @@
 package underflowers.stackunderflow.ui.web.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
+import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.question.ProposeQuestionCommand;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 
@@ -19,8 +20,9 @@ public class ProposeQuestionCommandServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         ProposeQuestionCommand command = ProposeQuestionCommand.builder()
-                .author("anonymous")
+                .author(currentUser.getFirstname() + " " + currentUser.getLastname())
                 .title(request.getParameter("title"))
                 .text(request.getParameter("content"))
                 .build();
