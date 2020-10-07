@@ -2,6 +2,7 @@ package underflowers.stackunderflow.ui.web.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
+import underflowers.stackunderflow.application.question.IncompleteQuestionException;
 import underflowers.stackunderflow.application.question.ProposeQuestionCommand;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ProposeQuestionCommandServlet", urlPatterns ="/ask.do")
 public class ProposeQuestionCommandServlet extends HttpServlet {
@@ -27,7 +29,12 @@ public class ProposeQuestionCommandServlet extends HttpServlet {
                 .text(request.getParameter("content"))
                 .build();
 
-        questionFacade.proposeQuestion(command);
+        try {
+            questionFacade.proposeQuestion(command);
+        } catch (IncompleteQuestionException e) {
+            request.getSession().setAttribute("errors", List.of(e.getMessage()));
+            response.sendRedirect("ask");
+        }
         response.sendRedirect("/questions");
     }
 }

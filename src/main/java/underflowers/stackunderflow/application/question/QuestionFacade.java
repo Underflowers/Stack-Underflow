@@ -15,13 +15,17 @@ public class QuestionFacade {
         this.questionRepository = questionRepository;
     }
 
-    public void proposeQuestion(ProposeQuestionCommand command) {
-        Question submittedQuestion = Question.builder()
-            .author(command.getAuthor())
-            .title(command.getTitle())
-            .content(command.getText())
-            .build();
-        questionRepository.save(submittedQuestion);
+    public void proposeQuestion(ProposeQuestionCommand command) throws IncompleteQuestionException {
+        try {
+            Question submittedQuestion = Question.builder()
+                    .author(command.getAuthor())
+                    .title(command.getTitle())
+                    .content(command.getText())
+                    .build();
+            questionRepository.save(submittedQuestion);
+        } catch (Exception e) {
+            throw new IncompleteQuestionException(e.getMessage());
+        }
     }
 
     public QuestionsDTO getQuestions(QuestionsQuery query) {

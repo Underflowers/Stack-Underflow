@@ -22,16 +22,16 @@ public class Question implements IEntity<Question, QuestionId> {
                 id = new QuestionId();
             }
 
-            if (author == null) {
-                author = "";
+            if (author == null || author.isEmpty()) {
+                throw new IllegalArgumentException("Author is mandatory");
             }
 
-            if (title == null) {
-                title = "";
+            if (title == null || title.isEmpty()) {
+                throw new IllegalArgumentException("Title is mandatory");
             }
 
-            if (content == null) {
-                content = "";
+            if (content == null || content.isEmpty()) {
+                throw new IllegalArgumentException("Content is mandatory");
             }
 
             if (creationDate == null) {
