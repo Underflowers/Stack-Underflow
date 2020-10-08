@@ -6,6 +6,7 @@ import underflowers.stackunderflow.application.question.QuestionsDTO;
 import underflowers.stackunderflow.application.question.QuestionsQuery;
 import underflowers.stackunderflow.domain.question.Question;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +17,13 @@ import java.util.ArrayList;
 @WebServlet(name = "QuestionsServlet", urlPatterns = "/questions")
 public class QuestionListServlet extends javax.servlet.http.HttpServlet  {
 
-    private ServiceRegistry serviceRegistry;
-    private QuestionFacade questionFacade;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        serviceRegistry = ServiceRegistry.getServiceRegistry();
-        questionFacade = serviceRegistry.getQuestionFacade();
-    }
+    @Inject
+    ServiceRegistry serviceRegistry;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+
         QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder()
             .isAnswered(false)
             .build());

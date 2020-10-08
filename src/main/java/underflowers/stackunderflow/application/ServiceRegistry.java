@@ -38,8 +38,8 @@ public class ServiceRegistry {
     }
      */
 
-    public static QuestionFacade getQuestionFacade() {
-        return questionFacade;
+    public QuestionFacade getQuestionFacade() {
+        return new QuestionFacade(questionRepository);
     }
 
     public IdentityManagementFacade getIdentityManagementFacade() {
