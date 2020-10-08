@@ -16,10 +16,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @ApplicationScoped
 @Named("JdbcUserRepository")
@@ -43,8 +40,10 @@ public class JdbcUserRepository implements IUserRepository {
             ResultSet res = statement.executeQuery();
 
             ArrayList<User> matches = new ArrayList<>();
+
             while(res.next()){
                 User user = User.builder()
+                        .id(new UserId(res.getString("uuid")))
                         .firstname(res.getString("firstname"))
                         .lastname(res.getString("lastname"))
                         .email(res.getString("email"))
