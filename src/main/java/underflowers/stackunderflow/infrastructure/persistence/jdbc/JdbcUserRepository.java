@@ -15,11 +15,10 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -39,8 +38,29 @@ public class JdbcUserRepository implements IUserRepository {
     @Override
     public Optional<User> findByEmail(String email) {
         try {
-            Statement stmt = dataSource.getConnection().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM users");
+
+            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM users WHERE email=?");
+            statement.setString(1, email);
+            ResultSet res = statement.executeQuery();
+
+            ArrayList<User> matches = new ArrayList<>();
+            while(res.next()){
+                User user = User.builder()
+                        .firstname(res.getString("firstname"))
+                        .lastname(res.getString("lastname"))
+                        .email(res.getString("email"))
+                        .hashedPassword(res.getString("password"))
+                        .build();
+                matches.add(user);
+            }
+
+            /// no matches were found or there is more than one match, something is wrong with the repository
+            // TODO split into 2 checks and throw an exception if greater than 1?
+            if (matches.size() != 1)
+                return Optional.empty();
+
+            return Optional.of(matches.get(0));
+
         } catch (SQLException e) {
             //traitement de l'exception
         }
@@ -48,8 +68,21 @@ public class JdbcUserRepository implements IUserRepository {
     }
 
     @Override
-    public void save(User entity) {
+    public void save(User user) {
+        try {
+            PreparedStatement statement = dataSource.getConnection().prepareStatement(
+                    "INSERT INTO users(uuid, firstname, lastname, email, password)" +
+                        "VALUES(?,?,?,?,?)");
+            statement.setString(1, user.getId().asString());
+            statement.setString(2, user.getFirstname());
+            statement.setString(3, user.getLastname());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getPassword());
 
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override

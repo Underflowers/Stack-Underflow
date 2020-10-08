@@ -16,9 +16,9 @@ public class LoginCommandServlet extends javax.servlet.http.HttpServlet {
 
     @Inject
     ServiceRegistry serviceRegistry;
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
         request.getSession().removeAttribute("errors");
 
         AuthenticateCommand command = AuthenticateCommand.builder()

@@ -9,12 +9,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@ApplicationScoped
+@ApplicationScoped // Equivalent à singleton (avec EJB), a la demande cela instancie cette classe mais une seule dans l'app
 public class ServiceRegistry {
 
-    @Inject //@Named("InMemoryQuestionRepository")
+    @Inject @Named("InMemoryQuestionRepository") // Inject equivalent à @EJB
     IQuestionRepository questionRepository;
-    @Inject //@Named("JdbcUserRepository")
+
+    @Inject @Named("JdbcUserRepository")
     IUserRepository userRepository;
 
     private static QuestionFacade questionFacade;

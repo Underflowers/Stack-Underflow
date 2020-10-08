@@ -20,10 +20,11 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
 
     @Inject
     ServiceRegistry serviceRegistry;
-    private IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
 
     @Override
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws ServletException, IOException {
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+
         request.getSession().removeAttribute("errors");
 
         RegistrationCommand command = RegistrationCommand.builder()
