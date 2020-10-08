@@ -1,14 +1,17 @@
-package underflowers.stackunderflow.infrastucture.persistence.memory;
+package underflowers.stackunderflow.infrastructure.persistence.memory;
 
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 import underflowers.stackunderflow.domain.user.UserId;
 
-import java.util.Collection;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
+@Named("InMemoryUserRepository")
 public class InMemoryUserRepository extends InMemoryRepository<User, UserId> implements IUserRepository {
     @Override
     public Optional<User> findByEmail(String email) {

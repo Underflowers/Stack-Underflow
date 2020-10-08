@@ -46,6 +46,7 @@ public class IdentityManagementFacade {
 
         // all gucci :D we can create a new DTO and return it
         return AuthenticatedUserDTO.builder()
+                .uuid(user.getId())
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .email(user.getEmail()).build();

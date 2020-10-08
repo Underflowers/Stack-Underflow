@@ -1,4 +1,4 @@
-package underflowers.stackunderflow.infrastucture.persistence.memory;
+package underflowers.stackunderflow.infrastructure.persistence.memory;
 
 import underflowers.stackunderflow.domain.IEntity;
 import underflowers.stackunderflow.domain.IRepository;
