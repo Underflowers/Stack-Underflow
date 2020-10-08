@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   db:
-    image: ghcr.io/underflowers/database:latest
+    image: mysql
     container_name: underflow_db
     restart: always
     environment:
@@ -9,6 +9,8 @@ services:
       MYSQL_DATABASE: stackunderflow
       MYSQL_USER: underflower
       MYSQL_PASSWORD: securepassword
+    volumes:
+      - ./docker/init/database/:/docker-entrypoint-initdb.d/
 
   web:
     image: ghcr.io/underflowers/stack-underflow:latest

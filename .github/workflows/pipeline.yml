@@ -49,10 +49,4 @@ jobs:
           docker build -t underflowers/stack-underflow ./docker/images/flow/
           docker tag underflowers/stack-underflow ghcr.io/underflowers/stack-underflow
           docker push ghcr.io/underflowers/stack-underflow
-      - name: Build database image
-        run: |
-          echo ${{ secrets.STACKUNDERFLOW_PAT }} | docker login ghcr.io -u dev-stackunderflow --password-stdin
-          docker build -t underflowers/database ./docker/images/database/
-          docker tag underflowers/database ghcr.io/underflowers/database
-          docker push ghcr.io/underflowers/database 
 
