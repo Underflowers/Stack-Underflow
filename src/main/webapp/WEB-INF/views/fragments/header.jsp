@@ -24,15 +24,16 @@
                         <a href="questions" class="link link--nav">Questions</a>
                         <a href="#" class="link link--nav">Tags</a>
                     </div>
-                    <div>
+                    <div class="flex items-center">
                         <c:choose>
                             <c:when test="${authUser != null}">
+                                <span class="subtitle mr-2">${authUser.email}</span>
                                 <form action="logout.do" method="post" class="m-0">
                                     <button type="submit" class="btn btn--small btn--secondary-border">Logout</button>
                                 </form>
                             </c:when>
                             <c:otherwise>
-                                <a href="login" class="btn btn--small btn--primary">Login</a>
+                                <a href="login" class="btn btn--small btn--primary mr-2">Login</a>
                                 <a href="register" class="btn btn--small btn--secondary-border">Register</a>
                             </c:otherwise>
                         </c:choose>

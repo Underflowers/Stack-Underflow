@@ -8,9 +8,6 @@
     <c:forEach var="error" items="${errors}">
         <p class="error">Error: ${error}</p>
     </c:forEach>
-    <c:if test="${authUser != null}">
-        <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
-    </c:if>
 
     <div class="oneLineContainer mb-5">
         <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${questions.questions.size()})</span></h1>
