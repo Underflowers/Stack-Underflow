@@ -10,9 +10,9 @@
                 <div class="icon icon--rounded icon--big text-gray-200 bg-rausch mb-6">
                     <i class="fas fa-code"></i>
                 </div>
-                <h2 class="h2 text-white">Coding is hard</h2>
+                <h2 class="h2 text-white">Welcome to Stack Underflow</h2>
                 <p class="mt-4 text-lg leading-relaxed text-gray-100">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fusce ut placerat orci nulla.
+                    Coding is hard. The great community of Stack Underflow is here to help you solve your trickiest problems! Be part of this awesome collaborative platform today, for free.
                 </p>
             </div>
         </div>
