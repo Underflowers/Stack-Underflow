@@ -2,6 +2,7 @@ package underflowers.stackunderflow.domain.question;
 
 import underflowers.stackunderflow.application.question.QuestionsQuery;
 import underflowers.stackunderflow.domain.IRepository;
+import underflowers.stackunderflow.domain.user.UserId;
 
 import java.util.Collection;
 

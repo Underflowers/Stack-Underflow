@@ -6,6 +6,7 @@ import underflowers.stackunderflow.application.question.IncompleteQuestionExcept
 import underflowers.stackunderflow.application.question.ProposeQuestionCommand;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,15 +17,16 @@ import java.util.List;
 
 @WebServlet(name = "ProposeQuestionCommandServlet", urlPatterns ="/ask.do")
 public class ProposeQuestionCommandServlet extends HttpServlet {
-
-    private ServiceRegistry serviceRegistry = ServiceRegistry.getServiceRegistry();
-    private QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+    @Inject
+    ServiceRegistry serviceRegistry;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         ProposeQuestionCommand command = ProposeQuestionCommand.builder()
-                .author(currentUser.getFirstname() + " " + currentUser.getLastname())
+                .authorUUID(currentUser.getUuid())
                 .title(request.getParameter("title"))
                 .text(request.getParameter("content"))
                 .build();

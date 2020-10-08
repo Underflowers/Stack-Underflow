@@ -39,7 +39,7 @@ public class ServiceRegistry {
      */
 
     public QuestionFacade getQuestionFacade() {
-        return new QuestionFacade(questionRepository);
+        return new QuestionFacade(questionRepository, userRepository);
     }
 
     public IdentityManagementFacade getIdentityManagementFacade() {

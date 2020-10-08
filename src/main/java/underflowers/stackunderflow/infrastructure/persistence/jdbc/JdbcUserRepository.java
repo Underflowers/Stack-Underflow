@@ -38,7 +38,6 @@ public class JdbcUserRepository implements IUserRepository {
     @Override
     public Optional<User> findByEmail(String email) {
         try {
-
             PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM users WHERE email=?");
             statement.setString(1, email);
             ResultSet res = statement.executeQuery();
