@@ -15,7 +15,7 @@
         <nav class="flex flex-wrap items-center justify-between p-6 border-b-2">
             <div class="container flex flex-wrap mx-auto items-center justify-between">
                 <div class="flex items-center flex-shrink-0 text-hof mr-6">
-                    <a class="inline-block" href="${pageContext.request.contextPath}">
+                    <a class="inline-block" href="${pageContext.request.contextPath}/">
                         <span class="font-semibold text-xl tracking-tight">Stack Underflow</span>
                     </a>
                 </div>
