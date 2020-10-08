@@ -41,6 +41,11 @@ public class User implements IEntity<User, UserId> {
             return this;
         }
 
+        public UserBuilder hashedPassword(String hashedPassword) {
+            this.password = hashedPassword;
+            return this;
+        }
+
         public User build() {
             if (id == null)
                 id = new UserId();

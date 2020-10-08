@@ -4,18 +4,23 @@ import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFa
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
-import underflowers.stackunderflow.infrastucture.persistence.memory.InMemoryQuestionRepository;
-import underflowers.stackunderflow.infrastucture.persistence.memory.InMemoryUserRepository;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+@ApplicationScoped // Equivalent à singleton (avec EJB), a la demande cela instancie cette classe mais une seule dans l'app
 public class ServiceRegistry {
-    private static ServiceRegistry singleton; // Will be replaced soon ( 35:00 )
 
-    // Will be replaced with dependency injection
-    private static IQuestionRepository questionRepository;
+    @Inject @Named("JdbcQuestionRepository") // Inject equivalent à @EJB
+    IQuestionRepository questionRepository;
+
+    @Inject @Named("JdbcUserRepository")
+    IUserRepository userRepository;
+
     private static QuestionFacade questionFacade;
-    private static IUserRepository userRepository;
     private static IdentityManagementFacade identityManagementFacade;
-
+    /*
     public static ServiceRegistry getServiceRegistry() {
         if (singleton == null) {
             singleton = new ServiceRegistry();
@@ -23,20 +28,21 @@ public class ServiceRegistry {
 
         return singleton;
     }
+    */
 
+    /*
     private ServiceRegistry() {
         singleton = this;
-        questionRepository = new InMemoryQuestionRepository();
         questionFacade = new QuestionFacade(questionRepository);
-        userRepository = new InMemoryUserRepository();
         identityManagementFacade = new IdentityManagementFacade(userRepository);
     }
+     */
 
-    public static QuestionFacade getQuestionFacade() {
-        return questionFacade;
+    public QuestionFacade getQuestionFacade() {
+        return new QuestionFacade(questionRepository, userRepository);
     }
 
-    public static IdentityManagementFacade getIdentityManagementFacade() {
-        return identityManagementFacade;
+    public IdentityManagementFacade getIdentityManagementFacade() {
+        return new IdentityManagementFacade(userRepository);
     }
 }

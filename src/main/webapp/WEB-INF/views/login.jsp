@@ -7,9 +7,6 @@
     <p class="error">Error: ${error}</p>
 </c:forEach>
 
-<c:if test="${authUser != null}">
-    <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
-</c:if>
 
 <div class="flex h-full">
     <div class="max-w-md m-auto text-center">

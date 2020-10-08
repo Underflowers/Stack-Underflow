@@ -8,12 +8,6 @@
     <c:forEach var="error" items="${errors}">
         <p class="error">Error: ${error}</p>
     </c:forEach>
-    <c:if test="${authUser != null}">
-        <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
-    </c:if>
-    <form action="logout.do" method="post"> <!-- TODO clean-->
-        <button type="submit">Logout</button>
-    </form>
 
     <div class="oneLineContainer mb-5">
         <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${questions.questions.size()})</span></h1>
@@ -25,8 +19,7 @@
 
     <div class="flex justify-center flex-wrap">
         <c:forEach var="question" items="${questions.questions}">
-            <a class="w-full" style="display:block" href="#"> <!-- TODO add link to detailed question page -->
-                <div class="card my-4">
+                <div class="card my-4 w-full" onclick="location.href='#';"> <!-- TODO add link to question page-->
                     <span class="subtitle">${question.author} asks</span>
                     <h2 class="h2 textLimiter">${question.title}</h2>
                     <p class="textLimiter textLimiter--2 text-gray-700">${question.content}</p>
@@ -36,7 +29,6 @@
                         <span class="subtitle">${question.creationDate.toString()}</span>
                     </div>
                 </div>
-            </a>
         </c:forEach>
     </div>
 </div>

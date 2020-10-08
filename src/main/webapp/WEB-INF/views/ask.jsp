@@ -7,12 +7,6 @@
     <p class="error">Error: ${error}</p>
 </c:forEach>
 
-<c:choose>
-    <c:when test="${authUser != null}">
-        <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
-    </c:when>
-</c:choose>
-
 <div class="flex h-full">
     <div class="max-w-3xl m-auto">
         <h1 class="text-4xl font-bold text-rausch">Ask your question</h1>

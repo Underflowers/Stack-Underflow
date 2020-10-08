@@ -35,6 +35,7 @@ public class AuthorizationFilter implements Filter {
                 || uri.startsWith("/login")
                 || uri.startsWith("/register")
                 || uri.startsWith("/home")
-                || uri.startsWith("/questions");
+                || uri.startsWith("/questions")
+                || uri.equals("/"); // Homepage
     }
 }

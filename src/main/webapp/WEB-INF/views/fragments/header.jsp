@@ -15,7 +15,7 @@
         <nav class="flex flex-wrap items-center justify-between p-6 border-b-2">
             <div class="container flex flex-wrap mx-auto items-center justify-between">
                 <div class="flex items-center flex-shrink-0 text-hof mr-6">
-                    <a class="inline-block" href="${pageContext.request.contextPath}">
+                    <a class="inline-block" href="${pageContext.request.contextPath}/">
                         <span class="font-semibold text-xl tracking-tight">Stack Underflow</span>
                     </a>
                 </div>
@@ -24,9 +24,19 @@
                         <a href="questions" class="link link--nav">Questions</a>
                         <a href="#" class="link link--nav">Tags</a>
                     </div>
-                    <div>
-                        <a href="login" class="btn btn--small btn--primary">Login</a>
-                        <a href="register" class="btn btn--small btn--secondary-border">Register</a>
+                    <div class="flex items-center">
+                        <c:choose>
+                            <c:when test="${authUser != null}">
+                                <span class="subtitle mr-2">${authUser.email}</span>
+                                <form action="logout.do" method="post" class="m-0">
+                                    <button type="submit" class="btn btn--small btn--secondary-border">Logout</button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login" class="btn btn--small btn--primary mr-2">Login</a>
+                                <a href="register" class="btn btn--small btn--secondary-border">Register</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
