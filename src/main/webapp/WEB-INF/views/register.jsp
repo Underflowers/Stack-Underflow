@@ -5,13 +5,9 @@
 
 <div class="flex h-full">
     <div class="max-w-md m-auto text-center">
-        <p class="subtitle">${usersCount} registered users</p>
         <c:forEach var="error" items="${errors}">
             <p class="error">Error: ${error}</p>
         </c:forEach>
-        <c:if test="${authUser != null}">
-            <p class="connectedUser">Authenticated user: ${authUser.firstname} ${authUser.lastname}</p>
-        </c:if>
 
         <h1 class="text-4xl font-bold text-rausch">Register</h1>
 
