@@ -5,9 +5,6 @@
 
 <div class="flex h-full">
     <div class="max-w-md m-auto text-center">
-        <c:forEach var="error" items="${errors}">
-            <p class="error">Error: ${error}</p>
-        </c:forEach>
 
         <h1 class="text-4xl font-bold text-rausch">Register</h1>
 

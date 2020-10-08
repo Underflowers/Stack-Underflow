@@ -9,6 +9,7 @@
     <link href="${pageContext.request.contextPath}/assets/dist/style.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/75e6517d2f.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="h-full flex flex-col">
     <header class="bg-white">
@@ -42,4 +43,12 @@
             </div>
         </nav>
     </header>
-    <main class="flex-grow bg-gray-100">
+
+    <c:forEach var="error" items="${errors}">
+        <div class="errorBox">
+            <span class="material-icons">error_outline</span>
+            <span><b class="font-bold">Error:</b> ${error}</span><br>
+        </div>
+    </c:forEach>
+
+    <main class="flex-grow">

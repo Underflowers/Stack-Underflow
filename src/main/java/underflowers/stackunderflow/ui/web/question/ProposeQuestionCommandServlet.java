@@ -24,6 +24,8 @@ public class ProposeQuestionCommandServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
 
+        request.getSession().removeAttribute("errors");
+
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         ProposeQuestionCommand command = ProposeQuestionCommand.builder()
                 .authorUUID(currentUser.getUuid())
