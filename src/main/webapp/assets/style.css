@@ -66,7 +66,7 @@ body {
     @apply bg-babu text-white
 }
 
-.errorBox {
+.error {
     @apply px-3 py-2 text-white bg-red-600 rounded text-center align-middle max-w-lg mx-auto mt-5 shadow-md
 }
 

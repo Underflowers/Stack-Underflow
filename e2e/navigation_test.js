@@ -1,22 +1,20 @@
 Feature('navigation');
+const common = require("./pages/common");
 
 Scenario('From home to questions', (I) => {
-    I.amOnPage("/home");
-    I.see("Welcome to Stack Overflow - Home");
-    I.clickLink(".questionsLink");
+    common.landOnPageSafely("/", "Welcome to Stack Underflow");
+    I.clickLink("Questions");
     I.amOnPage("/questions");
 });
 
 Scenario('From home to register', (I) => {
-    I.amOnPage("/home");
-    I.see("Welcome to Stack Overflow - Home");
-    I.clickLink(".registerLink");
+    common.landOnPageSafely("/", "Welcome to Stack Underflow");
+    I.clickLink("Register");
     I.amOnPage("/register");
 });
 
 Scenario('From home to login', (I) => {
-    I.amOnPage("/home");
-    I.see("Welcome to Stack Overflow - Home");
-    I.clickLink(".loginLink");
+    common.landOnPageSafely("/", "Welcome to Stack Underflow");
+    I.clickLink("Login");
     I.amOnPage("/login");
 });

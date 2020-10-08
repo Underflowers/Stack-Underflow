@@ -45,7 +45,7 @@
     </header>
 
     <c:forEach var="error" items="${errors}">
-        <div class="errorBox">
+        <div class="error">
             <span class="material-icons">error_outline</span>
             <span><b class="font-bold">Error:</b> ${error}</span><br>
         </div>
