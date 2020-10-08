@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  db:
+    image: ghcr.io/underflowers/database:latest
+    container_name: underflow_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: securepassword
+      MYSQL_DATABASE: stackunderflow
+      MYSQL_USER: underflower
+      MYSQL_PASSWORD: securepassword
+
+  web:
+    image: ghcr.io/underflowers/stack-underflow:latest
+    container_name: stackunderflow
+    ports:
+      - "9088:9080"
+    depends_on:
+      - db

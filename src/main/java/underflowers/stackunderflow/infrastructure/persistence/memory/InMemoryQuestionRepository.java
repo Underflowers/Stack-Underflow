@@ -15,6 +15,6 @@ public class InMemoryQuestionRepository extends InMemoryRepository<Question, Que
     @Override
     public Collection<Question> find(QuestionsQuery query) {
         // TODO
-        return null;
+        return super.findAll();
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Singular;
 import underflowers.stackunderflow.domain.question.Question;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -20,8 +21,9 @@ public class QuestionsDTO {
         private String author;
         private String title;
         private String content;
+        private LocalDate creationDate;
     }
 
     @Singular
-    private List<Question> questions;
+    private List<QuestionDTO> questions;
 }
