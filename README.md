@@ -10,6 +10,8 @@ This will startup the applications and the database. If you wish to only start t
 ```bash
 $ docker-compose -up -d web 
 ```
+## Database
+For the database, we're using a Docker container. If you want to add any SQL stuff when building the container, you can add them in [docker/init/database](docker/init/database).
 
 ## Pages
 
