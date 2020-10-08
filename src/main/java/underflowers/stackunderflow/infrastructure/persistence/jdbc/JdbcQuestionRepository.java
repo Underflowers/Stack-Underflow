@@ -4,14 +4,20 @@ import underflowers.stackunderflow.application.question.QuestionsQuery;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
+import underflowers.stackunderflow.domain.user.User;
+import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -29,7 +35,26 @@ public class JdbcQuestionRepository implements IQuestionRepository {
 
     @Override
     public Collection<Question> find(QuestionsQuery query) {
-        return null;
+        LinkedList<Question> matches = new LinkedList<>();
+
+        try {
+            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                Question question = Question.builder()
+                        .id(new QuestionId(res.getString("uuid")))
+                        .authorUUID(new UserId(res.getString("users_uuid")))
+                        .title(res.getString("title"))
+                        .content(res.getString("description"))
+                        .creationDate(LocalDate.now()) // TODO fix me
+                        .build();
+                matches.add(question);
+            }
+        } catch (SQLException e) {
+            //traitement de l'exception
+        }
+        return matches;
     }
 
     @Override

@@ -90,6 +90,35 @@ public class JdbcUserRepository implements IUserRepository {
 
     @Override
     public Optional<User> findById(UserId id) {
+        // TODO Factorize
+        try {
+            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM users WHERE uuid=?");
+            statement.setString(1, id.asString());
+            ResultSet res = statement.executeQuery();
+
+            ArrayList<User> matches = new ArrayList<>();
+
+            while(res.next()){
+                User user = User.builder()
+                        .id(id)
+                        .firstname(res.getString("firstname"))
+                        .lastname(res.getString("lastname"))
+                        .email(res.getString("email"))
+                        .hashedPassword(res.getString("password"))
+                        .build();
+                matches.add(user);
+            }
+
+            /// no matches were found or there is more than one match, something is wrong with the repository
+            // TODO split into 2 checks and throw an exception if greater than 1?
+            if (matches.size() != 1)
+                return Optional.empty();
+
+            return Optional.of(matches.get(0));
+
+        } catch (SQLException e) {
+            //traitement de l'exception
+        }
         return Optional.empty();
     }
 
