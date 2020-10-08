@@ -25,8 +25,17 @@
                         <a href="#" class="link link--nav">Tags</a>
                     </div>
                     <div>
-                        <a href="login" class="btn btn--small btn--primary">Login</a>
-                        <a href="register" class="btn btn--small btn--secondary-border">Register</a>
+                        <c:choose>
+                            <c:when test="${authUser != null}">
+                                <form action="logout.do" method="post" class="m-0">
+                                    <button type="submit" class="btn btn--small btn--secondary-border">Logout</button>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="login" class="btn btn--small btn--primary">Login</a>
+                                <a href="register" class="btn btn--small btn--secondary-border">Register</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>

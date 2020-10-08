@@ -52,7 +52,7 @@
     @apply text-rausch bg-gray-100
 }
 .btn--secondary-border {
-    @apply border-babu bg-gray-100
+    @apply border-babu bg-gray-100 text-babu
 }
 .btn--secondary-border:hover {
     @apply bg-babu text-white
