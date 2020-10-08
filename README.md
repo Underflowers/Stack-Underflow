@@ -1,4 +1,16 @@
 # AMT\_Project
+## Get down and running
+Simply run the following (in the root of the project) to startup the containers:
+```bash
+$ docker-compose up -d
+```
+
+This will startup the applications and the database. If you wish to only start the application, run:
+> Note: You might need to change up some stuff in the application in order for everything to work!
+```bash
+$ docker-compose -up -d web 
+```
+
 ## Pages
 
 ### Common elements
