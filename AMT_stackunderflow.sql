@@ -59,12 +59,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-INSERT INTO users
-  VALUES("1", "Loïc", "Dessaules", "loic.dessaules@heig-vd.ch", "loic");
-
-INSERT INTO questions
-  VALUES("1", "To be or not to be", "Humm... Hard question...", 0, "2020-10-04 11:15:00", "1");
-INSERT INTO questions
-  VALUES("2", "Second question", "Humm... Hard question too ...", 0, "2020-10-04 13:20:00", "1");
-
