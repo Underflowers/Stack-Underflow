@@ -17,9 +17,9 @@
 
     <dataSource jndiName="jdbc/StackUnderflow">
         <jdbcDriver libraryRef="MySqlLib"/>
-        <properties databaseName="AMT_stackunderflow"
-                    serverName="192.168.10.10" portNumber="3306"
-                    user="homestead" password="secret"/>
+        <properties databaseName="${DB_DATABASE}"
+                    serverName="${DB_HOST}" portNumber="${DB_PORT}"
+                    user="${DB_USERNAME}" password="${DB_PASSWORD}"/>
     </dataSource>
 
 </server>
