@@ -10,7 +10,7 @@ services:
       MYSQL_USER: underflower
       MYSQL_PASSWORD: securepassword
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./docker/init/database/:/docker-entrypoint-initdb.d/
       - stackunderflow_db:/var/lib/mysql
