@@ -15,7 +15,7 @@ DROP SCHEMA IF EXISTS `AMT_stackunderflow` ;
 -- -----------------------------------------------------
 -- Schema AMT_stackunderflow
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `AMT_stackunderflow` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `AMT_stackunderflow` DEFAULT CHARSET = utf8mb4;
 USE `AMT_stackunderflow` ;
 
 -- -----------------------------------------------------

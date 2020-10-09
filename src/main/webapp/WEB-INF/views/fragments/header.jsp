@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Stack Underflow</title>
+
+    <meta charset="UTF-8">
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
