@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   db:
-    image: mysql
+    image: mysql:8.0.21
     container_name: underflow_db
     restart: always
     environment:
@@ -9,13 +9,21 @@ services:
       MYSQL_DATABASE: stackunderflow
       MYSQL_USER: underflower
       MYSQL_PASSWORD: securepassword
+    ports:
+      - "3307:3306"
     volumes:
       - ./docker/init/database/:/docker-entrypoint-initdb.d/
+      - stackunderflow_db:/var/lib/mysql
 
   web:
     image: ghcr.io/underflowers/stack-underflow:latest
     container_name: stackunderflow
     ports:
       - "9088:9080"
+    volumes:
+      - ./src/main/liberty/config/server.env:/config/server.env
     depends_on:
       - db
+
+volumes:
+  stackunderflow_db:
