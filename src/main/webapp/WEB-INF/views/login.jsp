@@ -3,9 +3,6 @@
 
 <jsp:include page="fragments/header.jsp" />
 
-<c:forEach var="error" items="${errors}">
-    <p class="error">Error: ${error}</p>
-</c:forEach>
 
 
 <div class="flex h-full">

@@ -3,7 +3,7 @@ exports.config = {
   output: './output',
   helpers: {
     Puppeteer: {
-      url: 'http://localhost:9080/StackUnderflow',
+      url: 'http://localhost:9080',
       show: true,
       windowSize: '1200x900'
     }

@@ -19,24 +19,21 @@ Scenario('Both passwords dont match', (I) => {
     I.see('Error: Passwords don\'t match');
 });
 
+const firstname = faker.name.firstName();
+const lastname = faker.name.lastName();
+const emailAlreadyUse = firstname + '.' + lastname + '@me.com'; // Further test will try to use it once more
 Scenario('Created successfully', (I) => {
-    const firstname = faker.name.firstName();
-    const lastname = faker.name.lastName();
-    const email = firstname + "." + lastname + '@me.com';
-
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(firstname, lastname, email, 'pwd', 'pwd');
+    registerPage.fillAndRegisterUser(firstname, lastname, emailAlreadyUse, 'pwd', 'pwd');
     I.dontSeeElement('.error');
-    common.checkLoggedIn(firstname, lastname);
+    common.checkLoggedIn(emailAlreadyUse);
     I.amOnPage("/questions");
 });
 
 Scenario('Email already used', (I) => {
-    I.amOnPage("/register");
-    I.see("Register");
-    I.dontSeeElement('.error');
+    // Already used email address is john.doe@me.com and has been created in test above
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser('test', 'test', 'test@email.com', 'test', 'test');
+    registerPage.fillAndRegisterUser('test', 'test', emailAlreadyUse, 'test', 'test');
     I.seeElement('.error');
     I.see('Error: Email address already in use!');
 });

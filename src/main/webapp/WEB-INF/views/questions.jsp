@@ -5,10 +5,6 @@
 
 <div class="container container-content">
 
-    <c:forEach var="error" items="${errors}">
-        <p class="error">Error: ${error}</p>
-    </c:forEach>
-
     <div class="oneLineContainer mb-5">
         <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${questions.questions.size()})</span></h1>
 

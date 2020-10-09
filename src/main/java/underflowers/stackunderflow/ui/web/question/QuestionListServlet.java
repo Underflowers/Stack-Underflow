@@ -23,6 +23,8 @@ public class QuestionListServlet extends javax.servlet.http.HttpServlet  {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+        
+        request.getSession().removeAttribute("errors");
 
         QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder()
             .isAnswered(false)

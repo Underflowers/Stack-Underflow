@@ -8,8 +8,9 @@ module.exports = {
         I.dontSeeElement('.error');
     },
 
-    checkLoggedIn(firstname, lastname) {
-        I.see('Authenticated user: ' + firstname + ' ' + lastname);
+    checkLoggedIn(email) {
+        I.see(email);
+        I.see('Logout');
     }
 
 }

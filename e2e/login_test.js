@@ -20,7 +20,7 @@ Scenario('Created successfully for login', (I) => {
     common.landOnPageSafely("/register", "Register");
     registerPage.fillAndRegisterUser(firstname, lastname, email, pass, pass);
     I.dontSeeElement('.error');
-    common.checkLoggedIn(firstname, lastname);
+    common.checkLoggedIn(email);
 });
 
 Scenario('Login successfully', (I) => {
