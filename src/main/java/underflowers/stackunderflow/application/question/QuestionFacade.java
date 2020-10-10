@@ -39,6 +39,7 @@ public class QuestionFacade {
                     User author = userRepository.findById(question.getAuthorUUID()).get();
 
                     return QuestionsDTO.QuestionDTO.builder()
+                            .uuid(question.getId().getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .title(question.getTitle())
                             .content(question.getContent())

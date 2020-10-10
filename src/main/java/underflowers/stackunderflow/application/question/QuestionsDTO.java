@@ -8,6 +8,7 @@ import underflowers.stackunderflow.domain.question.Question;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -18,6 +19,7 @@ public class QuestionsDTO {
     @Getter
     @EqualsAndHashCode
     public static class QuestionDTO {
+        private UUID uuid;
         private String author;
         private String title;
         private String content;
