@@ -61,14 +61,13 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     public void save(Question question) {
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO questions(uuid, title, description, votes, created_at, users_uuid)" +
-                            "VALUES(?,?,?,?,?,?)");
+                    "INSERT INTO questions(uuid, title, description, created_at, users_uuid)" +
+                            "VALUES(?,?,?,?,?)");
             statement.setString(1, question.getId().asString());
             statement.setString(2, question.getTitle());
             statement.setString(3, question.getContent());
-            statement.setInt(4, 0); // Todo : Refactor when votes implemented
-            statement.setString(5, question.getCreationDate().toString());
-            statement.setString(6, question.getAuthorUUID().asString());
+            statement.setString(4, question.getCreationDate().toString());
+            statement.setString(5, question.getAuthorUUID().asString());
 
             statement.execute();
         } catch (SQLException throwables) {
