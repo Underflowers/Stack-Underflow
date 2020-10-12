@@ -34,10 +34,14 @@ body {
 }
 
 .card {
-    @apply max-w-3xl bg-white shadow px-10 py-6 rounded cursor-pointer transition-all duration-75
+    @apply max-w-3xl bg-white shadow px-10 py-6 rounded
 }
 
-.card:hover {
+.card--hover {
+    @apply cursor-pointer transition-all duration-75
+}
+
+.card--hover:hover {
     @apply shadow-lg
 }
 

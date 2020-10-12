@@ -5,8 +5,25 @@
 
 <div class="container container-content">
     <div class="max-w-3xl m-auto">
-        <h1 class="h2">${question.title}</h1>
-        <p>${question.content}</p>
+
+
+        <div class="card my-4 w-full">
+            <span class="subtitle">${question.author} asks</span>
+            <h2 class="h2 textLimiter">${question.title}</h2>
+            <p class="textLimiter textLimiter--2 text-gray-700">${question.content}</p>
+            <hr class="my-3 border-gray-300">
+            <div class="oneLineContainer">
+                <span class="subtitle">0 votes • 0 answers</span> <!-- TODO retrieve actual data -->
+                <span class="subtitle">${question.creationDate.toString()}</span>
+            </div>
+        </div>
+
+        <h2 class="h2">Answers</h2>
+
+        <c:forEach var="answer" items="${answers.answers}">
+            <p class="subtitle">${answer.author} says</p>
+            <p>${answer.content}</p>
+        </c:forEach>
 
         <form action="answer.do" method="post">
             <input id="questionUuid" name="questionUuid" type="hidden" value="${question.uuid}" />
