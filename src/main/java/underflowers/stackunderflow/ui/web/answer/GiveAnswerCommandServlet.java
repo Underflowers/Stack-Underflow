@@ -1,10 +1,13 @@
 package underflowers.stackunderflow.ui.web.answer;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
+import underflowers.stackunderflow.application.answer.AnswerFacade;
+import underflowers.stackunderflow.application.answer.GiveAnswerCommand;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.question.IncompleteQuestionException;
 import underflowers.stackunderflow.application.question.ProposeQuestionCommand;
 import underflowers.stackunderflow.application.question.QuestionFacade;
+import underflowers.stackunderflow.domain.question.QuestionId;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -16,29 +19,28 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "AnswerQuestionCommandServlet", urlPatterns ="/answer.do")
-public class AnswerQuestionCommandServlet extends HttpServlet {
+public class GiveAnswerCommandServlet extends HttpServlet {
     @Inject
     ServiceRegistry serviceRegistry;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        AnswerFacade answerFacade = serviceRegistry.getAnswerFacade();
 
         request.getSession().removeAttribute("errors");
 
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
-        ProposeQuestionCommand command = ProposeQuestionCommand.builder()
+        GiveAnswerCommand command = GiveAnswerCommand.builder()
                 .authorUUID(currentUser.getUuid())
-                .title(request.getParameter("title"))
+                .questionUUID(new QuestionId(request.getParameter("questionUuid")))
                 .text(request.getParameter("content"))
                 .build();
 
         try {
-            questionFacade.proposeQuestion(command);
+            answerFacade.giveAnswer(command);
         } catch (IncompleteQuestionException e) {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
-            response.sendRedirect("ask");
         }
-        response.sendRedirect("/questions");
+        response.sendRedirect("/question?uuid=" + request.getParameter("questionUuid"));
     }
 }

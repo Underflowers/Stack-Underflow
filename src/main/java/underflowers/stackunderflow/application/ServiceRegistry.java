@@ -1,7 +1,9 @@
 package underflowers.stackunderflow.application;
 
+import underflowers.stackunderflow.application.answer.AnswerFacade;
 import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.question.QuestionFacade;
+import underflowers.stackunderflow.domain.answer.IAnswerRepository;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 
@@ -17,6 +19,9 @@ public class ServiceRegistry {
 
     @Inject @Named("JdbcUserRepository")
     IUserRepository userRepository;
+
+    @Inject @Named("JdbcAnswerRepository")
+    IAnswerRepository answerRepository;
 
     private static QuestionFacade questionFacade;
     private static IdentityManagementFacade identityManagementFacade;
@@ -37,6 +42,10 @@ public class ServiceRegistry {
         identityManagementFacade = new IdentityManagementFacade(userRepository);
     }
      */
+
+    public AnswerFacade getAnswerFacade() {
+        return new AnswerFacade(answerRepository, questionRepository, userRepository);
+    }
 
     public QuestionFacade getQuestionFacade() {
         return new QuestionFacade(questionRepository, userRepository);
