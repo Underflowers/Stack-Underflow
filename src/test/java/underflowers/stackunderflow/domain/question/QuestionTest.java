@@ -1,0 +1,33 @@
+package underflowers.stackunderflow.domain.question;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import underflowers.stackunderflow.domain.user.UserId;
+
+import java.time.LocalDate;
+
+public class QuestionTest {
+
+    @Test
+    void deepCloneWorks() {
+        Question q1 = Question.builder()
+                        .id(new QuestionId())
+                        .title("Question title")
+                        .content("Question content")
+                        .creationDate(LocalDate.now())
+                        .authorUUID(new UserId())
+                        .build();
+        Question q2 = q1.deepClone();
+
+        // id must be not equals (clone the question but uuid different)
+        assertNotEquals(q1.getId().asString(), q2.getId().asString());
+        // All contents must be same
+        assertEquals(q1.getTitle(), q2.getTitle());
+        assertEquals(q1.getContent(), q2.getContent());
+        assertEquals(q1.getCreationDate(), q2.getCreationDate());
+        assertEquals(q1.getAuthorUUID().asString(), q2.getAuthorUUID().asString());
+        // Object reference must be different
+        assertNotSame(q1, q2);
+    }
+
+}
