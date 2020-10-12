@@ -15,7 +15,7 @@
 
     <div class="flex justify-center flex-wrap">
         <c:forEach var="question" items="${questions.questions}">
-                <div class="card my-4 w-full" onclick="location.href='#';"> <!-- TODO add link to question page-->
+                <div class="card my-4 w-full" onclick="location.href='/question?uuid=${question.uuid}';"> <!-- TODO add link to question page-->
                     <span class="subtitle">${question.author} asks</span>
                     <h2 class="h2 textLimiter">${question.title}</h2>
                     <p class="textLimiter textLimiter--2 text-gray-700">${question.content}</p>

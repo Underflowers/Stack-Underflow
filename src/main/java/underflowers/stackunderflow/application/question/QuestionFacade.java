@@ -2,11 +2,13 @@ package underflowers.stackunderflow.application.question;
 
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
+import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class QuestionFacade {
@@ -51,5 +53,18 @@ public class QuestionFacade {
         return QuestionsDTO.builder()
             .questions(allQuestionsDTO)
             .build();
+    }
+
+    public QuestionsDTO.QuestionDTO getQuestion(QuestionId id) {
+        Question question = questionRepository.findById(id).orElse(null);
+        User author = userRepository.findById(question.getAuthorUUID()).get();
+
+        return QuestionsDTO.QuestionDTO.builder()
+                .uuid(question.getId().getId())
+                .author(author.getFirstname() + " " + author.getLastname())
+                .title(question.getTitle())
+                .content(question.getContent())
+                .creationDate(question.getCreationDate())
+                .build();
     }
 }
