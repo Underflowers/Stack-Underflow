@@ -1,6 +1,8 @@
 package underflowers.stackunderflow.ui.web.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
+import underflowers.stackunderflow.application.answer.AnswerFacade;
+import underflowers.stackunderflow.application.answer.AnswersDTO;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.application.question.QuestionsDTO;
 import underflowers.stackunderflow.application.question.QuestionsQuery;
@@ -24,11 +26,20 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+        AnswerFacade answerFacade = serviceRegistry.getAnswerFacade();
 
         request.getSession().removeAttribute("errors");
 
-        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(new QuestionId(request.getParameter("uuid")));
+        QuestionId questionId = new QuestionId(request.getParameter("uuid"));
+
+        // Retrieve question
+        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(questionId);
         request.setAttribute("question", questionDTO);
+
+        // Retrieve question's answers
+        AnswersDTO answersDTO = answerFacade.getAnswers(questionId);
+        request.setAttribute("answers", answersDTO);
+
         request.getRequestDispatcher("/WEB-INF/views/question.jsp").forward(request, response);
     }
 }
