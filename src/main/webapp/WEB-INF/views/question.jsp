@@ -10,9 +10,9 @@
         <div class="card my-4 w-full">
             <span class="subtitle">${question.author} asks</span>
             <h2 class="h2 textLimiter">${question.title}</h2>
-            <p class="textLimiter textLimiter--2 text-gray-700">${question.content}</p>
+            <p class="text-gray-700">${question.content}</p>
             <hr class="my-3 border-gray-300">
-            <div class="oneLineContainer">
+            <div class="oneLineContainer">  
                 <span class="subtitle">0 votes • 0 answers</span> <!-- TODO retrieve actual data -->
                 <span class="subtitle">${question.creationDate.toString()}</span>
             </div>
@@ -21,8 +21,11 @@
         <h2 class="h2">Answers</h2>
 
         <c:forEach var="answer" items="${question.answers.answers}">
-            <p class="subtitle">${answer.author} says</p>
+
+        <div class="card my-4 w-full">
+            <span class="subtitle">${answer.author} says</span>
             <p>${answer.content}</p>
+        </div>
         </c:forEach>
 
         <form action="answer.do" method="post">
