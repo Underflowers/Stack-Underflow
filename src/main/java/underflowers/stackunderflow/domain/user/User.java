@@ -29,14 +29,11 @@ public class User implements IEntity<User, UserId> {
     }
 
     public static class UserBuilder {
-        public UserBuilder clearTextPassword(String clearTextPassword, String repeat) {
+        public UserBuilder clearTextPassword(String clearTextPassword) {
 
-            if (clearTextPassword == null || clearTextPassword.isEmpty() || repeat == null || repeat.isEmpty())
+            if (clearTextPassword == null || clearTextPassword.isEmpty())
                 throw new java.lang.IllegalArgumentException("Password and repeat password are mandatory!");
-
-            if (!clearTextPassword.equals(repeat))
-                throw new java.lang.IllegalArgumentException("Passwords don't match");
-
+        
             password = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }
@@ -49,6 +46,10 @@ public class User implements IEntity<User, UserId> {
         public User build() {
             if (id == null)
                 id = new UserId();
+
+            if(password == null || password.isEmpty()) {
+                throw new java.lang.IllegalArgumentException("Password is mandatory !");
+            }
 
             if (firstname == null || firstname.isEmpty())
                 throw new java.lang.IllegalArgumentException("First name is mandatory!");

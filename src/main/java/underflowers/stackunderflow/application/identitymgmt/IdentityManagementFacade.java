@@ -27,7 +27,7 @@ public class IdentityManagementFacade {
                     .firstname(command.getFirstname())
                     .lastname(command.getLastname())
                     .email(command.getEmail())
-                    .clearTextPassword(command.getClearPassword(), command.getRepeatPassword())
+                    .clearTextPassword(command.getClearPassword())
                     .build();
 
             repository.save(user);

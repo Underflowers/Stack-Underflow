@@ -27,12 +27,17 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
 
         request.getSession().removeAttribute("errors");
 
+        // Check that password and repeat password must be same
+        if(!request.getParameter("password").equals(request.getParameter("passwordRepeat"))){
+            request.getSession().setAttribute("errors", List.of("Password and password repeat must be the same"));
+            response.sendRedirect(" register");
+        }
+
         RegistrationCommand command = RegistrationCommand.builder()
                 .email(request.getParameter("email"))
                 .firstname(request.getParameter("firstname"))
                 .lastname(request.getParameter("lastname"))
                 .clearPassword(request.getParameter("password"))
-                .repeatPassword(request.getParameter("passwordRepeat"))
                 .build();
 
         try {
