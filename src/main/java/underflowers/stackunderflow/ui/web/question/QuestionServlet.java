@@ -1,6 +1,8 @@
 package underflowers.stackunderflow.ui.web.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
+import underflowers.stackunderflow.application.answer.AnswerFacade;
+import underflowers.stackunderflow.application.answer.AnswersDTO;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.application.question.QuestionsDTO;
 import underflowers.stackunderflow.application.question.QuestionsQuery;
@@ -27,8 +29,12 @@ public class QuestionServlet extends HttpServlet {
 
         request.getSession().removeAttribute("errors");
 
-        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(new QuestionId(request.getParameter("uuid")));
+        QuestionId questionId = new QuestionId(request.getParameter("uuid"));
+
+        // Retrieve question
+        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(questionId);
         request.setAttribute("question", questionDTO);
+
         request.getRequestDispatcher("/WEB-INF/views/question.jsp").forward(request, response);
     }
 }
