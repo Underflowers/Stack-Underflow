@@ -29,11 +29,17 @@ public class User implements IEntity<User, UserId> {
     }
 
     public static class UserBuilder {
+
+        // here we check password policy
         public UserBuilder clearTextPassword(String clearTextPassword) {
 
+            // Password must exists
             if (clearTextPassword == null || clearTextPassword.isEmpty())
-                throw new java.lang.IllegalArgumentException("Password and repeat password are mandatory!");
-        
+                throw new java.lang.IllegalArgumentException("Password must not be empty");
+            // Password must have a minimum length of 4
+            if (clearTextPassword.length() < 4)
+                throw new java.lang.IllegalArgumentException("Password must have a minimum length of 4");
+
             password = BCrypt.hashpw(clearTextPassword, BCrypt.gensalt());
             return this;
         }
