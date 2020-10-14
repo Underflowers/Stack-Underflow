@@ -26,7 +26,6 @@ public class QuestionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
-        AnswerFacade answerFacade = serviceRegistry.getAnswerFacade();
 
         request.getSession().removeAttribute("errors");
 
@@ -35,10 +34,6 @@ public class QuestionServlet extends HttpServlet {
         // Retrieve question
         QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(questionId);
         request.setAttribute("question", questionDTO);
-
-        // Retrieve question's answers
-        AnswersDTO answersDTO = answerFacade.getAnswers(questionId);
-        request.setAttribute("answers", answersDTO);
 
         request.getRequestDispatcher("/WEB-INF/views/question.jsp").forward(request, response);
     }

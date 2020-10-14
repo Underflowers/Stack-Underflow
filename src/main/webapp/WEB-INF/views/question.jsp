@@ -20,7 +20,7 @@
 
         <h2 class="h2">Answers</h2>
 
-        <c:forEach var="answer" items="${answers.answers}">
+        <c:forEach var="answer" items="${question.answers.answers}">
             <p class="subtitle">${answer.author} says</p>
             <p>${answer.content}</p>
         </c:forEach>
