@@ -5,14 +5,17 @@ import underflowers.stackunderflow.domain.comment.Comment;
 import underflowers.stackunderflow.domain.comment.CommentId;
 import underflowers.stackunderflow.domain.comment.ICommentRepository;
 import underflowers.stackunderflow.domain.question.QuestionId;
+import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -30,12 +33,54 @@ public class JdbcCommentRepository implements ICommentRepository {
 
     @Override
     public Collection<Comment> findQuestionComments(QuestionId id) {
-        return null;
+        LinkedList<Comment> matches = new LinkedList<>();
+
+        try {
+            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM comments WHERE questions_uuid = ?");
+            statement.setString(1, id.asString());
+
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                matches.add(Comment.builder()
+                        .id(new CommentId(res.getString("uuid")))
+                        .authorId(new UserId(res.getString("users_uuid")))
+                        .content(res.getString("content"))
+                        .questionId(new QuestionId(res.getString("questions_uuid")))
+                        // since we are getting comments related to a question, we know that the `answers_uuid` field is empty!
+                        .answerId(null)
+                        .build());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return matches;
     }
 
     @Override
     public Collection<Comment> findAnswerComments(AnswerId id) {
-        return null;
+
+        LinkedList<Comment> matches = new LinkedList<>();
+
+        try {
+            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM comments WHERE answers_uuid = ?");
+            statement.setString(1, id.asString());
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                matches.add(Comment.builder()
+                        .id(new CommentId(res.getString("uuid")))
+                        .authorId(new UserId(res.getString("users_uuid")))
+                        .content(res.getString("content"))
+                        // since we are getting comments related to an answer, we know that the `questions_uuid` field is empty!
+                        .questionId(null)
+                        .answerId(new AnswerId(res.getString("answers_uuid")))
+                        .build());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return matches;
     }
 
     @Override
