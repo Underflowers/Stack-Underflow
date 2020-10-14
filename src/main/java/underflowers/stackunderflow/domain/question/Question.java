@@ -23,7 +23,6 @@ public class Question implements IEntity<Question, QuestionId> {
                 id = new QuestionId();
             }
 
-
             if (authorUUID == null) {
                 throw new IllegalArgumentException("Author is mandatory");
             }
@@ -47,7 +46,7 @@ public class Question implements IEntity<Question, QuestionId> {
     @Override
     public Question deepClone() {
         return Question.builder()
-                .id(new QuestionId())
+                .id(new QuestionId(this.id.asString()))
                 .authorUUID(authorUUID)
                 .content(content)
                 .title(title)

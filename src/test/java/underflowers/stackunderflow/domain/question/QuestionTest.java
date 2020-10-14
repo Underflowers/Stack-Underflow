@@ -54,9 +54,8 @@ public class QuestionTest {
                         .build();
         Question q2 = q1.deepClone();
 
-        // id must not be equals (clone the question but uuid different)
-        assertNotEquals(q1.getId().asString(), q2.getId().asString());
         // All contents must be same
+        assertEquals(q1.getId().asString(), q2.getId().asString());
         assertEquals(q1.getTitle(), q2.getTitle());
         assertEquals(q1.getContent(), q2.getContent());
         assertEquals(q1.getCreationDate(), q2.getCreationDate());
