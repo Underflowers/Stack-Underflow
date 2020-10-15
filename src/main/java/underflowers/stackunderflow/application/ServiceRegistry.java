@@ -49,11 +49,11 @@ public class ServiceRegistry {
      */
 
     public AnswerFacade getAnswerFacade() {
-        return new AnswerFacade(answerRepository, questionRepository, userRepository);
+        return new AnswerFacade(answerRepository, questionRepository, userRepository, getCommentFacade());
     }
 
     public QuestionFacade getQuestionFacade() {
-        return new QuestionFacade(questionRepository, userRepository, getAnswerFacade());
+        return new QuestionFacade(questionRepository, userRepository, getAnswerFacade(), getCommentFacade());
     }
 
     public IdentityManagementFacade getIdentityManagementFacade() {
@@ -61,6 +61,6 @@ public class ServiceRegistry {
     }
 
     public CommentFacade getCommentFacade() {
-        return new CommentFacade(commentRepository);
+        return new CommentFacade(commentRepository, userRepository);
     }
 }

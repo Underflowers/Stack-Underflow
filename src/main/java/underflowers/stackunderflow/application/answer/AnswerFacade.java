@@ -1,11 +1,10 @@
 package underflowers.stackunderflow.application.answer;
 
+import underflowers.stackunderflow.application.comment.CommentFacade;
 import underflowers.stackunderflow.application.question.IncompleteQuestionException;
-import underflowers.stackunderflow.application.question.QuestionsDTO;
 import underflowers.stackunderflow.domain.answer.Answer;
 import underflowers.stackunderflow.domain.answer.IAnswerRepository;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
-import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
@@ -18,11 +17,14 @@ public class AnswerFacade {
     private IAnswerRepository answerRepository;
     private IQuestionRepository questionRepository;
     private IUserRepository userRepository;
+    private CommentFacade commentFacade;
 
-    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository, IUserRepository userRepository) {
+
+    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository, IUserRepository userRepository, CommentFacade commentFacade) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
+        this.commentFacade = commentFacade;
     }
 
     public void giveAnswer(GiveAnswerCommand command) throws IncompleteQuestionException {
@@ -49,6 +51,7 @@ public class AnswerFacade {
                             .questionUuid(questionId.getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .content(answer.getContent())
+                            .comments(commentFacade.getAnswerComments(answer.getId()))
                             .build();
                 }
         ).collect(Collectors.toList());
