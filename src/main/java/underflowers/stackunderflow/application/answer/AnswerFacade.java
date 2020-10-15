@@ -9,6 +9,7 @@ import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class AnswerFacade {
                     .authorUUID(command.getAuthorUUID())
                     .questionUUID(command.getQuestionUUID())
                     .content(command.getText())
+                    .createdAt(LocalDateTime.now())
                     .build();
             answerRepository.save(givenAnswer);
         } catch (Exception e) {
@@ -51,6 +53,7 @@ public class AnswerFacade {
                             .questionUuid(questionId.getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .content(answer.getContent())
+                            .createdAt(answer.getCreatedAt())
                             .comments(commentFacade.getAnswerComments(answer.getId()))
                             .build();
                 }
