@@ -29,13 +29,19 @@ public class CommentCommandServlet extends HttpServlet {
         request.getSession().removeAttribute("errors");
 
         // if the question is related to an answer, we don't want to add the question uuid to the comment
-        QuestionId questionId = request.getParameter("answerUuid") != null ? null : new QuestionId(request.getParameter("questionUuid"));
+        QuestionId questionId = new QuestionId(request.getParameter("questionUuid"));
+        AnswerId answerId = null;
+
+        if (!request.getParameter("answerUuid").isEmpty()) {
+            answerId = new AnswerId(request.getParameter("answerUuid"));
+            questionId = null;
+        }
 
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
 
         CommentCommand command = CommentCommand.builder()
                 .authorId(currentUser.getUuid())
-                .answerId(null)
+                .answerId(answerId)
                 .questionId(questionId)
                 .content(request.getParameter("content"))
                 .build();
