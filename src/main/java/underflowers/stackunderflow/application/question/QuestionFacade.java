@@ -1,20 +1,29 @@
 package underflowers.stackunderflow.application.question;
 
+import underflowers.stackunderflow.application.ServiceRegistry;
+import underflowers.stackunderflow.application.answer.AnswerFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
+import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class QuestionFacade {
 
+    public QuestionFacade() {}
+
     private IQuestionRepository questionRepository;
     private IUserRepository userRepository;
+    private AnswerFacade answerFacade;
 
-    public QuestionFacade(IQuestionRepository questionRepository, IUserRepository userRepository) {
+    public QuestionFacade(IQuestionRepository questionRepository, IUserRepository userRepository, AnswerFacade answerFacade) {
+        this.answerFacade = answerFacade;
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
     }
@@ -39,6 +48,7 @@ public class QuestionFacade {
                     User author = userRepository.findById(question.getAuthorUUID()).get();
 
                     return QuestionsDTO.QuestionDTO.builder()
+                            .uuid(question.getId().getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .title(question.getTitle())
                             .content(question.getContent())
@@ -50,5 +60,19 @@ public class QuestionFacade {
         return QuestionsDTO.builder()
             .questions(allQuestionsDTO)
             .build();
+    }
+
+    public QuestionsDTO.QuestionDTO getQuestion(QuestionId id) {
+        Question question = questionRepository.findById(id).orElse(null);
+        User author = userRepository.findById(question.getAuthorUUID()).get();
+
+        return QuestionsDTO.QuestionDTO.builder()
+                .uuid(question.getId().getId())
+                .author(author.getFirstname() + " " + author.getLastname())
+                .title(question.getTitle())
+                .content(question.getContent())
+                .creationDate(question.getCreationDate())
+                .answers(answerFacade.getAnswers(question.getId()))
+                .build();
     }
 }

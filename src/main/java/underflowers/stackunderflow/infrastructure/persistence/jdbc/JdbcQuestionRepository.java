@@ -82,6 +82,35 @@ public class JdbcQuestionRepository implements IQuestionRepository {
 
     @Override
     public Optional<Question> findById(QuestionId id) {
+        // TODO Factorize
+        try {
+            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE uuid=?");
+            statement.setString(1, id.asString());
+            ResultSet res = statement.executeQuery();
+
+            ArrayList<Question> matches = new ArrayList<>();
+
+            while(res.next()){
+                Question question = Question.builder()
+                        .id(new QuestionId(res.getString("uuid")))
+                        .authorUUID(new UserId(res.getString("users_uuid")))
+                        .title(res.getString("title"))
+                        .content(res.getString("description"))
+                        .creationDate(LocalDate.now()) // TODO fix me
+                        .build();
+                matches.add(question);
+            }
+
+            /// no matches were found or there is more than one match, something is wrong with the repository
+            // TODO split into 2 checks and throw an exception if greater than 1?
+            if (matches.size() != 1)
+                return Optional.empty();
+
+            return Optional.of(matches.get(0));
+
+        } catch (SQLException e) {
+            //traitement de l'exception
+        }
         return Optional.empty();
     }
 

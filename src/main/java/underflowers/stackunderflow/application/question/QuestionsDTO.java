@@ -4,10 +4,11 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
-import underflowers.stackunderflow.domain.question.Question;
+import underflowers.stackunderflow.application.answer.AnswersDTO;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -18,10 +19,13 @@ public class QuestionsDTO {
     @Getter
     @EqualsAndHashCode
     public static class QuestionDTO {
+        private UUID uuid;
         private String author;
         private String title;
         private String content;
         private LocalDate creationDate;
+
+        private AnswersDTO answers;
     }
 
     @Singular
