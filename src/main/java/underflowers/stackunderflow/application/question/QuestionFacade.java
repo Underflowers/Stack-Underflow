@@ -2,6 +2,7 @@ package underflowers.stackunderflow.application.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.answer.AnswerFacade;
+import underflowers.stackunderflow.application.comment.CommentFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
@@ -21,11 +22,13 @@ public class QuestionFacade {
     private IQuestionRepository questionRepository;
     private IUserRepository userRepository;
     private AnswerFacade answerFacade;
+    private CommentFacade commentFacade;
 
-    public QuestionFacade(IQuestionRepository questionRepository, IUserRepository userRepository, AnswerFacade answerFacade) {
+    public QuestionFacade(IQuestionRepository questionRepository, IUserRepository userRepository, AnswerFacade answerFacade, CommentFacade commentFacade) {
         this.answerFacade = answerFacade;
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
+        this.commentFacade = commentFacade;
     }
 
     public void proposeQuestion(ProposeQuestionCommand command) throws IncompleteQuestionException {
@@ -73,6 +76,7 @@ public class QuestionFacade {
                 .content(question.getContent())
                 .creationDate(question.getCreationDate())
                 .answers(answerFacade.getAnswers(question.getId()))
+                .comments(commentFacade.getQuestionComments(question.getId()))
                 .build();
     }
 }

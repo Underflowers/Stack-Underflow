@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import underflowers.stackunderflow.application.answer.AnswersDTO;
+import underflowers.stackunderflow.application.comment.CommentsDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,7 @@ public class QuestionsDTO {
         private LocalDate creationDate;
 
         private AnswersDTO answers;
+        private CommentsDTO comments;
     }
 
     @Singular

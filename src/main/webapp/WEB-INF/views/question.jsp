@@ -18,6 +18,15 @@
             </div>
         </div>
 
+        <c:forEach var="comment" items="${question.comments.comments}">
+            <p class="subtitle">${comment.author} comments</p>
+            <p>${comment.content}</p>
+        </c:forEach>
+
+        <jsp:include page="fragments/comment.jsp">
+            <jsp:param name="questionuuid" value="${question.uuid}"/>
+        </jsp:include>
+
         <h2 class="h2">Answers</h2>
 
         <c:forEach var="answer" items="${question.answers.answers}">
@@ -25,6 +34,15 @@
         <div class="card my-4 w-full">
             <span class="subtitle">${answer.author} says</span>
             <p>${answer.content}</p>
+            <c:forEach var="comment" items="${answer.comments.comments}">
+                <p class="subtitle">${comment.author} comments</p>
+                <p>${comment.content}</p>
+            </c:forEach>
+
+            <jsp:include page="fragments/comment.jsp">
+                <jsp:param name="answerUuid" value="${answer.uuid}"/>
+                <jsp:param name="questionuuid" value="${question.uuid}"/>
+            </jsp:include>
         </div>
         </c:forEach>
 
@@ -35,7 +53,6 @@
             <button id="submitBtn" name="submitBtn" type="submit" class="btn btn--primary my-2">Submit</button>
         </form>
     </div>
-
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>

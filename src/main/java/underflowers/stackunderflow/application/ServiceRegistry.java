@@ -1,9 +1,11 @@
 package underflowers.stackunderflow.application;
 
 import underflowers.stackunderflow.application.answer.AnswerFacade;
+import underflowers.stackunderflow.application.comment.CommentFacade;
 import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.domain.answer.IAnswerRepository;
+import underflowers.stackunderflow.domain.comment.ICommentRepository;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 
@@ -22,6 +24,9 @@ public class ServiceRegistry {
 
     @Inject @Named("JdbcAnswerRepository")
     IAnswerRepository answerRepository;
+
+    @Inject @Named("JdbcCommentRepository")
+    ICommentRepository commentRepository;
 
     private static QuestionFacade questionFacade;
     private static IdentityManagementFacade identityManagementFacade;
@@ -44,14 +49,18 @@ public class ServiceRegistry {
      */
 
     public AnswerFacade getAnswerFacade() {
-        return new AnswerFacade(answerRepository, questionRepository, userRepository);
+        return new AnswerFacade(answerRepository, questionRepository, userRepository, getCommentFacade());
     }
 
     public QuestionFacade getQuestionFacade() {
-        return new QuestionFacade(questionRepository, userRepository, getAnswerFacade());
+        return new QuestionFacade(questionRepository, userRepository, getAnswerFacade(), getCommentFacade());
     }
 
     public IdentityManagementFacade getIdentityManagementFacade() {
         return new IdentityManagementFacade(userRepository);
+    }
+
+    public CommentFacade getCommentFacade() {
+        return new CommentFacade(commentRepository, userRepository);
     }
 }

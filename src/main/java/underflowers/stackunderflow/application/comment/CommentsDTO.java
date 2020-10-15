@@ -1,10 +1,9 @@
-package underflowers.stackunderflow.application.answer;
+package underflowers.stackunderflow.application.comment;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
-import underflowers.stackunderflow.application.comment.CommentsDTO;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,20 +11,17 @@ import java.util.UUID;
 @Builder
 @Getter
 @EqualsAndHashCode
-public class AnswersDTO {
+public class CommentsDTO {
 
     @Builder
     @Getter
     @EqualsAndHashCode
-    public static class AnswerDTO {
+    public static class CommentDTO {
         private UUID uuid;
-        private UUID questionUuid;
         private String author;
         private String content;
-
-        private CommentsDTO comments;
     }
 
     @Singular
-    private List<AnswerDTO> answers;
+    private List<CommentDTO> comments;
 }
