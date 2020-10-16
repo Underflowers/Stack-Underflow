@@ -11,10 +11,12 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
+import javax.swing.text.DateFormatter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -40,6 +42,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
             ResultSet res = statement.executeQuery();
+            // LocalDateTime.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
             while (res.next()) {
                 Question question = Question.builder()
@@ -47,7 +50,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                         .authorUUID(new UserId(res.getString("users_uuid")))
                         .title(res.getString("title"))
                         .content(res.getString("description"))
-                        .creationDate(LocalDate.now()) // TODO fix me
+                        .creationDate(LocalDate.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                         .build();
                 matches.add(question);
             }
