@@ -13,6 +13,21 @@ $ docker-compose -up -d web
 ## Database
 For the database, we're using a Docker container. If you want to add any SQL stuff when building the container, you can add them in [docker/init/database](docker/init/database).
 
+## Run tests
+### Unit tests
+Unit tests are using JUnit 5. You can run them all with the mvn command `mvn test`
+
+### Integration tests
+Integration tests are more complex because they require database connection and dependency injection.
+Do to that we are using [Arquillian](https://arquillian.org/).
+
+Prerequisites: 
+ - Update the `src/test/resources/arquillian.xml` file and type your own `wlpHome` absolute path.
+ - Run the db container with `docker-compose up db`
+ - Don't forget to update the `src/main/liberty/config/server.env` file with all credentials relative to the db container
+
+Now you are ready to run the integration tests script with this command `./run-integration-tests.sh`
+ 
 ## Pages
 
 ### Common elements
