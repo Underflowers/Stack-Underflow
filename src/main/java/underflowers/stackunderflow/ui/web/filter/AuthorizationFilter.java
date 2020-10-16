@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebFilter(filterName = "AuthorizationFilter", urlPatterns = "/*")
+@WebFilter(filterName = "AuthorizationFilter", urlPatterns = "/*")
 public class AuthorizationFilter implements Filter {
 
     @Override
@@ -36,6 +36,8 @@ public class AuthorizationFilter implements Filter {
                 || uri.startsWith("/register")
                 || uri.startsWith("/home")
                 || uri.startsWith("/questions")
-                || uri.equals("/"); // Homepage
+                || uri.equals("/") // Homepage
+                || uri.equals("/arquillian-managed/ArquillianServletRunner"); // Arquillian servlet used for integration tests
+
     }
 }
