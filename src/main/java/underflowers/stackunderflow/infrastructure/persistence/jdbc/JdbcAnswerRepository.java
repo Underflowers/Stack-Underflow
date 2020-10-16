@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -37,12 +39,13 @@ public class JdbcAnswerRepository implements IAnswerRepository {
 
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO answers(uuid, content, users_uuid, questions_uuid)" +
-                            "VALUES(?,?,?,?)");
+                    "INSERT INTO answers(uuid, content, users_uuid, questions_uuid, created_at)" +
+                            "VALUES(?,?,?,?,?)");
             statement.setString(1, answer.getId().asString());
             statement.setString(2, answer.getContent());
             statement.setString(3, answer.getAuthorUUID().asString());
             statement.setString(4, answer.getQuestionUUID().asString());
+            statement.setString(5, answer.getCreatedAt().toString());
 
             statement.execute();
         } catch (SQLException throwables) {
@@ -82,6 +85,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         .authorUUID(new UserId(res.getString("users_uuid")))
                         .questionUUID(questionId)
                         .content(res.getString("content"))
+                        .createdAt(LocalDateTime.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                         .build();
                 matches.add(answer);
             }

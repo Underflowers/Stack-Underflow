@@ -21,6 +21,9 @@
         <c:forEach var="comment" items="${question.comments.comments}">
             <p class="subtitle">${comment.author} comments</p>
             <p>${comment.content}</p>
+            <div class="oneLineContainer">
+                <span class="subtitle">${comment.createdAt.toString()}</span>
+            </div>
         </c:forEach>
 
         <jsp:include page="fragments/comment.jsp">
@@ -34,9 +37,15 @@
         <div class="card my-4 w-full">
             <span class="subtitle">${answer.author} says</span>
             <p>${answer.content}</p>
+            <div class="oneLineContainer">
+                <span class="subtitle">${answer.createdAt.toString()}</span>
+            </div>
             <c:forEach var="comment" items="${answer.comments.comments}">
                 <p class="subtitle">${comment.author} comments</p>
                 <p>${comment.content}</p>
+                <div class="oneLineContainer">
+                    <span class="subtitle">${comment.createdAt.toString()}</span>
+                </div>
             </c:forEach>
 
             <jsp:include page="fragments/comment.jsp">

@@ -11,10 +11,12 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
+import javax.swing.text.DateFormatter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -42,14 +44,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {
-                Question question = Question.builder()
-                        .id(new QuestionId(res.getString("uuid")))
-                        .authorUUID(new UserId(res.getString("users_uuid")))
-                        .title(res.getString("title"))
-                        .content(res.getString("description"))
-                        .creationDate(LocalDate.now()) // TODO fix me
-                        .build();
-                matches.add(question);
+                matches.add(buildQuestion(res));
             }
         } catch (SQLException e) {
             //traitement de l'exception
@@ -91,14 +86,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
             ArrayList<Question> matches = new ArrayList<>();
 
             while(res.next()){
-                Question question = Question.builder()
-                        .id(new QuestionId(res.getString("uuid")))
-                        .authorUUID(new UserId(res.getString("users_uuid")))
-                        .title(res.getString("title"))
-                        .content(res.getString("description"))
-                        .creationDate(LocalDate.now()) // TODO fix me
-                        .build();
-                matches.add(question);
+                matches.add(buildQuestion(res));
             }
 
             /// no matches were found or there is more than one match, something is wrong with the repository
@@ -117,5 +105,15 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     @Override
     public Collection<Question> findAll() {
         return null;
+    }
+
+    private Question buildQuestion(ResultSet res) throws SQLException {
+        return Question.builder()
+                .id(new QuestionId(res.getString("uuid")))
+                .authorUUID(new UserId(res.getString("users_uuid")))
+                .title(res.getString("title"))
+                .content(res.getString("description"))
+                .creationDate(LocalDate.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .build();
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Singular;
 import underflowers.stackunderflow.application.comment.CommentsDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class AnswersDTO {
         private UUID questionUuid;
         private String author;
         private String content;
+        private LocalDateTime createdAt;
 
         private CommentsDTO comments;
     }
