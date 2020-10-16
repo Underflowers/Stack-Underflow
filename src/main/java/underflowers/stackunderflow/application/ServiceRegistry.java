@@ -30,23 +30,6 @@ public class ServiceRegistry {
 
     private static QuestionFacade questionFacade;
     private static IdentityManagementFacade identityManagementFacade;
-    /*
-    public static ServiceRegistry getServiceRegistry() {
-        if (singleton == null) {
-            singleton = new ServiceRegistry();
-        }
-
-        return singleton;
-    }
-    */
-
-    /*
-    private ServiceRegistry() {
-        singleton = this;
-        questionFacade = new QuestionFacade(questionRepository);
-        identityManagementFacade = new IdentityManagementFacade(userRepository);
-    }
-     */
 
     public AnswerFacade getAnswerFacade() {
         return new AnswerFacade(answerRepository, questionRepository, userRepository, getCommentFacade());
