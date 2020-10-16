@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class CommentsDTO {
         private UUID uuid;
         private String author;
         private String content;
+        private LocalDateTime createdAt;
     }
 
     @Singular

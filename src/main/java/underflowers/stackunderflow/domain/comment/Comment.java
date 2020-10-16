@@ -9,6 +9,8 @@ import underflowers.stackunderflow.domain.answer.AnswerId;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder(toBuilder = true)
 public class Comment implements IEntity<Comment, CommentId> {
@@ -19,8 +21,8 @@ public class Comment implements IEntity<Comment, CommentId> {
     private UserId authorId;
     private AnswerId answerId;
     private QuestionId questionId;
-
     private String content;
+    private LocalDateTime createdAt;
 
     public static class CommentBuilder {
         public Comment build() {
@@ -37,7 +39,7 @@ public class Comment implements IEntity<Comment, CommentId> {
             if (content == null || content.isEmpty())
                 throw new java.lang.IllegalArgumentException("Content is mandatory!");
 
-            return new Comment(id, authorId, answerId, questionId, content);
+            return new Comment(id, authorId, answerId, questionId, content, createdAt);
         }
     }
 
@@ -49,6 +51,7 @@ public class Comment implements IEntity<Comment, CommentId> {
                 .answerId(answerId)
                 .questionId(questionId)
                 .content(content)
+                .createdAt(createdAt)
                 .build();
     }
 }

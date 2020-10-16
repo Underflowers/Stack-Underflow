@@ -7,6 +7,7 @@ import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +41,7 @@ public class CommentFacade {
                     .answerId(command.getAnswerId())
                     .questionId(command.getQuestionId())
                     .content(command.getContent())
+                    .createdAt(LocalDateTime.now())
                     .build();
             repository.save(comment);
         } catch (Exception e) {
@@ -56,6 +58,7 @@ public class CommentFacade {
                             .uuid(comment.getId().getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .content(comment.getContent())
+                            .createdAt(comment.getCreatedAt())
                             .build();
                 }
         ).collect(Collectors.toList());
