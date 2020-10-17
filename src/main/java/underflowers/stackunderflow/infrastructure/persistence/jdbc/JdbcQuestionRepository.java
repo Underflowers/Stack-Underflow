@@ -15,6 +15,7 @@ import javax.swing.text.DateFormatter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,6 +51,20 @@ public class JdbcQuestionRepository implements IQuestionRepository {
             //traitement de l'exception
         }
         return matches;
+    }
+
+    @Override
+    public int count() {
+        try {
+            Statement statement = dataSource.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT COUNT(*) AS countEntity FROM questions");
+            rs.next();
+            return rs.getInt("countEntity");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
     }
 
     @Override

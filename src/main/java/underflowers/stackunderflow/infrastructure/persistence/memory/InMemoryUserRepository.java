@@ -23,4 +23,9 @@ public class InMemoryUserRepository extends InMemoryRepository<User, UserId> imp
 
         return matches.size() == 0 ? Optional.empty() : Optional.of(matches.get(0));
     }
+
+    @Override
+    public int count() {
+        return findAll().size();
+    }
 }

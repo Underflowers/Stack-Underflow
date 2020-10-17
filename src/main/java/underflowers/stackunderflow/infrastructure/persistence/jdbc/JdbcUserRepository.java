@@ -66,6 +66,20 @@ public class JdbcUserRepository implements IUserRepository {
     }
 
     @Override
+    public int count() {
+        try {
+            Statement statement = dataSource.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT COUNT(*) AS countEntity FROM users");
+            rs.next();
+            return rs.getInt("countEntity");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    @Override
     public void save(User user) {
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(
@@ -126,4 +140,6 @@ public class JdbcUserRepository implements IUserRepository {
     public Collection<User> findAll() {
         return null;
     }
+
+
 }

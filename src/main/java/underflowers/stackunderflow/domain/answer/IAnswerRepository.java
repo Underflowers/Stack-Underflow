@@ -7,5 +7,5 @@ import java.util.Collection;
 
 
 public interface IAnswerRepository extends IRepository<Answer, AnswerId> {
-    public Collection<Answer> find(QuestionId questionId);
+    Collection<Answer> find(QuestionId questionId);
 }

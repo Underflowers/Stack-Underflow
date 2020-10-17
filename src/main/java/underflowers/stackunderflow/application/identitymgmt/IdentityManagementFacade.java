@@ -51,4 +51,8 @@ public class IdentityManagementFacade {
                 .lastname(user.getLastname())
                 .email(user.getEmail()).build();
     }
+
+    public int countUsers() {
+        return this.repository.count();
+    }
 }

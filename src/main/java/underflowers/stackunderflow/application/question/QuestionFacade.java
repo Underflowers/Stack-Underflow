@@ -79,4 +79,8 @@ public class QuestionFacade {
                 .comments(commentFacade.getQuestionComments(question.getId()))
                 .build();
     }
+
+    public int countQuestions() {
+        return this.questionRepository.count();
+    }
 }

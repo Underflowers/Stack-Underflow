@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -69,6 +70,20 @@ public class JdbcAnswerRepository implements IAnswerRepository {
     }
 
     @Override
+    public int count() {
+        try {
+            Statement statement = dataSource.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT COUNT(*) AS countEntity FROM answers");
+            rs.next();
+            return rs.getInt("countEntity");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    @Override
     public Collection<Answer> find(QuestionId questionId) {
         LinkedList<Answer> matches = new LinkedList<>();
 
@@ -94,4 +109,5 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         }
         return matches;
     }
+
 }

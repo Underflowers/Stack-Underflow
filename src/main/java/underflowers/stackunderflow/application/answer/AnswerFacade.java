@@ -63,4 +63,8 @@ public class AnswerFacade {
                 .answers(allAnswersDTO)
                 .build();
     }
+
+    public int countAnswers() {
+        return this.answerRepository.count();
+    }
 }
