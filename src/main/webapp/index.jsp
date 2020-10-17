@@ -19,30 +19,4 @@
     </div>
 </section>
 
-<section class="pb-20 bg-white pt-24">
-    <div class="container mx-auto">
-        <div class="flex flex-wrap">
-            <div class="w-4/12 text-center">
-                <h2 class="h2 mb-6">Questions</h2>
-                <div class="circle circle--big">
-                    3000
-                </div>
-            </div>
-            <div class="w-4/12 text-center">
-                <h2 class="h2 mb-6">Users</h2>
-                <div class="circle circle--big">
-                    500
-                </div>
-            </div>
-            <div class="w-4/12 text-center">
-                <h2 class="h2 mb-6">Answers</h2>
-                <div class="circle circle--big">
-                    1500
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
 <jsp:include page="WEB-INF/views/fragments/footer.jsp" />

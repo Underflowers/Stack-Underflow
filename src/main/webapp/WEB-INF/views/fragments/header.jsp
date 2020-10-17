@@ -25,7 +25,7 @@
                 <div class="block flex-grow flex items-center w-auto">
                     <div class="text-md lg:flex-grow">
                         <a href="questions" class="link link--nav">Questions</a>
-                        <a href="#" class="link link--nav">Tags</a>
+                        <a href="statistics" class="link link--nav">Statistics</a>
                     </div>
                     <div class="flex items-center">
                         <c:choose>
