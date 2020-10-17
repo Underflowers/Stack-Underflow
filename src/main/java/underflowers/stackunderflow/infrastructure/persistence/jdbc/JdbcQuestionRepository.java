@@ -40,7 +40,15 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         LinkedList<Question> matches = new LinkedList<>();
 
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
+            PreparedStatement statement;
+
+            if(query.getAuthorId() != null) { // Question from specific user
+                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE users_uuid=?");
+                statement.setString(1, query.getAuthorId().asString());
+            } else { // All questions
+                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
+            }
+
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {

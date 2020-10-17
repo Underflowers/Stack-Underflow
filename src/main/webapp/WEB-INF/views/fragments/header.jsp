@@ -30,7 +30,7 @@
                     <div class="flex items-center">
                         <c:choose>
                             <c:when test="${authUser != null}">
-                                <span class="subtitle mr-2">${authUser.email}</span>
+                                <a class="subtitle link link--nav mr-2" href="profile">${authUser.email}</a>
                                 <form action="logout.do" method="post" class="m-0">
                                     <button type="submit" class="btn btn--small btn--secondary-border">Logout</button>
                                 </form>
