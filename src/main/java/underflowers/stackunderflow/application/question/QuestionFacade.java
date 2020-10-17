@@ -2,6 +2,7 @@ package underflowers.stackunderflow.application.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.answer.AnswerFacade;
+import underflowers.stackunderflow.application.answer.AnswersQuery;
 import underflowers.stackunderflow.application.comment.CommentFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
@@ -75,7 +76,7 @@ public class QuestionFacade {
                 .title(question.getTitle())
                 .content(question.getContent())
                 .creationDate(question.getCreationDate())
-                .answers(answerFacade.getAnswers(question.getId()))
+                .answers(answerFacade.getAnswers(AnswersQuery.builder().question(question.getId()).build()))
                 .comments(commentFacade.getQuestionComments(question.getId()))
                 .build();
     }

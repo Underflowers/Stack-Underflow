@@ -16,7 +16,7 @@
         <!-- Statistics -->
 
         <!-- User's questions -->
-        <h2 class="h2">Your posts (${questions.questions.size()})</h2>
+        <h2 class="h2">Your questions (${questions.questions.size()})</h2>
         <c:forEach var="question" items="${questions.questions}">
         <div class="card card--hover my-4 w-full" onclick="location.href='/question?uuid=${question.uuid}';">
             <h2 class="h2 textLimiter">${question.title}</h2>

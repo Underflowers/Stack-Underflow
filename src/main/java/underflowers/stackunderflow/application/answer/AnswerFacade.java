@@ -42,15 +42,14 @@ public class AnswerFacade {
         }
     }
 
-    public AnswersDTO getAnswers(QuestionId questionId) {
-        Collection<Answer> allAnswers = answerRepository.find(questionId);
+    public AnswersDTO getAnswers(AnswersQuery query) {
+        Collection<Answer> allAnswers = answerRepository.find(query);
 
         List<AnswersDTO.AnswerDTO> allAnswersDTO = allAnswers.stream().map(answer -> {
                     User author = userRepository.findById(answer.getAuthorUUID()).get();
 
                     return AnswersDTO.AnswerDTO.builder()
                             .uuid(answer.getId().getId())
-                            .questionUuid(questionId.getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .content(answer.getContent())
                             .createdAt(answer.getCreatedAt())
