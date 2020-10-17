@@ -110,6 +110,11 @@ public class JdbcCommentRepository implements ICommentRepository {
         return null;
     }
 
+    @Override
+    public int count() {
+        return 0;
+    }
+
     private Comment buildComment(ResultSet res, QuestionId qid, AnswerId aid) throws SQLException {
         return Comment.builder()
                 .id(new CommentId(res.getString("uuid")))

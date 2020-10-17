@@ -40,9 +40,16 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     public Collection<Question> find(QuestionsQuery query) {
         LinkedList<Question> matches = new LinkedList<>();
 
+        ResultSet res = null;
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
-            ResultSet res = statement.executeQuery();
+            if(query.getSearchTerm() != null) {
+                PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE title LIKE ?");
+                statement.setString(1, "%"+query.getSearchTerm()+"%");
+                res = statement.executeQuery();
+            }else{
+                PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
+                res = statement.executeQuery();
+            }
 
             while (res.next()) {
                 matches.add(buildQuestion(res));
