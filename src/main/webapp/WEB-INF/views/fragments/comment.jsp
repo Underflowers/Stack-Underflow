@@ -1,3 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div class="divide-y">
+    <c:forEach var="comment" items="${comments}">
+        <div class="text-xs py-2">${comment.content} - ${comment.author} @ ${comment.createdAt.toString()}</div>
+    </c:forEach>
+</div>
 <form action="comment.do" method="post">
 
     <input id="answerUuid" name="answerUuid" type="hidden" value="${param.answerUuid}"/>
