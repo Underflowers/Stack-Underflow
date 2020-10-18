@@ -51,8 +51,6 @@ public class JdbcCommentRepository implements ICommentRepository {
             throwables.printStackTrace();
         }
 
-        //matches.sort((lhs, rhs) -> lhs.getCreatedAt().isBefore(rhs.getCreatedAt()) ? -1 : 0);
-
         return matches;
     }
 
@@ -74,8 +72,6 @@ public class JdbcCommentRepository implements ICommentRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        //matches.sort((lhs, rhs) -> lhs.getCreatedAt().isBefore(rhs.getCreatedAt()) ? 0 : -1);
 
         return matches;
     }

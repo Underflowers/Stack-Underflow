@@ -106,8 +106,6 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             //traitement de l'exception
         }
 
-        matches.sort((lhs, rhs) -> lhs.getCreatedAt().isBefore(rhs.getCreatedAt()) ? 0 : -1);
-
         return matches;
     }
 
