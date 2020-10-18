@@ -41,7 +41,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         LinkedList<Question> matches = new LinkedList<>();
 
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
+            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions ORDER BY created_at DESC");
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {
