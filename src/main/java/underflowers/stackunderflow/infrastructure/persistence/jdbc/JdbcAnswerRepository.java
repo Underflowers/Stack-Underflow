@@ -18,9 +18,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Optional;
+import java.util.*;
 
 @ApplicationScoped
 @Named("JdbcAnswerRepository")
@@ -89,7 +87,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
 
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM answers WHERE questions_uuid=?"
+                    "SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC"
             );
             statement.setString(1, questionId.asString());
             ResultSet res = statement.executeQuery();
@@ -107,6 +105,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         } catch (SQLException e) {
             //traitement de l'exception
         }
+
         return matches;
     }
 
