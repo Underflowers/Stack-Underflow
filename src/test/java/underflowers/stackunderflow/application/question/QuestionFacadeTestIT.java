@@ -120,5 +120,54 @@ public class QuestionFacadeTestIT {
         assertTrue(questionsDTO.getQuestions().size() >= 2);
     }
 
+    @Test
+    public void countQuestions() {
+        UserId userId = createUniqueUserForTest();
+
+        QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+        ProposeQuestionCommand questionCommand = ProposeQuestionCommand.builder()
+                .authorUUID(userId)
+                .title("Question 1")
+                .text("Content 1")
+                .build();
+
+        try {
+            // Fetch all questions
+            QuestionsDTO oldQuestions = questionFacade.getQuestions(QuestionsQuery.builder().build());
+            // Propose one question
+            questionFacade.proposeQuestion(questionCommand);
+            // Count and assert
+            int afterCount = questionFacade.countQuestions();
+            assertEquals(oldQuestions.getQuestions().size() + 1, afterCount);
+        } catch (IncompleteQuestionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void searchQuestion(){
+        UserId userId = createUniqueUserForTest();
+
+        String searchTerm = String.valueOf(System.currentTimeMillis());
+        QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
+        ProposeQuestionCommand questionCommand = ProposeQuestionCommand.builder()
+                .authorUUID(userId)
+                .title("Question " + searchTerm + " test")
+                .text("Content of the question")
+                .build();
+
+        // Ask the question contains the search term in title
+        try {
+            questionFacade.proposeQuestion(questionCommand);
+        } catch (IncompleteQuestionException e) {
+            e.printStackTrace();
+        }
+
+        QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder().searchTerm(searchTerm).build());
+
+        // We want at least 1 question result for the search term
+        assertTrue(questionsDTO.getQuestions().size() >= 1);
+    }
+
 }
 
