@@ -3,6 +3,7 @@ package underflowers.stackunderflow.application.answer;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import underflowers.stackunderflow.domain.answer.AnswerId;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
@@ -10,6 +11,10 @@ import underflowers.stackunderflow.domain.user.UserId;
 @Getter
 @EqualsAndHashCode
 public class GiveAnswerCommand {
+
+    @Builder.Default
+    private AnswerId uuid = null;
+
     @Builder.Default
     private UserId authorUUID = null;
 

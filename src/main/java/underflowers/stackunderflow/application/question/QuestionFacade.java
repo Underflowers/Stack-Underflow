@@ -34,6 +34,7 @@ public class QuestionFacade {
     public void proposeQuestion(ProposeQuestionCommand command) throws IncompleteQuestionException {
         try {
             Question submittedQuestion = Question.builder()
+                    .id(command.getQuestionUUID())
                     .authorUUID(command.getAuthorUUID())
                     .title(command.getTitle())
                     .content(command.getText())
