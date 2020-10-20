@@ -878,6 +878,14 @@ body {
   height: 12rem
 }
 
+.circle--small {
+  font-weight: 600;
+  font-size: 1.25rem;
+  width: 6rem;
+  height: 6rem;
+  border-width: 4px
+}
+
 .input-text {
   padding-left: 1.25rem;
   padding-right: 1.25rem;

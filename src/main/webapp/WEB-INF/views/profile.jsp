@@ -11,12 +11,29 @@
         </div>
         <p>${user.email}</p>
 
+        <!-- Statistics -->
         <hr class="my-8">
 
-        <!-- Statistics -->
+        <div class="flex flex-wrap justify-around">
+            <div class="text-center">
+                <h2 class="h2 mb-3">Questions</h2>
+                <div class="circle circle--small">
+                    ${questions.questions.size()}
+                </div>
+            </div>
+            <div class="text-center">
+                <h2 class="h2 mb-3">Answers</h2>
+                <div class="circle circle--small">
+                    ${answersCount}
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="my-8">
 
         <!-- User's questions -->
-        <h2 class="h2">Your questions (${questions.questions.size()})</h2>
+        <h2 class="h2">Your questions</h2>
         <c:forEach var="question" items="${questions.questions}">
         <div class="card card--hover my-4 w-full" onclick="location.href='/question?uuid=${question.uuid}';">
             <h2 class="h2 textLimiter">${question.title}</h2>
