@@ -1,10 +1,9 @@
 package underflowers.stackunderflow.infrastructure.persistence.jdbc;
 
+import underflowers.stackunderflow.application.answer.AnswersQuery;
 import underflowers.stackunderflow.domain.answer.Answer;
 import underflowers.stackunderflow.domain.answer.AnswerId;
 import underflowers.stackunderflow.domain.answer.IAnswerRepository;
-import underflowers.stackunderflow.domain.question.Question;
-import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.annotation.Resource;
@@ -82,21 +81,34 @@ public class JdbcAnswerRepository implements IAnswerRepository {
     }
 
     @Override
-    public Collection<Answer> find(QuestionId questionId) {
+    public Collection<Answer> find(AnswersQuery query) {
         LinkedList<Answer> matches = new LinkedList<>();
 
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement(
-                    "SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC"
-            );
-            statement.setString(1, questionId.asString());
+            PreparedStatement statement;
+
+            if(query.getQuestion() != null) { // Answers from a specific question
+                statement = dataSource.getConnection().prepareStatement(
+                        "SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC"
+                );
+                statement.setString(1, query.getQuestion().asString());
+            } else if(query.getAuthorId() != null) { // Answers from a specific user
+                statement = dataSource.getConnection().prepareStatement(
+                        "SELECT * FROM answers WHERE users_uuid=? ORDER BY created_at DESC"
+                );
+                statement.setString(1, query.getAuthorId().asString());
+            } else { // All answers
+                statement = dataSource.getConnection().prepareStatement(
+                        "SELECT * FROM answers"
+                );
+            }
+
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {
                 Answer answer = Answer.builder()
                         .id(new AnswerId(res.getString("uuid")))
                         .authorUUID(new UserId(res.getString("users_uuid")))
-                        .questionUUID(questionId)
                         .content(res.getString("content"))
                         .createdAt(LocalDateTime.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                         .build();

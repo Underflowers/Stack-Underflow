@@ -48,7 +48,12 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                 statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE title LIKE ? ORDER BY created_at DESC");
                 statement.setString(1, "%"+query.getSearchTerm()+"%");
             } else
+            if(query.getAuthorId() != null) { // Question from specific user
+                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE users_uuid=? ORDER BY created_at DESC");
+                statement.setString(1, query.getAuthorId().asString());
+            } else { // All questions
                 statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions ORDER BY created_at DESC");
+            }
 
             res = statement.executeQuery();
 
