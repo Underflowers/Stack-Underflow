@@ -19,7 +19,7 @@
                                 <a class="footer__link footer__text" href="questions">Questions</a>
                             </li>
                             <li>
-                                <a class="footer__link footer__text" href="#">Tags</a>
+                                <a class="footer__link footer__text" href="statistics">Statistics</a>
                             </li>
                             <li>
                                 <a class="footer__link footer__text" href="https://github.com/Underflowers/Stack-Underflow" target="_blank">GitHub</a>

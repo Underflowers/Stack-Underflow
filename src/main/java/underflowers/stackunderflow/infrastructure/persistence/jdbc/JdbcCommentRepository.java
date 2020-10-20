@@ -38,7 +38,8 @@ public class JdbcCommentRepository implements ICommentRepository {
         LinkedList<Comment> matches = new LinkedList<>();
 
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM comments WHERE questions_uuid = ?");
+            PreparedStatement statement = dataSource.getConnection().prepareStatement(
+                    "SELECT * FROM comments WHERE questions_uuid = ?");
             statement.setString(1, id.asString());
             ResultSet res = statement.executeQuery();
 
@@ -49,6 +50,7 @@ public class JdbcCommentRepository implements ICommentRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         return matches;
     }
 
@@ -58,7 +60,8 @@ public class JdbcCommentRepository implements ICommentRepository {
         LinkedList<Comment> matches = new LinkedList<>();
 
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM comments WHERE answers_uuid = ?");
+            PreparedStatement statement = dataSource.getConnection().prepareStatement(
+                    "SELECT * FROM comments WHERE answers_uuid = ? ORDER BY created_at ASC");
             statement.setString(1, id.asString());
             ResultSet res = statement.executeQuery();
 
@@ -69,6 +72,7 @@ public class JdbcCommentRepository implements ICommentRepository {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         return matches;
     }
 
@@ -108,6 +112,11 @@ public class JdbcCommentRepository implements ICommentRepository {
     @Override
     public Collection<Comment> findAll() {
         return null;
+    }
+
+    @Override
+    public int count() {
+        return 0;
     }
 
     private Comment buildComment(ResultSet res, QuestionId qid, AnswerId aid) throws SQLException {

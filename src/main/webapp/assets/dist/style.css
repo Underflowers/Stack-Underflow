@@ -878,6 +878,7 @@ body {
   height: 12rem
 }
 
+<<<<<<< HEAD
 .circle--small {
   font-weight: 600;
   font-size: 1.25rem;
@@ -886,6 +887,8 @@ body {
   border-width: 4px
 }
 
+=======
+>>>>>>> develop
 .input-text {
   padding-left: 1.25rem;
   padding-right: 1.25rem;

@@ -31,6 +31,7 @@ public class AnswerFacade {
     public void giveAnswer(GiveAnswerCommand command) throws IncompleteQuestionException {
         try {
             Answer givenAnswer = Answer.builder()
+                    .id(command.getUuid())
                     .authorUUID(command.getAuthorUUID())
                     .questionUUID(command.getQuestionUUID())
                     .content(command.getText())
@@ -61,5 +62,9 @@ public class AnswerFacade {
         return AnswersDTO.builder()
                 .answers(allAnswersDTO)
                 .build();
+    }
+
+    public int countAnswers() {
+        return this.answerRepository.count();
     }
 }

@@ -9,6 +9,7 @@ import underflowers.stackunderflow.domain.user.UserId;
 @Builder
 @Getter
 @Setter
+@Getter
 @EqualsAndHashCode
 public class QuestionsQuery {
 
@@ -17,4 +18,6 @@ public class QuestionsQuery {
 
     @Builder.Default
     private UserId authorId = null;
+
+    private String searchTerm;
 }

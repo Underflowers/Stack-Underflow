@@ -15,6 +15,7 @@ import javax.swing.text.DateFormatter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,25 +40,43 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     public Collection<Question> find(QuestionsQuery query) {
         LinkedList<Question> matches = new LinkedList<>();
 
-        try {
-            PreparedStatement statement;
+        ResultSet res = null;
+        PreparedStatement statement;
 
+        try {
+            if (query.getSearchTerm() != null) {
+                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE title LIKE ? ORDER BY created_at DESC");
+                statement.setString(1, "%"+query.getSearchTerm()+"%");
+            } else
             if(query.getAuthorId() != null) { // Question from specific user
-                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE users_uuid=?");
+                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions WHERE users_uuid=? ORDER BY created_at DESC");
                 statement.setString(1, query.getAuthorId().asString());
             } else { // All questions
-                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
+                statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions ORDER BY created_at DESC");
             }
 
-            ResultSet res = statement.executeQuery();
+            res = statement.executeQuery();
 
-            while (res.next()) {
+            while (res.next())
                 matches.add(buildQuestion(res));
-            }
         } catch (SQLException e) {
             //traitement de l'exception
         }
         return matches;
+    }
+
+    @Override
+    public int count() {
+        try {
+            Statement statement = dataSource.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT COUNT(*) AS countEntity FROM questions");
+            rs.next();
+            return rs.getInt("countEntity");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
     }
 
     @Override

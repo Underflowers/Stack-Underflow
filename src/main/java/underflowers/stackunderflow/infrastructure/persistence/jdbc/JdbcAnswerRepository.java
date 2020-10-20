@@ -13,11 +13,11 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Optional;
+import java.util.*;
 
 @ApplicationScoped
 @Named("JdbcAnswerRepository")
@@ -67,6 +67,20 @@ public class JdbcAnswerRepository implements IAnswerRepository {
     }
 
     @Override
+    public int count() {
+        try {
+            Statement statement = dataSource.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT COUNT(*) AS countEntity FROM answers");
+            rs.next();
+            return rs.getInt("countEntity");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    @Override
     public Collection<Answer> find(AnswersQuery query) {
         LinkedList<Answer> matches = new LinkedList<>();
 
@@ -75,12 +89,12 @@ public class JdbcAnswerRepository implements IAnswerRepository {
 
             if(query.getQuestion() != null) { // Answers from a specific question
                 statement = dataSource.getConnection().prepareStatement(
-                        "SELECT * FROM answers WHERE questions_uuid=?"
+                        "SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC"
                 );
                 statement.setString(1, query.getQuestion().asString());
             } else if(query.getAuthorId() != null) { // Answers from a specific user
                 statement = dataSource.getConnection().prepareStatement(
-                        "SELECT * FROM answers WHERE users_uuid=?"
+                        "SELECT * FROM answers WHERE users_uuid=? ORDER BY created_at DESC"
                 );
                 statement.setString(1, query.getAuthorId().asString());
             } else { // All answers
@@ -103,6 +117,8 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         } catch (SQLException e) {
             //traitement de l'exception
         }
+
         return matches;
     }
+
 }

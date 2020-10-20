@@ -35,6 +35,7 @@ public class QuestionFacade {
     public void proposeQuestion(ProposeQuestionCommand command) throws IncompleteQuestionException {
         try {
             Question submittedQuestion = Question.builder()
+                    .id(command.getQuestionUUID())
                     .authorUUID(command.getAuthorUUID())
                     .title(command.getTitle())
                     .content(command.getText())
@@ -79,5 +80,9 @@ public class QuestionFacade {
                 .answers(answerFacade.getAnswers(AnswersQuery.builder().question(question.getId()).build()))
                 .comments(commentFacade.getQuestionComments(question.getId()))
                 .build();
+    }
+
+    public int countQuestions() {
+        return this.questionRepository.count();
     }
 }
