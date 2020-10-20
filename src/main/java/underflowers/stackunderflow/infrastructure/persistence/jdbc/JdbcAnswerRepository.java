@@ -4,6 +4,7 @@ import underflowers.stackunderflow.application.answer.AnswersQuery;
 import underflowers.stackunderflow.domain.answer.Answer;
 import underflowers.stackunderflow.domain.answer.AnswerId;
 import underflowers.stackunderflow.domain.answer.IAnswerRepository;
+import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.annotation.Resource;
@@ -108,6 +109,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                 Answer answer = Answer.builder()
                         .id(new AnswerId(res.getString("uuid")))
                         .authorUUID(new UserId(res.getString("users_uuid")))
+                        .questionUUID(new QuestionId(res.getString("questions_uuid")))
                         .content(res.getString("content"))
                         .createdAt(LocalDateTime.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                         .build();

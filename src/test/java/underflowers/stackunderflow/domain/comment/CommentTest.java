@@ -99,7 +99,7 @@ public class CommentTest {
         assertEquals(comment.getId().asString(), clone.getId().asString());
         assertEquals(comment.getAnswerId(), clone.getAnswerId());
         assertEquals(comment.getAuthorId(), clone.getAuthorId());
-        assertEquals(comment.getCreatedAt(), comment.getCreatedAt());
+        assertEquals(comment.getCreatedAt(), clone.getCreatedAt());
         assertEquals(comment.getContent(), clone.getContent());
 
         // since it's a clone, the reference to the object mustn't be the same

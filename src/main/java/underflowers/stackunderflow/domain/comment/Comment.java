@@ -38,6 +38,9 @@ public class Comment implements IEntity<Comment, CommentId> {
             if (content == null || content.isEmpty())
                 throw new java.lang.IllegalArgumentException("Content is mandatory!");
 
+            if(createdAt == null)
+                createdAt = LocalDateTime.now();
+
             return new Comment(id, authorId, answerId, questionId, content, createdAt);
         }
     }
