@@ -4,7 +4,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import underflowers.stackunderflow.application.ServiceRegistry;
@@ -14,11 +13,9 @@ import underflowers.stackunderflow.application.identitymgmt.authenticate.Authent
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticationFailedException;
 import underflowers.stackunderflow.application.identitymgmt.registration.RegistrationCommand;
 import underflowers.stackunderflow.application.identitymgmt.registration.RegistrationFailedException;
-import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.inject.Inject;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
