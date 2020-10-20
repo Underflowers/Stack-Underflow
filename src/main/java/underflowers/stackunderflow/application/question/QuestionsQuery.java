@@ -9,7 +9,6 @@ import underflowers.stackunderflow.domain.user.UserId;
 @Builder
 @Getter
 @Setter
-@Getter
 @EqualsAndHashCode
 public class QuestionsQuery {
 
