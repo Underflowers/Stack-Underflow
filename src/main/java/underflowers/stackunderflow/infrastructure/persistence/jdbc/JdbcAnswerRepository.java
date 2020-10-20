@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -87,11 +86,11 @@ public class JdbcAnswerRepository implements IAnswerRepository {
         try {
             PreparedStatement statement;
 
-            if(query.getQuestion() != null) { // Answers from a specific question
+            if(query.getQuestionId() != null) { // Answers from a specific question
                 statement = dataSource.getConnection().prepareStatement(
                         "SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC"
                 );
-                statement.setString(1, query.getQuestion().asString());
+                statement.setString(1, query.getQuestionId().asString());
             } else if(query.getAuthorId() != null) { // Answers from a specific user
                 statement = dataSource.getConnection().prepareStatement(
                         "SELECT * FROM answers WHERE users_uuid=? ORDER BY created_at DESC"

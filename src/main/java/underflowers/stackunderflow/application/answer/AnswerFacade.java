@@ -28,7 +28,7 @@ public class AnswerFacade {
         this.commentFacade = commentFacade;
     }
 
-    public void giveAnswer(GiveAnswerCommand command) throws IncompleteQuestionException {
+    public void giveAnswer(GiveAnswerCommand command) throws InvalidAnswerException {
         try {
             Answer givenAnswer = Answer.builder()
                     .id(command.getUuid())
@@ -39,7 +39,7 @@ public class AnswerFacade {
                     .build();
             answerRepository.save(givenAnswer);
         } catch (Exception e) {
-            throw new IncompleteQuestionException(e.getMessage());
+            throw new InvalidAnswerException(e.getMessage());
         }
     }
 

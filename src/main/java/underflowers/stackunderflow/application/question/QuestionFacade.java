@@ -1,6 +1,5 @@
 package underflowers.stackunderflow.application.question;
 
-import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.answer.AnswerFacade;
 import underflowers.stackunderflow.application.answer.AnswersQuery;
 import underflowers.stackunderflow.application.comment.CommentFacade;
@@ -10,10 +9,8 @@ import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
-import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class QuestionFacade {
@@ -77,7 +74,7 @@ public class QuestionFacade {
                 .title(question.getTitle())
                 .content(question.getContent())
                 .creationDate(question.getCreationDate())
-                .answers(answerFacade.getAnswers(AnswersQuery.builder().question(question.getId()).build()))
+                .answers(answerFacade.getAnswers(AnswersQuery.builder().questionId(question.getId()).build()))
                 .comments(commentFacade.getQuestionComments(question.getId()))
                 .build();
     }

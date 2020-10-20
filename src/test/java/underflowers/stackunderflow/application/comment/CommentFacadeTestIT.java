@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.answer.AnswerFacade;
 import underflowers.stackunderflow.application.answer.GiveAnswerCommand;
+import underflowers.stackunderflow.application.answer.InvalidAnswerException;
 import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticateCommand;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticationFailedException;
@@ -108,7 +109,7 @@ public class CommentFacadeTestIT {
                     .content("+1")
                     .build()
             );
-        } catch (RegistrationFailedException | AuthenticationFailedException | IncompleteQuestionException | InvalidCommentException e) {
+        } catch (RegistrationFailedException | AuthenticationFailedException | IncompleteQuestionException | InvalidCommentException | InvalidAnswerException e) {
             e.printStackTrace();
         }
     }

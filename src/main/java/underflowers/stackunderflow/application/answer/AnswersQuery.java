@@ -14,7 +14,7 @@ import underflowers.stackunderflow.domain.user.UserId;
 public class AnswersQuery {
 
     @Builder.Default
-    private QuestionId question = null;
+    private QuestionId questionId = null;
 
     @Builder.Default
     private UserId authorId = null;
