@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "SearchQuestionCommand", urlPatterns ="/search.do")
-public class SearchQuestionCommand extends HttpServlet {
+public class SearchQuestionCommandServlet extends HttpServlet {
 
     @Inject
     ServiceRegistry serviceRegistry;
