@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Singular;
 import underflowers.stackunderflow.application.comment.CommentsDTO;
+import underflowers.stackunderflow.application.vote.VotesDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +26,7 @@ public class AnswersDTO {
         private String content;
         private LocalDateTime createdAt;
 
+        private VotesDTO votes;
         private CommentsDTO comments;
     }
 

@@ -2,10 +2,11 @@ package underflowers.stackunderflow.application.answer;
 
 import underflowers.stackunderflow.application.comment.CommentFacade;
 import underflowers.stackunderflow.application.question.IncompleteQuestionException;
+import underflowers.stackunderflow.application.vote.VotesQuery;
+import underflowers.stackunderflow.application.vote.VoteFacade;
 import underflowers.stackunderflow.domain.answer.Answer;
 import underflowers.stackunderflow.domain.answer.IAnswerRepository;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
-import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
@@ -19,13 +20,16 @@ public class AnswerFacade {
     private IQuestionRepository questionRepository;
     private IUserRepository userRepository;
     private CommentFacade commentFacade;
+    private VoteFacade voteFacade;
 
 
-    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository, IUserRepository userRepository, CommentFacade commentFacade) {
+    public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository,
+                        IUserRepository userRepository, CommentFacade commentFacade, VoteFacade voteFacade) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
         this.commentFacade = commentFacade;
+        this.voteFacade = voteFacade;
     }
 
     public void giveAnswer(GiveAnswerCommand command) throws IncompleteQuestionException {
@@ -42,19 +46,23 @@ public class AnswerFacade {
         }
     }
 
-    public AnswersDTO getAnswers(QuestionId questionId) {
-        Collection<Answer> allAnswers = answerRepository.find(questionId);
+    public AnswersDTO getAnswers(AnswersQuery command) {
+        Collection<Answer> allAnswers = answerRepository.find(command.getId());
 
         List<AnswersDTO.AnswerDTO> allAnswersDTO = allAnswers.stream().map(answer -> {
                     User author = userRepository.findById(answer.getAuthorUUID()).get();
 
                     return AnswersDTO.AnswerDTO.builder()
                             .uuid(answer.getId().getId())
-                            .questionUuid(questionId.getId())
+                            .questionUuid(command.getId().getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .content(answer.getContent())
                             .createdAt(answer.getCreatedAt())
                             .comments(commentFacade.getAnswerComments(answer.getId()))
+                            .votes(voteFacade.getVotes(VotesQuery.builder()
+                                    .user(command.getAuthUser())
+                                    .relatedAnswer(answer.getId())
+                                    .build()))
                             .build();
                 }
         ).collect(Collectors.toList());

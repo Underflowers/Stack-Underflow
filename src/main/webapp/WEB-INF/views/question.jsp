@@ -12,8 +12,14 @@
             <h2 class="h2 textLimiter">${question.title}</h2>
             <p class="text-gray-700">${question.content}</p>
             <hr class="my-3 border-gray-300">
-            <div class="oneLineContainer">  
-                <span class="subtitle">0 votes • 0 answers</span> <!-- TODO retrieve actual data -->
+            <div class="oneLineContainer">
+                <jsp:include page="fragments/votes.jsp">
+                    <jsp:param name="isUpvote" value="${question.votes.isAuthUserUpvote.orElse(false)}"/>
+                    <jsp:param name="count" value="${question.votes.count}"/>
+                    <jsp:param name="isDownvote" value="${question.votes.isAuthUserUpvote.orElse(true)}"/>
+                    <jsp:param name="questionUuid" value="${question.uuid}"/>
+                    <jsp:param name="redirectUuid" value="${question.uuid}"/>
+                </jsp:include>
                 <span class="subtitle">${question.creationDate.toString()}</span>
             </div>
         </div>
@@ -33,26 +39,34 @@
         <h2 class="h2">Answers</h2>
 
         <c:forEach var="answer" items="${question.answers.answers}">
-
-        <div class="card my-4 w-full">
-            <span class="subtitle">${answer.author} says</span>
-            <p>${answer.content}</p>
-            <div class="oneLineContainer">
-                <span class="subtitle">${answer.createdAt.toString()}</span>
-            </div>
-            <c:forEach var="comment" items="${answer.comments.comments}">
-                <p class="subtitle">${comment.author} comments</p>
-                <p>${comment.content}</p>
+            <div class="card my-4 w-full">
+                <span class="subtitle">${answer.author} says</span>
+                <p>${answer.content}</p>
+                <hr class="my-3 border-gray-300">
                 <div class="oneLineContainer">
-                    <span class="subtitle">${comment.createdAt.toString()}</span>
+                    <jsp:include page="fragments/votes.jsp">
+                        <jsp:param name="isUpvote" value="${answer.votes.isAuthUserUpvote.orElse(false)}"/>
+                        <jsp:param name="count" value="${answer.votes.count}"/>
+                        <jsp:param name="isDownvote" value="${answer.votes.isAuthUserUpvote.orElse(true)}"/>
+                        <jsp:param name="answerUuid" value="${answer.uuid}"/>
+                        <jsp:param name="redirectUuid" value="${question.uuid}"/>
+                    </jsp:include>
+                    <span class="subtitle">${answer.createdAt.toString()}</span>
                 </div>
-            </c:forEach>
 
-            <jsp:include page="fragments/comment.jsp">
-                <jsp:param name="answerUuid" value="${answer.uuid}"/>
-                <jsp:param name="questionuuid" value="${question.uuid}"/>
-            </jsp:include>
-        </div>
+                <c:forEach var="comment" items="${answer.comments.comments}">
+                    <p class="subtitle">${comment.author} comments</p>
+                    <p>${comment.content}</p>
+                    <div class="oneLineContainer">
+                        <span class="subtitle">${comment.createdAt.toString()}</span>
+                    </div>
+                </c:forEach>
+
+                <jsp:include page="fragments/comment.jsp">
+                    <jsp:param name="answerUuid" value="${answer.uuid}"/>
+                    <jsp:param name="questionuuid" value="${question.uuid}"/>
+                </jsp:include>
+            </div>
         </c:forEach>
 
         <form action="answer.do" method="post">

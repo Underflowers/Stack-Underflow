@@ -17,9 +17,6 @@ public class InMemoryUserRepositoryTest {
     private User user;
     private UserId userId = new UserId();
 
-    // TODO: discuss if save should clone or not
-    // TODO: discuss about integrity constraints (can we add the same user twice, two users with same email)
-
     @BeforeEach
     public void prepareRepository() {
         this.repo = new InMemoryUserRepository();

@@ -1,13 +1,12 @@
 package underflowers.stackunderflow.ui.web.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
-import underflowers.stackunderflow.application.answer.AnswerFacade;
-import underflowers.stackunderflow.application.answer.AnswersDTO;
+import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
+import underflowers.stackunderflow.application.question.GetQuestionQuery;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.application.question.QuestionsDTO;
-import underflowers.stackunderflow.application.question.QuestionsQuery;
-import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
+import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -30,9 +29,18 @@ public class QuestionServlet extends HttpServlet {
         request.getSession().removeAttribute("errors");
 
         QuestionId questionId = new QuestionId(request.getParameter("uuid"));
+        UserId authUser = null;
+
+        if (request.getSession().getAttribute("authUser") != null) {
+            authUser = ((AuthenticatedUserDTO) request.getSession().getAttribute("authUser")).getUuid();
+        }
 
         // Retrieve question
-        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(questionId);
+        QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(
+                GetQuestionQuery.builder()
+                        .id(questionId)
+                        .authUser(authUser)
+                        .build());
         request.setAttribute("question", questionDTO);
 
         request.getRequestDispatcher("/WEB-INF/views/question.jsp").forward(request, response);

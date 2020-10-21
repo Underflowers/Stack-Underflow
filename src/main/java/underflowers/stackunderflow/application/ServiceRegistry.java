@@ -4,10 +4,12 @@ import underflowers.stackunderflow.application.answer.AnswerFacade;
 import underflowers.stackunderflow.application.comment.CommentFacade;
 import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.question.QuestionFacade;
+import underflowers.stackunderflow.application.vote.VoteFacade;
 import underflowers.stackunderflow.domain.answer.IAnswerRepository;
 import underflowers.stackunderflow.domain.comment.ICommentRepository;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
+import underflowers.stackunderflow.domain.vote.IVoteRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,15 +30,18 @@ public class ServiceRegistry {
     @Inject @Named("JdbcCommentRepository")
     ICommentRepository commentRepository;
 
+    @Inject @Named("JdbcVoteRepository")
+    IVoteRepository voteRepository;
+
     private static QuestionFacade questionFacade;
     private static IdentityManagementFacade identityManagementFacade;
 
     public AnswerFacade getAnswerFacade() {
-        return new AnswerFacade(answerRepository, questionRepository, userRepository, getCommentFacade());
+        return new AnswerFacade(answerRepository, questionRepository, userRepository, getCommentFacade(), getVoteFacade());
     }
 
     public QuestionFacade getQuestionFacade() {
-        return new QuestionFacade(questionRepository, userRepository, getAnswerFacade(), getCommentFacade());
+        return new QuestionFacade(questionRepository, userRepository, getAnswerFacade(), getCommentFacade(), getVoteFacade());
     }
 
     public IdentityManagementFacade getIdentityManagementFacade() {
@@ -45,5 +50,9 @@ public class ServiceRegistry {
 
     public CommentFacade getCommentFacade() {
         return new CommentFacade(commentRepository, userRepository);
+    }
+
+    public VoteFacade getVoteFacade() {
+        return new VoteFacade(voteRepository);
     }
 }

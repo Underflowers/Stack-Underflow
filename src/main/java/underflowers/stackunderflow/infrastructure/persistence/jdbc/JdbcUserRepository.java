@@ -34,20 +34,25 @@ public class JdbcUserRepository implements IUserRepository {
 
     @Override
     public Optional<User> findByEmail(String email) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM users WHERE email=?");
-            statement.setString(1, email);
-            ResultSet res = statement.executeQuery();
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM users WHERE email=?");
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
 
             ArrayList<User> matches = new ArrayList<>();
 
-            while(res.next()){
+            while(rs.next()){
                 User user = User.builder()
-                        .id(new UserId(res.getString("uuid")))
-                        .firstname(res.getString("firstname"))
-                        .lastname(res.getString("lastname"))
-                        .email(res.getString("email"))
-                        .hashedPassword(res.getString("password"))
+                        .id(new UserId(rs.getString("uuid")))
+                        .firstname(rs.getString("firstname"))
+                        .lastname(rs.getString("lastname"))
+                        .email(rs.getString("email"))
+                        .hashedPassword(rs.getString("password"))
                         .build();
                 matches.add(user);
             }
@@ -59,21 +64,34 @@ public class JdbcUserRepository implements IUserRepository {
 
             return Optional.of(matches.get(0));
 
-        } catch (SQLException e) {
-            //traitement de l'exception
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
         return Optional.empty();
     }
 
     @Override
     public int count() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
         try {
-            Statement statement = dataSource.getConnection().createStatement();
-            ResultSet rs = statement.executeQuery("SELECT COUNT(*) AS countEntity FROM users");
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("SELECT COUNT(*) AS countEntity FROM users");
+            rs = stmt.executeQuery();
             rs.next();
             return rs.getInt("countEntity");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
 
         return 0;
@@ -81,64 +99,111 @@ public class JdbcUserRepository implements IUserRepository {
 
     @Override
     public void save(User user) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement(
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement(
                     "INSERT INTO users(uuid, firstname, lastname, email, password)" +
                         "VALUES(?,?,?,?,?)");
-            statement.setString(1, user.getId().asString());
-            statement.setString(2, user.getFirstname());
-            statement.setString(3, user.getLastname());
-            statement.setString(4, user.getEmail());
-            statement.setString(5, user.getPassword());
+            stmt.setString(1, user.getId().asString());
+            stmt.setString(2, user.getFirstname());
+            stmt.setString(3, user.getLastname());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.getPassword());
 
-            statement.execute();
+            stmt.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
     }
 
     @Override
     public void remove(UserId id) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement(
+                    "DELETE FROM users WHERE uuid=(?)"
+            );
+            stmt.setString(1, id.asString());
+            stmt.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
     }
 
     @Override
     public Optional<User> findById(UserId id) {
-        // TODO Factorize
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
         try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM users WHERE uuid=?");
-            statement.setString(1, id.asString());
-            ResultSet res = statement.executeQuery();
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM users WHERE uuid=?");
+            stmt.setString(1, id.asString());
+            rs = stmt.executeQuery();
 
-            ArrayList<User> matches = new ArrayList<>();
-
-            while(res.next()){
-                User user = User.builder()
-                        .id(id)
-                        .firstname(res.getString("firstname"))
-                        .lastname(res.getString("lastname"))
-                        .email(res.getString("email"))
-                        .hashedPassword(res.getString("password"))
-                        .build();
-                matches.add(user);
+            if (rs.next()) {
+                return Optional.of(buildUser(rs));
             }
 
-            /// no matches were found or there is more than one match, something is wrong with the repository
-            // TODO split into 2 checks and throw an exception if greater than 1?
-            if (matches.size() != 1)
-                return Optional.empty();
-
-            return Optional.of(matches.get(0));
-
-        } catch (SQLException e) {
-            //traitement de l'exception
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
         return Optional.empty();
     }
 
     @Override
     public Collection<User> findAll() {
-        return null;
+        LinkedList<User> matches = new LinkedList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM users");
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                matches.add(buildUser(rs));
+            }
+
+            return matches;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+        return matches;
+    }
+
+    private User buildUser(ResultSet rs) throws SQLException {
+        return User.builder()
+                .id(new UserId(rs.getString("uuid")))
+                .firstname(rs.getString("firstname"))
+                .lastname(rs.getString("lastname"))
+                .email(rs.getString("email"))
+                .hashedPassword(rs.getString("password"))
+                .build();
     }
 
 

@@ -21,7 +21,7 @@
                     <p class="textLimiter textLimiter--2 text-gray-700">${question.content}</p>
                     <hr class="my-3 border-gray-300">
                     <div class="oneLineContainer">
-                        <span class="subtitle">0 votes • 0 answers</span> <!-- TODO retrieve actual data -->
+                        <span class="subtitle">${question.votes.count} votes • ${question.answers.answers.size()} answers</span>
                         <span class="subtitle">${question.creationDate.toString()}</span>
                     </div>
                 </div>
