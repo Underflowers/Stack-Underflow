@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "EditProfileServlet", urlPatterns = "/edit-profile")
+@WebServlet(name = "EditProfileServlet", urlPatterns = "/profile/edit")
 public class EditProfileServlet extends HttpServlet {
 
     @Override

@@ -13,7 +13,7 @@
     <div class="max-w-3xl m-auto">
         <div class="flex items-center justify-between">
             <h1 class="h1">${user.firstname} ${user.lastname}</h1>
-            <a href="/edit-profile" class="link">Edit profile</a>
+            <a href="${pageContext.request.contextPath}/profile/edit" class="link">Edit profile</a>
         </div>
         <p>${user.email}</p>
 

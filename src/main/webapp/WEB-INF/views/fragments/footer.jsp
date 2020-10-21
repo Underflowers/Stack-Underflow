@@ -16,10 +16,10 @@
                         <h4 class="h4">Links</h4>
                         <ul class="list-unstyled">
                             <li>
-                                <a class="footer__link footer__text" href="questions">Questions</a>
+                                <a class="footer__link footer__text" href="${pageContext.request.contextPath}/questions">Questions</a>
                             </li>
                             <li>
-                                <a class="footer__link footer__text" href="statistics">Statistics</a>
+                                <a class="footer__link footer__text" href="${pageContext.request.contextPath}/statistics">Statistics</a>
                             </li>
                             <li>
                                 <a class="footer__link footer__text" href="https://github.com/Underflowers/Stack-Underflow" target="_blank">GitHub</a>

@@ -8,7 +8,7 @@
 
         <h1 class="text-4xl font-bold text-rausch">Edit profile</h1>
 
-        <form action="edit-profile.do" method="post">
+        <form action="${pageContext.request.contextPath}/profile/edit.do" method="post">
             <input id="firstname" name="firstname" type="text" placeholder="Firstname" class="input-text" value="${user.firstname}"/>
             <input id="lastname" name="lastname" type="text" placeholder="Lastname" class="input-text" value="${user.lastname}"/>
             <input id="email" name="email" type="email" placeholder="Email address" class="input-text" value="${user.email}"/>

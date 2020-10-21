@@ -5,7 +5,7 @@
         <div class="text-xs py-2">${comment.content} - ${comment.author} @ ${comment.createdAt.toString()}</div>
     </c:forEach>
 </div>
-<form action="comment.do" method="post">
+<form action="${pageContext.request.contextPath}/comment.do" method="post">
 
     <input id="answerUuid" name="answerUuid" type="hidden" value="${param.answerUuid}"/>
     <input id="questionUuid" name="questionUuid" type="hidden" value="${param.questionuuid}" />

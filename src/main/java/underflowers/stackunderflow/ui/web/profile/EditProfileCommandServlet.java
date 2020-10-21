@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "EditProfileCommandServlet", urlPatterns = "/edit-profile.do")
+@WebServlet(name = "EditProfileCommandServlet", urlPatterns = "/profile/edit.do")
 public class EditProfileCommandServlet extends HttpServlet {
 
     @Inject
@@ -28,7 +28,7 @@ public class EditProfileCommandServlet extends HttpServlet {
         // Check that new password and new password repeat must be same
         if(!request.getParameter("newPassword").equals(request.getParameter("newPasswordRepeat"))){
             request.getSession().setAttribute("errors", List.of("New password and new password repeat must be the same"));
-            response.sendRedirect("edit-profile");
+            response.sendRedirect("/profile/edit");
         }
 
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
@@ -48,7 +48,7 @@ public class EditProfileCommandServlet extends HttpServlet {
             response.sendRedirect("/profile");
         } catch (EditUserFailedException e) {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
-            response.sendRedirect("/edit-profile");
+            response.sendRedirect("/profile/edit");
         }
     }
 }

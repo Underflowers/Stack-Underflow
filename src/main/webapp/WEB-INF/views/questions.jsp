@@ -9,7 +9,7 @@
         <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${questions.questions.size()})</span></h1>
 
         <c:if test="${authUser != null}">
-            <a href="ask" class="btn btn--primary my-2">+ New Question</a>
+            <a href="${pageContext.request.contextPath}/ask" class="btn btn--primary my-2">+ New Question</a>
         </c:if>
     </div>
 
