@@ -1,6 +1,6 @@
 package underflowers.stackunderflow.domain.question.answers;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import underflowers.stackunderflow.domain.question.answer.Answer;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AnswerTest {
 
-    @org.junit.Test
+    @Test
     public void buildWithNoQuestionThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Answer.builder()
                 .authorUUID(new UserId())
@@ -18,7 +18,7 @@ public class AnswerTest {
         );
     }
 
-    @org.junit.Test
+    @Test
     public void buildWithNoAuthorThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Answer.builder()
                 .questionUUID(new QuestionId())
@@ -27,7 +27,7 @@ public class AnswerTest {
         );
     }
 
-    @org.junit.Test
+    @Test
     public void buildWithNoContentThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Answer.builder()
                 .authorUUID(new UserId())
