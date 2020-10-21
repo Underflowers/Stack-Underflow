@@ -16,7 +16,7 @@ services:
       - stackunderflow_db:/var/lib/mysql
 
   web:
-    image: ghcr.io/underflowers/stack-underflow:latest
+    image: ghcr.io/underflowers/stackunderflow:latest
     container_name: stackunderflow
     ports:
       - "9088:9080"
