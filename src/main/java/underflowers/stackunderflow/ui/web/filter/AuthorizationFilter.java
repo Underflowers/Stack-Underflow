@@ -35,7 +35,12 @@ public class AuthorizationFilter implements Filter {
                 || uri.startsWith("/login")
                 || uri.startsWith("/register")
                 || uri.startsWith("/home")
+                || uri.startsWith("/question")
                 || uri.startsWith("/questions")
-                || uri.equals("/"); // Homepage
+                || uri.startsWith("/question")
+                || uri.startsWith("/statistics")
+                || uri.startsWith("/search.do")
+                || uri.equals("/") // Homepage
+                || uri.equals("/arquillian-managed/ArquillianServletRunner"); // Arquillian servlet used for integration tests
     }
 }

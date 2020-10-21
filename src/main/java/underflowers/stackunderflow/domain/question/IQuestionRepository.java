@@ -7,5 +7,5 @@ import underflowers.stackunderflow.domain.user.UserId;
 import java.util.Collection;
 
 public interface IQuestionRepository extends IRepository<Question, QuestionId> {
-    public Collection<Question> find(QuestionsQuery query);
+    Collection<Question> find(QuestionsQuery query);
 }

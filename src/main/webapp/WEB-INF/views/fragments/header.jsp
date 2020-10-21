@@ -14,23 +14,27 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="h-full flex flex-col">
+
     <header class="bg-white">
-        <nav class="flex flex-wrap items-center justify-between p-6 border-b-2">
+        <nav class="flex flex-wrap items-center justify-between p-4 border-b-2">
             <div class="container flex flex-wrap mx-auto items-center justify-between">
                 <div class="flex items-center flex-shrink-0 text-hof mr-6">
                     <a class="inline-block" href="${pageContext.request.contextPath}/">
                         <span class="font-semibold text-xl tracking-tight">Stack Underflow</span>
                     </a>
+                    <form action="search.do" method="post">
+                        <input id="search" name="search" type="text" class="mt-3 ml-5 bg-gray-200 p-2 rounded-md" placeholder="Search a question">
+                    </form>
                 </div>
                 <div class="block flex-grow flex items-center w-auto">
                     <div class="text-md lg:flex-grow">
                         <a href="questions" class="link link--nav">Questions</a>
-                        <a href="#" class="link link--nav">Tags</a>
+                        <a href="statistics" class="link link--nav">Statistics</a>
                     </div>
                     <div class="flex items-center">
                         <c:choose>
                             <c:when test="${authUser != null}">
-                                <span class="subtitle mr-2">${authUser.email}</span>
+                                <a class="subtitle link link--nav mr-2" href="profile">${authUser.email}</a>
                                 <form action="logout.do" method="post" class="m-0">
                                     <button type="submit" class="btn btn--small btn--secondary-border">Logout</button>
                                 </form>

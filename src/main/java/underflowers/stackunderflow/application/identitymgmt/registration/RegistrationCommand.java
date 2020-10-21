@@ -12,5 +12,4 @@ public class RegistrationCommand {
     private String lastname;
     private String email;
     private String clearPassword;
-    private String repeatPassword;
 }

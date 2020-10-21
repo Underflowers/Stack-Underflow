@@ -1,12 +1,14 @@
 package underflowers.stackunderflow.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.validation.constraints.Null;
 import java.util.UUID;
 
 @EqualsAndHashCode
 public abstract class Id {
+    @Getter
     private UUID id;
 
     public Id() {

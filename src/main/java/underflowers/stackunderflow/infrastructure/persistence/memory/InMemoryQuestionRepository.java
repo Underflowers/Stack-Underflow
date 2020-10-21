@@ -17,4 +17,9 @@ public class InMemoryQuestionRepository extends InMemoryRepository<Question, Que
         // TODO
         return super.findAll();
     }
+
+    @Override
+    public int count() {
+        return findAll().size();
+    }
 }

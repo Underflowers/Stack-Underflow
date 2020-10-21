@@ -11,10 +11,10 @@ import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.text.DateFormatter;
+import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -37,56 +37,164 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     public Collection<Question> find(QuestionsQuery query) {
         LinkedList<Question> matches = new LinkedList<>();
 
-        try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement("SELECT * FROM questions");
-            ResultSet res = statement.executeQuery();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-            while (res.next()) {
-                Question question = Question.builder()
-                        .id(new QuestionId(res.getString("uuid")))
-                        .authorUUID(new UserId(res.getString("users_uuid")))
-                        .title(res.getString("title"))
-                        .content(res.getString("description"))
-                        .creationDate(LocalDate.now()) // TODO fix me
-                        .build();
-                matches.add(question);
+        try {
+            conn = dataSource.getConnection();
+            if(query.getAuthorId() != null) { // Question from specific user
+                stmt = conn.prepareStatement("SELECT * FROM questions WHERE users_uuid=? ORDER BY created_at DESC");
+                stmt.setString(1, query.getAuthorId().asString());
+            } else { // All questions
+                stmt = conn.prepareStatement("SELECT * FROM questions ORDER BY created_at DESC");
             }
-        } catch (SQLException e) {
-            //traitement de l'exception
+
+            rs = stmt.executeQuery();
+
+            while (rs.next())
+                matches.add(buildQuestion(rs));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
+
         return matches;
     }
 
     @Override
-    public void save(Question question) {
-        try {
-            PreparedStatement statement = dataSource.getConnection().prepareStatement(
-                    "INSERT INTO questions(uuid, title, description, created_at, users_uuid)" +
-                            "VALUES(?,?,?,?,?)");
-            statement.setString(1, question.getId().asString());
-            statement.setString(2, question.getTitle());
-            statement.setString(3, question.getContent());
-            statement.setString(4, question.getCreationDate().toString());
-            statement.setString(5, question.getAuthorUUID().asString());
+    public int count() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-            statement.execute();
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("SELECT COUNT(*) AS countEntity FROM questions");
+            rs = stmt.executeQuery();
+            rs.next();
+            return rs.getInt("countEntity");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+
+        return 0;
+    }
+
+    @Override
+    public void save(Question question) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement(
+                    "INSERT INTO questions(uuid, title, description, created_at, users_uuid)" +
+                            "VALUES(?,?,?,?,?)");
+            stmt.setString(1, question.getId().asString());
+            stmt.setString(2, question.getTitle());
+            stmt.setString(3, question.getContent());
+            stmt.setString(4, question.getCreationDate().toString());
+            stmt.setString(5, question.getAuthorUUID().asString());
+
+            stmt.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
     }
 
     @Override
     public void remove(QuestionId id) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement(
+                    "DELETE FROM questions WHERE uuid=(?)"
+            );
+            stmt.setString(1, id.asString());
+            stmt.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
     }
 
     @Override
     public Optional<Question> findById(QuestionId id) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM questions WHERE uuid=?");
+            stmt.setString(1, id.asString());
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return Optional.of(buildQuestion(rs));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+
         return Optional.empty();
     }
 
     @Override
     public Collection<Question> findAll() {
-        return null;
+        LinkedList<Question> matches = new LinkedList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM questions");
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                matches.add(buildQuestion(rs));
+            }
+
+            return matches;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+        return matches;
+    }
+
+    private Question buildQuestion(ResultSet res) throws SQLException {
+        return Question.builder()
+                .id(new QuestionId(res.getString("uuid")))
+                .authorUUID(new UserId(res.getString("users_uuid")))
+                .title(res.getString("title"))
+                .content(res.getString("description"))
+                .creationDate(LocalDate.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .build();
     }
 }

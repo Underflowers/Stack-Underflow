@@ -6,5 +6,5 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface IUserRepository extends IRepository<User, UserId> {
-    public Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }
