@@ -5,8 +5,7 @@
 
 <c:if test="${updated == true}">
     <div class="success">
-        <span class="material-icons">done</span>
-        <span><b class="font-bold">${user.firstname} ${user.lastname}</b> successfully updated</span><br>
+        <span><i class="fas fa-check mr-5"></i><b class="font-bold">${user.firstname} ${user.lastname}</b> successfully updated</span><br>
     </div>
 </c:if>
 
