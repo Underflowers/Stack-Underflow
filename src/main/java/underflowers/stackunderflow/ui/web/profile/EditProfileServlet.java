@@ -14,6 +14,7 @@ public class EditProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         // Retrieve current user
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         request.setAttribute("user", currentUser);

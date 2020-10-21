@@ -45,7 +45,7 @@ public class RegisterCommandServlet  extends javax.servlet.http.HttpServlet {
             request.getRequestDispatcher("login.do").forward(request, response);
         } catch (RegistrationFailedException e) {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
-            response.sendRedirect(" register");
+            response.sendRedirect("register");
         }
     }
 }

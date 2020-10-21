@@ -3,11 +3,18 @@
 
 <jsp:include page="fragments/header.jsp"/>
 
+<c:if test="${updated == true}">
+    <div class="success">
+        <span class="material-icons">done</span>
+        <span><b class="font-bold">${user.firstname} ${user.lastname}</b> successfully updated</span><br>
+    </div>
+</c:if>
+
 <div class="container container-content">
     <div class="max-w-3xl m-auto">
         <div class="flex items-center justify-between">
             <h1 class="h1">${user.firstname} ${user.lastname}</h1>
-            <a href="#" class="link">Edit profile</a>
+            <a href="/edit-profile" class="link">Edit profile</a>
         </div>
         <p>${user.email}</p>
 

@@ -29,6 +29,12 @@ public class ProfileServlet extends HttpServlet {
 
         request.getSession().removeAttribute("errors");
 
+        // Updated profile successfully
+        if(request.getSession().getAttribute("updated") != null){
+            request.getSession().removeAttribute("updated");
+            request.setAttribute("updated", true);
+        }
+
         // Retrieve current user
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         request.setAttribute("user", currentUser);
@@ -42,7 +48,6 @@ public class ProfileServlet extends HttpServlet {
         // User's answers count
         AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authUser(currentUser.getUuid()).build());
         request.setAttribute("answersCount", userAnswers.getAnswers().size());
-
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }
 }
