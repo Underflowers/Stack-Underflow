@@ -178,7 +178,6 @@ public class JdbcAnswerRepository implements IAnswerRepository {
             try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
 
-        matches.sort((lhs, rhs) -> lhs.getCreatedAt().isBefore(rhs.getCreatedAt()) ? 0 : -1);
         return matches;
     }
 

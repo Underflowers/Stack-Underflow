@@ -43,12 +43,16 @@ public class JdbcQuestionRepository implements IQuestionRepository {
 
         try {
             conn = dataSource.getConnection();
-            stmt = conn.prepareStatement("SELECT * FROM questions ORDER BY created_at DESC");
+            if (query.getSearchTerm() != null) {
+                stmt = conn.prepareStatement("SELECT * FROM questions WHERE title LIKE ? ORDER BY created_at DESC");
+                stmt.setString(1, "%"+query.getSearchTerm()+"%");
+            } else
+                stmt = conn.prepareStatement("SELECT * FROM questions ORDER BY created_at DESC");
+
             rs = stmt.executeQuery();
 
-            while (rs.next()) {
+            while (rs.next())
                 matches.add(buildQuestion(rs));
-            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -56,6 +60,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
             try { if (stmt != null) stmt.close(); } catch (Exception e) {};
             try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
+
         return matches;
     }
 

@@ -23,15 +23,7 @@
                 <span class="subtitle">${question.creationDate.toString()}</span>
             </div>
         </div>
-
-        <c:forEach var="comment" items="${question.comments.comments}">
-            <p class="subtitle">${comment.author} comments</p>
-            <p>${comment.content}</p>
-            <div class="oneLineContainer">
-                <span class="subtitle">${comment.createdAt.toString()}</span>
-            </div>
-        </c:forEach>
-
+        <c:set var="comments" value="${question.comments.comments}" scope="request" />
         <jsp:include page="fragments/comment.jsp">
             <jsp:param name="questionuuid" value="${question.uuid}"/>
         </jsp:include>
@@ -54,14 +46,7 @@
                     <span class="subtitle">${answer.createdAt.toString()}</span>
                 </div>
 
-                <c:forEach var="comment" items="${answer.comments.comments}">
-                    <p class="subtitle">${comment.author} comments</p>
-                    <p>${comment.content}</p>
-                    <div class="oneLineContainer">
-                        <span class="subtitle">${comment.createdAt.toString()}</span>
-                    </div>
-                </c:forEach>
-
+                <c:set var="comments" value="${answer.comments.comments}" scope="request" />
                 <jsp:include page="fragments/comment.jsp">
                     <jsp:param name="answerUuid" value="${answer.uuid}"/>
                     <jsp:param name="questionuuid" value="${question.uuid}"/>
