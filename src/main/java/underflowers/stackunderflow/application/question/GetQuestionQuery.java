@@ -1,16 +1,15 @@
-package underflowers.stackunderflow.application.answer;
+package underflowers.stackunderflow.application.question;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
 @Builder
 @Getter
 @EqualsAndHashCode
-public class AnswersQuery {
+public class GetQuestionQuery {
     private QuestionId id;
 
     @Builder.Default

@@ -102,7 +102,7 @@ public class AnswerFacadeTestIT {
 
         int nbAnswersToAdd = 3;
         int nbAnswersBeforeTest = answerFacade.getAnswers(AnswersQuery.builder()
-                .questionId(qid)
+                .id(qid)
                 .build()
         ).getAnswers().size();
 
@@ -119,7 +119,7 @@ public class AnswerFacadeTestIT {
         }
 
         AnswersQuery answersQuery = AnswersQuery.builder()
-                .questionId(qid)
+                .id(qid)
                 .build();
         assertEquals(nbAnswersBeforeTest + nbAnswersToAdd, answerFacade.getAnswers(answersQuery).getAnswers().size());
     }
@@ -131,7 +131,7 @@ public class AnswerFacadeTestIT {
 
         int nbAnswersToAdd = 3;
         int nbAnswersBeforeTest = answerFacade.getAnswers(AnswersQuery.builder()
-                .authorId(uid)
+                .authUser(uid)
                 .build()
         ).getAnswers().size();
 
@@ -148,7 +148,7 @@ public class AnswerFacadeTestIT {
         }
 
         AnswersQuery answersQuery = AnswersQuery.builder()
-                .authorId(uid)
+                .authUser(uid)
                 .build();
         assertEquals(nbAnswersBeforeTest + nbAnswersToAdd, answerFacade.getAnswers(answersQuery).getAnswers().size());
     }

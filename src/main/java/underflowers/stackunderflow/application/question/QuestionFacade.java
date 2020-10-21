@@ -3,9 +3,10 @@ package underflowers.stackunderflow.application.question;
 import underflowers.stackunderflow.application.answer.AnswerFacade;
 import underflowers.stackunderflow.application.answer.AnswersQuery;
 import underflowers.stackunderflow.application.comment.CommentFacade;
+import underflowers.stackunderflow.application.vote.VotesQuery;
+import underflowers.stackunderflow.application.vote.VoteFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
-import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
@@ -21,12 +22,15 @@ public class QuestionFacade {
     private IUserRepository userRepository;
     private AnswerFacade answerFacade;
     private CommentFacade commentFacade;
+    private VoteFacade voteFacade;
 
-    public QuestionFacade(IQuestionRepository questionRepository, IUserRepository userRepository, AnswerFacade answerFacade, CommentFacade commentFacade) {
+    public QuestionFacade(IQuestionRepository questionRepository, IUserRepository userRepository,
+                          AnswerFacade answerFacade, CommentFacade commentFacade, VoteFacade voteFacade) {
         this.answerFacade = answerFacade;
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
         this.commentFacade = commentFacade;
+        this.voteFacade = voteFacade;
     }
 
     public void proposeQuestion(ProposeQuestionCommand command) throws IncompleteQuestionException {
@@ -55,6 +59,13 @@ public class QuestionFacade {
                             .title(question.getTitle())
                             .content(question.getContent())
                             .creationDate(question.getCreationDate())
+                            .answers(answerFacade.getAnswers(AnswersQuery.builder()
+                                    .id(question.getId())
+                                    .build()))
+                            .comments(commentFacade.getQuestionComments(question.getId()))
+                            .votes(voteFacade.getVotes(VotesQuery.builder()
+                                    .relatedQuestion(question.getId())
+                                    .build()))
                             .build();
                 }
         ).collect(Collectors.toList());
@@ -64,9 +75,10 @@ public class QuestionFacade {
             .build();
     }
 
-    public QuestionsDTO.QuestionDTO getQuestion(QuestionId id) {
-        Question question = questionRepository.findById(id).orElse(null);
+    public QuestionsDTO.QuestionDTO getQuestion(GetQuestionQuery command) {
+        Question question = questionRepository.findById(command.getId()).orElse(null);
         User author = userRepository.findById(question.getAuthorUUID()).get();
+
 
         return QuestionsDTO.QuestionDTO.builder()
                 .uuid(question.getId().getId())
@@ -74,8 +86,15 @@ public class QuestionFacade {
                 .title(question.getTitle())
                 .content(question.getContent())
                 .creationDate(question.getCreationDate())
-                .answers(answerFacade.getAnswers(AnswersQuery.builder().questionId(question.getId()).build()))
+                .answers(answerFacade.getAnswers(AnswersQuery.builder()
+                        .id(command.getId())
+                        .authUser(command.getAuthUser())
+                        .build()))
                 .comments(commentFacade.getQuestionComments(question.getId()))
+                .votes(voteFacade.getVotes(VotesQuery.builder()
+                        .user(command.getAuthUser())
+                        .relatedQuestion(command.getId())
+                        .build()))
                 .build();
     }
 

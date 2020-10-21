@@ -40,7 +40,7 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("questions", userQuestions);
 
         // User's answers count
-        AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authorId(currentUser.getUuid()).build());
+        AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authUser(currentUser.getUuid()).build());
         request.setAttribute("answersCount", userAnswers.getAnswers().size());
 
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);

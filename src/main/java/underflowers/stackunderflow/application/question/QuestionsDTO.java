@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Singular;
 import underflowers.stackunderflow.application.answer.AnswersDTO;
 import underflowers.stackunderflow.application.comment.CommentsDTO;
+import underflowers.stackunderflow.application.vote.VotesDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,7 @@ public class QuestionsDTO {
         private String content;
         private LocalDate creationDate;
 
+        private VotesDTO votes;
         private AnswersDTO answers;
         private CommentsDTO comments;
     }

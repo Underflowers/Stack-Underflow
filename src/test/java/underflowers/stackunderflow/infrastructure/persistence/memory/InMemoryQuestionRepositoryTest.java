@@ -16,8 +16,6 @@ public class InMemoryQuestionRepositoryTest {
     private Question question;
     private QuestionId questionId = new QuestionId();
 
-    // TODO: discuss if save should clone or not
-
     @BeforeEach
     public void prepareRepository() {
         this.repo = new InMemoryQuestionRepository();
