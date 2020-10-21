@@ -36,7 +36,8 @@ public class VoteCommandServlet extends HttpServlet {
         }
 
         if (!request.getParameter("answerUuid").isEmpty()) {
-            answerId = new AnswerId(request.getParameter("answerUuid"));
+            String aaa = request.getParameter("answerUuid");
+            answerId = new AnswerId(aaa);
         }
 
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");

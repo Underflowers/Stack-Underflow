@@ -40,7 +40,7 @@
                         <jsp:param name="isUpvote" value="${answer.votes.isAuthUserUpvote.orElse(false)}"/>
                         <jsp:param name="count" value="${answer.votes.count}"/>
                         <jsp:param name="isDownvote" value="${answer.votes.isAuthUserUpvote.orElse(true)}"/>
-                        <jsp:param name="answerUuid" value="${answer.uuid}"/>
+                        <jsp:param name="answerUuid" value="${answer.uuid.asString()}"/>
                         <jsp:param name="redirectUuid" value="${question.uuid}"/>
                     </jsp:include>
                     <span class="subtitle">${answer.createdAt.toString()}</span>
@@ -48,7 +48,7 @@
 
                 <c:set var="comments" value="${answer.comments.comments}" scope="request" />
                 <jsp:include page="fragments/comment.jsp">
-                    <jsp:param name="answerUuid" value="${answer.uuid}"/>
+                    <jsp:param name="answerUuid" value="${answer.uuid.asString()}"/>
                     <jsp:param name="questionuuid" value="${question.uuid}"/>
                 </jsp:include>
             </div>

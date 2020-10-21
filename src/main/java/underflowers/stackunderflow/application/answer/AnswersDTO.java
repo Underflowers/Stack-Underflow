@@ -6,10 +6,11 @@ import lombok.Getter;
 import lombok.Singular;
 import underflowers.stackunderflow.application.comment.CommentsDTO;
 import underflowers.stackunderflow.application.vote.VotesDTO;
+import underflowers.stackunderflow.domain.answer.AnswerId;
+import underflowers.stackunderflow.domain.question.QuestionId;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Builder
 @Getter
@@ -20,7 +21,8 @@ public class AnswersDTO {
     @Getter
     @EqualsAndHashCode
     public static class AnswerDTO {
-        private UUID uuid;
+        private AnswerId uuid;
+        private QuestionId questionUuid;
         private String author;
         private String content;
         private LocalDateTime createdAt;
