@@ -32,9 +32,10 @@ public class AnswerFacade {
         this.voteFacade = voteFacade;
     }
 
-    public void giveAnswer(GiveAnswerCommand command) throws IncompleteQuestionException {
+    public void giveAnswer(GiveAnswerCommand command) throws InvalidAnswerException {
         try {
             Answer givenAnswer = Answer.builder()
+                    .id(command.getUuid())
                     .authorUUID(command.getAuthorUUID())
                     .questionUUID(command.getQuestionUUID())
                     .content(command.getText())
@@ -42,25 +43,25 @@ public class AnswerFacade {
                     .build();
             answerRepository.save(givenAnswer);
         } catch (Exception e) {
-            throw new IncompleteQuestionException(e.getMessage());
+            throw new InvalidAnswerException(e.getMessage());
         }
     }
 
-    public AnswersDTO getAnswers(AnswersQuery command) {
-        Collection<Answer> allAnswers = answerRepository.find(command.getId());
+    public AnswersDTO getAnswers(AnswersQuery query) {
+        Collection<Answer> allAnswers = answerRepository.find(query);
 
         List<AnswersDTO.AnswerDTO> allAnswersDTO = allAnswers.stream().map(answer -> {
                     User author = userRepository.findById(answer.getAuthorUUID()).get();
 
                     return AnswersDTO.AnswerDTO.builder()
-                            .uuid(answer.getId().getId())
-                            .questionUuid(command.getId().getId())
+                            .uuid(answer.getId())
+                            .questionUuid(query.getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .content(answer.getContent())
                             .createdAt(answer.getCreatedAt())
                             .comments(commentFacade.getAnswerComments(answer.getId()))
                             .votes(voteFacade.getVotes(VotesQuery.builder()
-                                    .user(command.getAuthUser())
+                                    .user(query.getAuthUser())
                                     .relatedAnswer(answer.getId())
                                     .build()))
                             .build();

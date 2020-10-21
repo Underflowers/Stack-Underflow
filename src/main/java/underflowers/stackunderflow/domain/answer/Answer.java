@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class Answer implements IEntity<Answer, AnswerId> {
 
     @Setter(AccessLevel.NONE)
-    private AnswerId id = new AnswerId();
+    private AnswerId id;
     private UserId authorUUID;
     private QuestionId questionUUID;
     private String content;
@@ -20,13 +20,20 @@ public class Answer implements IEntity<Answer, AnswerId> {
 
     public static class AnswerBuilder {
         public Answer build() {
-            if (id == null) {
+            if (id == null)
                 id = new AnswerId();
-            }
 
-            if (content == null || content.isEmpty()) {
-                throw new IllegalArgumentException("Content is mandatory");
-            }
+            if (authorUUID == null)
+                throw new IllegalArgumentException("Answer must have an author ID.");
+
+            if (questionUUID == null)
+                throw new IllegalArgumentException("Answer must have a question ID.");
+
+            if (content == null || content.isEmpty())
+                throw new IllegalArgumentException("Answer must have a content.");
+
+            if (createdAt == null)
+                createdAt = LocalDateTime.now();
 
             return new Answer(id, authorUUID, questionUUID, content, createdAt);
         }
@@ -35,7 +42,7 @@ public class Answer implements IEntity<Answer, AnswerId> {
     @Override
     public Answer deepClone() {
         return Answer.builder()
-                .id(new AnswerId())
+                .id(new AnswerId(this.id.asString()))
                 .authorUUID(authorUUID)
                 .questionUUID(questionUUID)
                 .content(content)

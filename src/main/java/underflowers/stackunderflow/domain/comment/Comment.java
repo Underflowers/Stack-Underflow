@@ -26,7 +26,6 @@ public class Comment implements IEntity<Comment, CommentId> {
 
     public static class CommentBuilder {
         public Comment build() {
-            System.out.println("building life");
             if (id == null)
                 id = new CommentId();
 
@@ -39,6 +38,9 @@ public class Comment implements IEntity<Comment, CommentId> {
             if (content == null || content.isEmpty())
                 throw new java.lang.IllegalArgumentException("Content is mandatory!");
 
+            if(createdAt == null)
+                createdAt = LocalDateTime.now();
+
             return new Comment(id, authorId, answerId, questionId, content, createdAt);
         }
     }
@@ -46,7 +48,7 @@ public class Comment implements IEntity<Comment, CommentId> {
     @Override
     public Comment deepClone() {
         return Comment.builder()
-                .id(new CommentId())
+                .id(new CommentId(this.id.asString()))
                 .authorId(authorId)
                 .answerId(answerId)
                 .questionId(questionId)

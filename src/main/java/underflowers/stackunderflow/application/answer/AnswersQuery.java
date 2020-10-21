@@ -3,6 +3,7 @@ package underflowers.stackunderflow.application.answer;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 

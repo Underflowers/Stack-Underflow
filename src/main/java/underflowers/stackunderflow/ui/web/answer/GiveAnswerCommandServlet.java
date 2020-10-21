@@ -3,6 +3,7 @@ package underflowers.stackunderflow.ui.web.answer;
 import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.answer.AnswerFacade;
 import underflowers.stackunderflow.application.answer.GiveAnswerCommand;
+import underflowers.stackunderflow.application.answer.InvalidAnswerException;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.question.IncompleteQuestionException;
 import underflowers.stackunderflow.application.question.ProposeQuestionCommand;
@@ -38,7 +39,7 @@ public class GiveAnswerCommandServlet extends HttpServlet {
 
         try {
             answerFacade.giveAnswer(command);
-        } catch (IncompleteQuestionException e) {
+        } catch (InvalidAnswerException e) {
             request.getSession().setAttribute("errors", List.of(e.getMessage()));
         }
         response.sendRedirect("/question?uuid=" + request.getParameter("questionUuid"));

@@ -21,7 +21,6 @@ public class AnswersDTO {
     @EqualsAndHashCode
     public static class AnswerDTO {
         private UUID uuid;
-        private UUID questionUuid;
         private String author;
         private String content;
         private LocalDateTime createdAt;

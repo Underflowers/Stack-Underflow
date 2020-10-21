@@ -1,9 +1,9 @@
 package underflowers.stackunderflow.infrastructure.persistence.jdbc;
 
+import underflowers.stackunderflow.application.answer.AnswersQuery;
 import underflowers.stackunderflow.domain.answer.Answer;
 import underflowers.stackunderflow.domain.answer.AnswerId;
 import underflowers.stackunderflow.domain.answer.IAnswerRepository;
-import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
@@ -13,6 +13,10 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -154,7 +158,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
     }
 
     @Override
-    public Collection<Answer> find(QuestionId questionId) {
+    public Collection<Answer> find(AnswersQuery query) {
         LinkedList<Answer> matches = new LinkedList<>();
 
         Connection conn = null;
@@ -163,8 +167,23 @@ public class JdbcAnswerRepository implements IAnswerRepository {
 
         try {
             conn = dataSource.getConnection();
-            stmt = conn.prepareStatement("SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC");
-            stmt.setString(1, questionId.asString());
+
+            if(query.getId() != null) { // Answers from a specific question
+                stmt = conn.prepareStatement(
+                        "SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC"
+                );
+                stmt.setString(1, query.getId().asString());
+            } else if(query.getAuthUser() != null) { // Answers from a specific user
+                stmt = conn.prepareStatement(
+                        "SELECT * FROM answers WHERE users_uuid=? ORDER BY created_at DESC"
+                );
+                stmt.setString(1, query.getAuthUser().asString());
+            } else { // All answers
+                stmt = conn.prepareStatement(
+                        "SELECT * FROM answers"
+                );
+            }
+
             rs = stmt.executeQuery();
 
             while (rs.next()) {
