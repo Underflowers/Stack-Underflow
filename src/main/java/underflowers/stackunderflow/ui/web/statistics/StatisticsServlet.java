@@ -1,7 +1,7 @@
 package underflowers.stackunderflow.ui.web.statistics;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
-import underflowers.stackunderflow.application.answer.AnswerFacade;
+import underflowers.stackunderflow.application.question.answer.AnswerFacade;
 import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 

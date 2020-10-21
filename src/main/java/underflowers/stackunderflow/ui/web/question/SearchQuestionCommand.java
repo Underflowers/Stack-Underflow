@@ -1,7 +1,6 @@
 package underflowers.stackunderflow.ui.web.question;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
-import underflowers.stackunderflow.application.comment.CommentCommand;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.application.question.QuestionsDTO;
 import underflowers.stackunderflow.application.question.QuestionsQuery;

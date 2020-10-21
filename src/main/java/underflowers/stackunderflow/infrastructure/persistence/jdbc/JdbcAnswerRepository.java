@@ -1,9 +1,9 @@
 package underflowers.stackunderflow.infrastructure.persistence.jdbc;
 
-import underflowers.stackunderflow.application.answer.AnswersQuery;
-import underflowers.stackunderflow.domain.answer.Answer;
-import underflowers.stackunderflow.domain.answer.AnswerId;
-import underflowers.stackunderflow.domain.answer.IAnswerRepository;
+import underflowers.stackunderflow.application.question.answer.AnswersQuery;
+import underflowers.stackunderflow.domain.question.answer.Answer;
+import underflowers.stackunderflow.domain.question.answer.AnswerId;
+import underflowers.stackunderflow.domain.question.answer.IAnswerRepository;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
@@ -12,11 +12,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;

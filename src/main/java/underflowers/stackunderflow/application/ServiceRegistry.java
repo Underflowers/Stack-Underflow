@@ -1,15 +1,15 @@
 package underflowers.stackunderflow.application;
 
-import underflowers.stackunderflow.application.answer.AnswerFacade;
-import underflowers.stackunderflow.application.comment.CommentFacade;
+import underflowers.stackunderflow.application.question.answer.AnswerFacade;
+import underflowers.stackunderflow.application.question.comment.CommentFacade;
 import underflowers.stackunderflow.application.identitymgmt.IdentityManagementFacade;
 import underflowers.stackunderflow.application.question.QuestionFacade;
-import underflowers.stackunderflow.application.vote.VoteFacade;
-import underflowers.stackunderflow.domain.answer.IAnswerRepository;
-import underflowers.stackunderflow.domain.comment.ICommentRepository;
+import underflowers.stackunderflow.application.question.vote.VoteFacade;
+import underflowers.stackunderflow.domain.question.answer.IAnswerRepository;
+import underflowers.stackunderflow.domain.question.comment.ICommentRepository;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.user.IUserRepository;
-import underflowers.stackunderflow.domain.vote.IVoteRepository;
+import underflowers.stackunderflow.domain.question.vote.IVoteRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

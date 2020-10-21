@@ -1,10 +1,9 @@
 package underflowers.stackunderflow.infrastructure.persistence.jdbc;
 
-import underflowers.stackunderflow.domain.answer.AnswerId;
-import underflowers.stackunderflow.domain.comment.Comment;
-import underflowers.stackunderflow.domain.comment.CommentId;
-import underflowers.stackunderflow.domain.comment.ICommentRepository;
-import underflowers.stackunderflow.domain.question.Question;
+import underflowers.stackunderflow.domain.question.answer.AnswerId;
+import underflowers.stackunderflow.domain.question.comment.Comment;
+import underflowers.stackunderflow.domain.question.comment.CommentId;
+import underflowers.stackunderflow.domain.question.comment.ICommentRepository;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 

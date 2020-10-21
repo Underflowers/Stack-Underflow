@@ -1,11 +1,11 @@
 package underflowers.stackunderflow.ui.web.question.comment;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
-import underflowers.stackunderflow.application.comment.CommentCommand;
-import underflowers.stackunderflow.application.comment.CommentFacade;
-import underflowers.stackunderflow.application.comment.InvalidCommentException;
+import underflowers.stackunderflow.application.question.comment.CommentCommand;
+import underflowers.stackunderflow.application.question.comment.CommentFacade;
+import underflowers.stackunderflow.application.question.comment.InvalidCommentException;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
-import underflowers.stackunderflow.domain.answer.AnswerId;
+import underflowers.stackunderflow.domain.question.answer.AnswerId;
 import underflowers.stackunderflow.domain.question.QuestionId;
 
 import javax.inject.Inject;

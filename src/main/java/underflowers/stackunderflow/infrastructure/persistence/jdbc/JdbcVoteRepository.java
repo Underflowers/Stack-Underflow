@@ -1,12 +1,12 @@
 package underflowers.stackunderflow.infrastructure.persistence.jdbc;
 
-import underflowers.stackunderflow.application.vote.VotesQuery;
-import underflowers.stackunderflow.domain.answer.AnswerId;
+import underflowers.stackunderflow.application.question.vote.VotesQuery;
+import underflowers.stackunderflow.domain.question.answer.AnswerId;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
-import underflowers.stackunderflow.domain.vote.IVoteRepository;
-import underflowers.stackunderflow.domain.vote.Vote;
-import underflowers.stackunderflow.domain.vote.VoteId;
+import underflowers.stackunderflow.domain.question.vote.IVoteRepository;
+import underflowers.stackunderflow.domain.question.vote.Vote;
+import underflowers.stackunderflow.domain.question.vote.VoteId;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;

@@ -1,9 +1,9 @@
 package underflowers.stackunderflow.ui.web.profile;
 
 import underflowers.stackunderflow.application.ServiceRegistry;
-import underflowers.stackunderflow.application.answer.AnswerFacade;
-import underflowers.stackunderflow.application.answer.AnswersDTO;
-import underflowers.stackunderflow.application.answer.AnswersQuery;
+import underflowers.stackunderflow.application.question.answer.AnswerFacade;
+import underflowers.stackunderflow.application.question.answer.AnswersDTO;
+import underflowers.stackunderflow.application.question.answer.AnswersQuery;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.question.QuestionFacade;
 import underflowers.stackunderflow.application.question.QuestionsDTO;

@@ -1,10 +1,10 @@
 package underflowers.stackunderflow.application.question;
 
-import underflowers.stackunderflow.application.answer.AnswerFacade;
-import underflowers.stackunderflow.application.answer.AnswersQuery;
-import underflowers.stackunderflow.application.comment.CommentFacade;
-import underflowers.stackunderflow.application.vote.VotesQuery;
-import underflowers.stackunderflow.application.vote.VoteFacade;
+import underflowers.stackunderflow.application.question.answer.AnswerFacade;
+import underflowers.stackunderflow.application.question.answer.AnswersQuery;
+import underflowers.stackunderflow.application.question.comment.CommentFacade;
+import underflowers.stackunderflow.application.question.vote.VotesQuery;
+import underflowers.stackunderflow.application.question.vote.VoteFacade;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.user.IUserRepository;
