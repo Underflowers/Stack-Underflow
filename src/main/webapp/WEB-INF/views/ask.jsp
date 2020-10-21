@@ -8,7 +8,7 @@
     <div class="max-w-3xl m-auto">
         <h1 class="text-4xl font-bold text-rausch">Ask your question</h1>
 
-        <form action="ask.do" method="post">
+        <form action="${pageContext.request.contextPath}/ask.do" method="post">
             <input id="title" name="title" type="text" placeholder="Title" class="input-text w-full"/>
             <textarea id="content" name="content" type="text" placeholder="Write your question here..." class="input-text w-full" rows="7"></textarea>
             <br/>

@@ -25,6 +25,11 @@ public class InMemoryUserRepository extends InMemoryRepository<User, UserId> imp
     }
 
     @Override
+    public int update(User user) {
+        return 0;
+    }
+
+    @Override
     public int count() {
         return findAll().size();
     }

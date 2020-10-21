@@ -1,5 +1,6 @@
 package underflowers.stackunderflow.infrastructure.persistence.jdbc;
 
+import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.question.QuestionsQuery;
 import underflowers.stackunderflow.domain.IEntity;
 import underflowers.stackunderflow.domain.IRepository;
@@ -72,6 +73,32 @@ public class JdbcUserRepository implements IUserRepository {
             try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
         return Optional.empty();
+    }
+
+    @Override
+    public int update(User user) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement("UPDATE users SET firstname=?, lastname=?, email=?, password=? WHERE uuid=?");
+            stmt.setString(1, user.getFirstname());
+            stmt.setString(2, user.getLastname());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getPassword());
+            stmt.setString(5, user.getId().asString());
+            return stmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
+
+        return 0;
     }
 
     @Override

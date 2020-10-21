@@ -54,7 +54,7 @@
             </div>
         </c:forEach>
 
-        <form action="answer.do" method="post">
+        <form action="${pageContext.request.contextPath}/answer.do" method="post">
             <input id="questionUuid" name="questionUuid" type="hidden" value="${question.uuid}" />
             <textarea id="content" name="content" type="text" placeholder="Write your answer here..." class="input-text w-full" rows="7"></textarea>
             <br/>

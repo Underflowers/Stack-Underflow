@@ -73,6 +73,9 @@ body {
 .error {
     @apply px-3 py-2 text-white bg-red-600 rounded text-center align-middle max-w-lg mx-auto mt-5 shadow-md
 }
+.success {
+    @apply px-3 py-2 text-white bg-green-600 rounded text-center align-middle max-w-lg mx-auto mt-5 shadow-md
+}
 
 .link {
     @apply text-rausch border-rausch border-b-2 border-opacity-0

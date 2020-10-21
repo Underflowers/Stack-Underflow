@@ -9,15 +9,15 @@
     <p>Content : ${question.content}</p>
 
     <p>
-        You can see all questions <a class="questionsLink" href="questions">here</a>
+        You can see all questions <a class="questionsLink" href="${pageContext.request.contextPath}/questions">here</a>
     </p>
 
     <p>
-        Register <a class="registerLink" href="register">here</a>
+        Register <a class="registerLink" href="${pageContext.request.contextPath}/register">here</a>
     </p>
 
     <p>
-        Login <a class="loginLink" href="login">here</a>
+        Login <a class="loginLink" href="${pageContext.request.contextPath}/login">here</a>
     </p>
 </body>
 </html>
