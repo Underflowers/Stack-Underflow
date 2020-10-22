@@ -9,6 +9,7 @@ import underflowers.stackunderflow.application.question.comment.CommentsDTO;
 import underflowers.stackunderflow.application.question.vote.VotesDTO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public class QuestionsDTO {
         private String author;
         private String title;
         private String content;
-        private LocalDate creationDate;
+        private LocalDateTime creationDate;
 
         private VotesDTO votes;
         private AnswersDTO answers;
