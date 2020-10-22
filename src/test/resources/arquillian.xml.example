@@ -5,7 +5,7 @@
     <container qualifier="liberty_managed" default="true">
         <configuration>
             <!-- DONT FORGET TO PUT YOUR ABSOLUTE PATH TO THE .../target/liberty/wlp folder -->
-            <property name="wlpHome">/home/loic/Documents/HEIG-VD/semestre-5/AMT/AMT_Project/target/liberty/wlp</property>
+            <property name="wlpHome">/home/runner/work/Stack-Underflow/Stack-Underflow/target/liberty/wlp</property>
             <property name="serverName">defaultServer</property>
             <property name="httpPort">9080</property>
             <property name="allowConnectingToRunningServer">true</property>
