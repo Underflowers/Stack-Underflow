@@ -9,6 +9,7 @@ import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class InMemoryQuestionRepositoryTest {
 
@@ -24,7 +25,7 @@ public class InMemoryQuestionRepositoryTest {
                 .title("test")
                 .content("test")
                 .authorUUID(new UserId())
-                .creationDate(LocalDate.now())
+                .creationDate(LocalDateTime.now())
                 .build();
         repo.save(question);
         Assertions.assertTrue(repo.findById(questionId).isPresent());

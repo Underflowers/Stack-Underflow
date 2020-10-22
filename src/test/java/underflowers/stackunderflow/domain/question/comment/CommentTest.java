@@ -20,7 +20,7 @@ public class CommentTest {
     public void init() {
         question = Question.builder()
                 .authorUUID(new UserId())
-                .creationDate(LocalDate.now())
+                .creationDate(LocalDateTime.now())
                 .title("Question title")
                 .content("Question 4 tests")
                 .build();

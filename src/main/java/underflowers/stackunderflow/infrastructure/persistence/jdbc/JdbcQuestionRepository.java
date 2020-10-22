@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import javax.swing.text.DateFormatter;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -194,7 +195,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
                 .authorUUID(new UserId(res.getString("users_uuid")))
                 .title(res.getString("title"))
                 .content(res.getString("description"))
-                .creationDate(LocalDate.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .creationDate(LocalDateTime.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
     }
 }

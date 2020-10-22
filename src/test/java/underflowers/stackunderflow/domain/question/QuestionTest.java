@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +50,7 @@ public class QuestionTest {
                         .id(new QuestionId())
                         .title("Question title")
                         .content("Question content")
-                        .creationDate(LocalDate.now())
+                        .creationDate(LocalDateTime.now())
                         .authorUUID(new UserId())
                         .build();
         Question q2 = q1.deepClone();

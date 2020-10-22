@@ -5,6 +5,7 @@ import underflowers.stackunderflow.domain.IEntity;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder (toBuilder = true)
@@ -15,29 +16,24 @@ public class Question implements IEntity<Question, QuestionId> {
     private UserId authorUUID;
     private String title;
     private String content;
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     public static class QuestionBuilder {
         public Question build() {
-            if (id == null) {
+            if (id == null)
                 id = new QuestionId();
-            }
 
-            if (authorUUID == null) {
+            if (authorUUID == null)
                 throw new IllegalArgumentException("Author is mandatory");
-            }
 
-            if (title == null || title.isEmpty()) {
+            if (title == null || title.isEmpty())
                 throw new IllegalArgumentException("Title is mandatory");
-            }
 
-            if (content == null || content.isEmpty()) {
+            if (content == null || content.isEmpty())
                 throw new IllegalArgumentException("Content is mandatory");
-            }
 
-            if (creationDate == null) {
-                creationDate = LocalDate.now();
-            }
+            if (creationDate == null)
+                creationDate = LocalDateTime.now();
 
             return new Question(id, authorUUID, title, content, creationDate);
         }
