@@ -49,17 +49,16 @@ jobs:
 
       - name: Start servers
         run: |
-          mvn liberty:stop
+          cp src/main/liberty/config/server.env.example src/main/liberty/config/server.env
           mvn liberty:create liberty:install-feature liberty:deploy
           mvn liberty:start
           docker-compose up -d db
 
       # For some reason arquillian tests return Nullpointers
       - name: Run maven tests
-        # run: |
-        #   cp src/test/resources/arquillian.xml.example src/test/resources/arquillian.xml
-        #   mvn verify
-        run: mvn test
+        run: |
+          cp src/test/resources/arquillian.xml.example src/test/resources/arquillian.xml
+          mvn verify
 
       - name: Run e2e tests
         run: |
