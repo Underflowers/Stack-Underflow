@@ -4,7 +4,7 @@ module.exports = function genuser() {
     return {
         firstname: fname,
         lastname: lname,
-        email: `${fname}.${lname}_${Date.now()}@stackunderflow.e2e`,
+        email: `${fname}.${lname}_${Date.now()}_${Math.random()}@stackunderflow.e2e`,
         password: 'security-is-very-important'
     };
 };

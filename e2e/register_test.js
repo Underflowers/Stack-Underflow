@@ -15,7 +15,7 @@ Scenario('Login link redirect', (I) => {
 const u1 = genuser();
 Scenario('Both passwords dont match', (I) => {
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(u1.firstname, u1.lastname, `${u1.email}f`, 'miss', 'match');
+    registerPage.fillAndRegisterUser(u1.firstname, u1.lastname, `${u1.email}`, 'miss', 'match');
     I.seeElement('.error');
     I.see('Error: Password and password repeat must be the same');
 });
