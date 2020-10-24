@@ -11,6 +11,7 @@ module.exports = {
     checkLoggedIn(email) {
         I.see(email);
         I.see('Logout');
+        this.landOnPageSafely("/questions", "All questions");
     }
 
 }
