@@ -18,6 +18,7 @@ Scenario('Register link redirect', (I) => {
 
 Scenario('Created successfully for login', (I) => {
     common.landOnPageSafely("/register", "Register");
+    console.log(`${firstname} ${lastname}`);
     registerPage.fillAndRegisterUser(firstname, lastname, email, pass, pass);
     I.dontSeeElement('.error');
     common.checkLoggedIn(email);

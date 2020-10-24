@@ -1,6 +1,7 @@
 const faker = require('faker');
 const registerPage = require("./pages/registerPage");
 const common = require("./pages/common");
+const { fake } = require('faker');
 
 Feature('register');
 
@@ -12,19 +13,24 @@ Scenario('Login link redirect', (I) => {
     I.see("Login");
 });
 
+const firstname1 = faker.name.firstName();
+const lastname1 = faker.name.lastName();
+
 Scenario('Both passwords dont match', (I) => {
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser('John', 'Doe', 'john.doe@me.com', 'john', 'doe');
+    registerPage.fillAndRegisterUser(firstname1, lastname1, `${firstname1}.${lastname1}_${faker.random.number()}@stackunderflow.e2e`, 'miss', 'match');
     I.seeElement('.error');
-    I.see('Error: Passwords don\'t match');
+    I.see('Error: Password and password repeat must be the same');
 });
 
-const firstname = faker.name.firstName();
-const lastname = faker.name.lastName();
-const emailAlreadyUse = firstname + '.' + lastname + '@me.com'; // Further test will try to use it once more
+const firstname2 = faker.name.firstName();
+const lastname2 = faker.name.lastName();
+// Further test will try to use it once more
+const emailAlreadyUse = `${firstname2}.${lastname2}_${faker.random.number()}@stackunderflow.e2e`;
+
 Scenario('Created successfully', (I) => {
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(firstname, lastname, emailAlreadyUse, 'pwd', 'pwd');
+    registerPage.fillAndRegisterUser(firstname2, lastname2, emailAlreadyUse, 'pwd1', 'pwd1');
     I.dontSeeElement('.error');
     common.checkLoggedIn(emailAlreadyUse);
     I.amOnPage("/questions");
