@@ -1,12 +1,11 @@
 Feature('login');
 
-const faker = require('faker');
 const common = require("./pages/common");
 const registerPage = require("./pages/registerPage");
 const loginPage = require("./pages/loginPage");
-const firstname = faker.name.firstName();
-const lastname = faker.name.lastName();
-const email = firstname + "." + lastname + "@me.com";
+const genuser = require("./helpers/genuser");
+
+const u = genuser();
 const pass = "test";
 
 Scenario('Register link redirect', (I) => {
@@ -18,15 +17,14 @@ Scenario('Register link redirect', (I) => {
 
 Scenario('Created successfully for login', (I) => {
     common.landOnPageSafely("/register", "Register");
-    console.log(`${firstname} ${lastname}`);
-    registerPage.fillAndRegisterUser(firstname, lastname, email, pass, pass);
+    registerPage.fillAndRegisterUser(u.firstname, u.lastname, u.email, pass, pass);
     I.dontSeeElement('.error');
-    common.checkLoggedIn(email);
+    common.checkLoggedIn(u.email);
 });
 
 Scenario('Login successfully', (I) => {
     common.landOnPageSafely("/login", "Login");
-    loginPage.loginAs(email, pass);
+    loginPage.loginAs(u.email, pass);
     I.amOnPage('/questions');
 });
 
