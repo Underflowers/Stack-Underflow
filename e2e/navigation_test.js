@@ -18,3 +18,9 @@ Scenario('From home to login', (I) => {
     I.clickLink("Login");
     I.amOnPage("/login");
 });
+
+Scenario('From home to statistics', (I) => {
+    common.landOnPageSafely("/", "Welcome to Stack Underflow");
+    I.clickLink("Statistics");
+    I.amOnPage("/statistics");
+});
