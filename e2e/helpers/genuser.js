@@ -1,11 +1,11 @@
 const faker = require('faker');
 
 module.exports = function genuser() {
-    const fname = faker.name.firstName();
-    const lname = faker.name.lastName();
+    const fname = "Jane";
+    const lname = "Doe";
     return {
         firstname: fname,
         lastname: lname,
-        email: `${fname}.${lname}_${faker.random.number()}@stackunderflow.e2e`
+        email: `${fname}.${lname}_${Date.now()}@stackunderflow.e2e`
     };
 };
