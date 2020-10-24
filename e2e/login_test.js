@@ -17,19 +17,19 @@ Scenario('Register link redirect', (I) => {
 
 Scenario('Created successfully for login', (I) => {
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(u.firstname, u.lastname, u.email, pass, pass);
+    registerPage.fillAndRegisterUser(u.firstname, u.lastname, u.email, u.password, u.password);
     I.dontSeeElement('.error');
     common.checkLoggedIn(u.email);
 });
 
 Scenario('Login successfully', (I) => {
     common.landOnPageSafely("/login", "Login");
-    loginPage.loginAs(u.email, pass);
+    loginPage.loginAs(u.email, u.password);
     I.amOnPage('/questions');
 });
 
 Scenario('Login failed', (I) => {
     common.landOnPageSafely("/login", "Login");
-    loginPage.loginAs("hello@hello.com", "nopass");
+    loginPage.loginAs("hello@@stackunderflow.e2e", "nopass");
     I.amOnPage('/login');
 });

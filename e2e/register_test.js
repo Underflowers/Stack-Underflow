@@ -15,7 +15,7 @@ Scenario('Login link redirect', (I) => {
 const u1 = genuser();
 Scenario('Both passwords dont match', (I) => {
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(u1.firstname, u1.lastname, u1.email, 'miss', 'match');
+    registerPage.fillAndRegisterUser(u1.firstname, u1.lastname, `${u1.email}f`, 'miss', 'match');
     I.seeElement('.error');
     I.see('Error: Password and password repeat must be the same');
 });
@@ -23,7 +23,7 @@ Scenario('Both passwords dont match', (I) => {
 const u2 = genuser();
 Scenario('Created successfully', (I) => {
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(u2.firstname, u2.lastname, u2.email, 'pwd1', 'pwd1');
+    registerPage.fillAndRegisterUser(u2.firstname, u2.lastname, u2.email, u2.password, u2.password);
     I.dontSeeElement('.error');
     common.checkLoggedIn(u2.email);
     I.amOnPage("/questions");
@@ -32,7 +32,7 @@ Scenario('Created successfully', (I) => {
 Scenario('Email already used', (I) => {
     // Already used email address is john.doe@me.com and has been created in test above
     common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(u2.firstname, u2.lastname, u2.email, 'test', 'test');
+    registerPage.fillAndRegisterUser(u2.firstname, u2.lastname, u2.email, u2.password, u2.password);
     I.seeElement('.error');
     I.see('Error: Email address already in use!');
 });
