@@ -128,17 +128,15 @@ public class QuestionFacadeTestIT {
                 .text("Content 1")
                 .build();
 
-        try {
-            // Fetch all questions
-            int oldQuestions = questionFacade.countQuestions();
-            // Propose one question
-            questionFacade.proposeQuestion(questionCommand);
-            // Count and assert
-            int afterCount = questionFacade.countQuestions();
-            assertEquals(oldQuestions + 1, afterCount);
-        } catch (IncompleteQuestionException e) {
-            e.printStackTrace();
-        }
+            assertDoesNotThrow(() -> {
+                // Fetch all questions count
+                int oldQuestions = questionFacade.countQuestions();
+                // Propose one question
+                questionFacade.proposeQuestion(questionCommand);
+                // Count again and assert
+                int afterCount = questionFacade.countQuestions();
+                assertEquals(oldQuestions + 1, afterCount);
+            });
     }
 
     @Test
@@ -153,17 +151,13 @@ public class QuestionFacadeTestIT {
                 .text("Content of the question")
                 .build();
 
-        // Ask the question contains the search term in title
-        try {
+        assertDoesNotThrow(() -> {
+            // Ask the question contains the search term in title
             questionFacade.proposeQuestion(questionCommand);
-        } catch (IncompleteQuestionException e) {
-            e.printStackTrace();
-        }
-
-        QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder().searchTerm(searchTerm).build());
-
-        // We want at least 1 question result for the search term
-        assertTrue(questionsDTO.getQuestions().size() >= 1);
+            QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder().searchTerm(searchTerm).build());
+            // We want at least 1 question result for the search term
+            assertTrue(questionsDTO.getQuestions().size() >= 1);
+        });
     }
 
 }
