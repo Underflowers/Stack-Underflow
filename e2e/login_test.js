@@ -1,35 +1,30 @@
 Feature('login');
 
-const common = require("./pages/common");
-const registerPage = require("./pages/registerPage");
-const loginPage = require("./pages/loginPage");
 const genuser = require("./helpers/genuser");
 
 const u = genuser();
-const pass = "test";
-
-Scenario('Register link redirect', (I) => {
-    common.landOnPageSafely("/login", "Login");
+Scenario('Register link redirect', (I, LoginPage, RegisterPage) => {
+    LoginPage.goto();
     I.see("Don't have an account?");
     I.clickLink("Don't have an account?");
-    common.landOnPageSafely("/register", "Register");
+    RegisterPage.goto();
 });
 
-Scenario('Created successfully for login', (I) => {
-    common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(u.firstname, u.lastname, u.email, u.password, u.password);
+Scenario('Created successfully for login', (I, LoginPage, RegisterPage) => {
+    RegisterPage.goto();
+    RegisterPage.register(u.firstname, u.lastname, u.email, u.password, u.password);
     I.dontSeeElement('.error');
-    common.checkLoggedIn(u.email);
+    LoginPage.success(u.email);
 });
 
-Scenario('Login successfully', (I) => {
-    common.landOnPageSafely("/login", "Login");
-    loginPage.loginAs(u.email, u.password);
-    I.amOnPage('/questions');
+Scenario('Login successfully', (LoginPage) => {
+    LoginPage.goto();
+    LoginPage.login(u.email, u.password);
+    LoginPage.success(u.email);
 });
 
-Scenario('Login failed', (I) => {
-    common.landOnPageSafely("/login", "Login");
-    loginPage.loginAs("hello@@stackunderflow.e2e", "nopass");
-    I.amOnPage('/login');
+Scenario('Login failed', (LoginPage) => {
+    LoginPage.goto();
+    LoginPage.login("hello@@stackunderflow.e2e", "nopass");
+    LoginPage.failed();
 });

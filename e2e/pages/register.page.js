@@ -1,4 +1,4 @@
-const { I } = inject();
+const { I, Navigation } = inject();
 
 module.exports = {
     fields: {
@@ -10,7 +10,11 @@ module.exports = {
     },
     submitButton: "registerBtn",
 
-    fillAndRegisterUser(firstname, lastname, email, pwd, pwdRepeat) {
+    goto() {
+        Navigation.landOnPageSafely('/register', 'Register');
+    },
+
+    register(firstname, lastname, email, pwd, pwdRepeat) {
         I.fillField(this.fields.firstname, firstname);
         I.fillField(this.fields.lastname, lastname);
         I.fillField(this.fields.email, email);
@@ -18,5 +22,4 @@ module.exports = {
         I.fillField(this.fields.passwordRepeat, pwdRepeat);
         I.click(this.submitButton);
     }
-
 }
