@@ -152,4 +152,23 @@ public class AnswerFacadeTestIT {
                 .build();
         assertEquals(nbAnswersBeforeTest + nbAnswersToAdd, answerFacade.getAnswers(answersQuery).getAnswers().size());
     }
+
+    @Test
+    public void countMustWorks() {
+        createTestData();
+        AnswerFacade answerFacade = serviceRegistry.getAnswerFacade();
+        int previousCount = answerFacade.countAnswers();
+
+        // Add new answer
+        assertDoesNotThrow(() -> answerFacade.giveAnswer(
+                GiveAnswerCommand.builder()
+                        .questionUUID(qid)
+                        .authorUUID(uid)
+                        .text("I am kindly giving an answer to this question")
+                        .build()
+        ));
+
+        // Must have one more answer when count() again
+        assertEquals(previousCount + 1, answerFacade.countAnswers());
+    }
 }
