@@ -6,7 +6,7 @@
 <div class="container container-content">
 
     <div class="oneLineContainer mb-5">
-        <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${questions.questions.size()})</span></h1>
+        <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${count})</span></h1>
 
         <c:if test="${authUser != null}">
             <a href="${pageContext.request.contextPath}/ask" class="btn btn--primary my-2">+ New Question</a>
@@ -26,6 +26,13 @@
             </jsp:include>
         </c:forEach>
     </div>
+
+    <jsp:include page="fragments/pagination.jsp">
+        <jsp:param name="previousPage" value="${previousPage}"/>
+        <jsp:param name="nextPage" value="${nextPage}"/>
+        <jsp:param name="page" value="questions"/>
+    </jsp:include>
+
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>

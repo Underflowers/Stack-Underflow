@@ -130,12 +130,12 @@ public class QuestionFacadeTestIT {
 
         try {
             // Fetch all questions
-            QuestionsDTO oldQuestions = questionFacade.getQuestions(QuestionsQuery.builder().build());
+            int oldQuestions = questionFacade.countQuestions();
             // Propose one question
             questionFacade.proposeQuestion(questionCommand);
             // Count and assert
             int afterCount = questionFacade.countQuestions();
-            assertEquals(oldQuestions.getQuestions().size() + 1, afterCount);
+            assertEquals(oldQuestions + 1, afterCount);
         } catch (IncompleteQuestionException e) {
             e.printStackTrace();
         }

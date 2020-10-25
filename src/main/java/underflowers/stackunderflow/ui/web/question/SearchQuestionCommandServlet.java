@@ -22,10 +22,13 @@ public class SearchQuestionCommandServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
-        QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder()
+
+        QuestionsQuery query = QuestionsQuery.builder()
                 .searchTerm(req.getParameter("search"))
-                .build());
+                .build();
+        QuestionsDTO questionsDTO = questionFacade.getQuestions(query);
         req.setAttribute("questions", questionsDTO);
+        req.setAttribute("count", questionFacade.countQuestions(query));
         req.setAttribute("searchTerm", req.getParameter("search"));
         req.getRequestDispatcher("/WEB-INF/views/searchQuestionResult.jsp").forward(req, resp);
     }

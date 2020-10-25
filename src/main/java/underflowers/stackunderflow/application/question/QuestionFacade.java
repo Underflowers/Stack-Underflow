@@ -98,6 +98,10 @@ public class QuestionFacade {
                 .build();
     }
 
+    public int countQuestions(QuestionsQuery query) {
+        return this.questionRepository.count(query);
+    }
+
     public int countQuestions() {
         return this.questionRepository.count();
     }

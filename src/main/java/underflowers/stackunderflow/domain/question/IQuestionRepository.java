@@ -8,4 +8,5 @@ import java.util.Collection;
 
 public interface IQuestionRepository extends IRepository<Question, QuestionId> {
     Collection<Question> find(QuestionsQuery query);
+    int count(QuestionsQuery query);
 }

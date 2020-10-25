@@ -24,7 +24,7 @@
             <div class="text-center">
                 <h2 class="h2 mb-3">Questions</h2>
                 <div class="circle circle--small">
-                    ${questions.questions.size()}
+                    ${questionsCount}
                 </div>
             </div>
             <div class="text-center">
@@ -39,7 +39,7 @@
         <hr class="my-8">
 
         <!-- User's questions -->
-        <h2 class="h2">Your questions</h2>
+        <h2 class="h2">Last questions</h2>
         <c:forEach var="question" items="${questions.questions}">
             <jsp:include page="fragments/questionSummary.jsp">
                 <jsp:param name="uuid" value="${question.uuid}"/>
