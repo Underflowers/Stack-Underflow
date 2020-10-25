@@ -54,12 +54,14 @@
             </div>
         </c:forEach>
 
-        <form action="${pageContext.request.contextPath}/answer.do" method="post">
-            <input id="questionUuid" name="questionUuid" type="hidden" value="${question.uuid}" />
-            <textarea id="content" name="content" type="text" placeholder="Write your answer here..." class="input-text w-full" rows="7"></textarea>
-            <br/>
-            <button id="submitBtn" name="submitBtn" type="submit" class="btn btn--primary my-2">Submit</button>
-        </form>
+        <c:if test="${authUser != null}">
+            <form action="${pageContext.request.contextPath}/answer.do" method="post">
+                <input id="questionUuid" name="questionUuid" type="hidden" value="${question.uuid}" />
+                <textarea id="content" name="content" type="text" placeholder="Write your answer here..." class="input-text w-full" rows="7"></textarea>
+                <br/>
+                <button id="submitBtn" name="submitBtn" type="submit" class="btn btn--primary my-2">Submit</button>
+            </form>
+        </c:if>
     </div>
 </div>
 
