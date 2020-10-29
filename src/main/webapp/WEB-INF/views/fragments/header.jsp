@@ -8,6 +8,8 @@
     <meta name="description" content="Browse and ask what you want">
     <meta name="author" content="StackUnderflow">
 
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico">
+
     <link href="${pageContext.request.contextPath}/assets/dist/style.css" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/75e6517d2f.js" crossorigin="anonymous"></script>
@@ -20,7 +22,8 @@
             <div class="container flex flex-wrap mx-auto items-center justify-between">
                 <div class="flex items-center flex-shrink-0 text-hof mr-6">
                     <a class="inline-block" href="${pageContext.request.contextPath}/">
-                        <span class="font-semibold text-xl tracking-tight">Stack Underflow</span>
+                        <img style="max-width: 250px;" src="${pageContext.request.contextPath}/assets/img/logo.png" alt="StackUnderflow logo">
+                        <!-- <span class="font-semibold text-xl tracking-tight">Stack Underflow</span> -->
                     </a>
                     <form action="${pageContext.request.contextPath}/search.do" method="post">
                         <input id="search" name="search" type="text" class="mt-3 ml-5 bg-gray-200 p-2 rounded-md" placeholder="Search a question">

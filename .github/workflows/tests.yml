@@ -1,5 +1,4 @@
-name: Maven & Codeceptjs Continuous Integration
-
+name: Tests 
 on: 
   push:
     branches:
