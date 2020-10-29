@@ -19,6 +19,11 @@ public class InMemoryQuestionRepository extends InMemoryRepository<Question, Que
     }
 
     @Override
+    public int count(QuestionsQuery query) {
+        return 0;
+    }
+
+    @Override
     public int count() {
         return findAll().size();
     }

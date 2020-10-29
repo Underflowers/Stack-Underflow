@@ -18,5 +18,11 @@ public class QuestionsQuery {
     @Builder.Default
     private UserId authorId = null;
 
+    @Builder.Default
+    private int limit = 0;
+
+    @Builder.Default
+    private int offset = 0;
+
     private String searchTerm;
 }

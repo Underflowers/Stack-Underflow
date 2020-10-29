@@ -54,7 +54,6 @@ jobs:
           mvn liberty:start
           docker-compose up -d db
 
-      # For some reason arquillian tests return Nullpointers
       - name: Run maven tests
         run: |
           cp src/test/resources/arquillian.xml.example src/test/resources/arquillian.xml

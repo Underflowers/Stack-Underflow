@@ -125,4 +125,28 @@ public class IdentityManagementFacadeTestIT {
 
     }
 
+    @Test
+    public void countMustWorks() {
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+        int previousCount = identityManagementFacade.countUsers();
+
+        String firstname = "john";
+        String lastname = "doe";
+        String email = firstname + lastname + "@" + System.currentTimeMillis() + ".com";
+        String password = "john";
+
+        RegistrationCommand registrationCommand = RegistrationCommand.builder()
+                .email(email)
+                .firstname(firstname)
+                .lastname(lastname)
+                .clearPassword(password)
+                .build();
+
+        // Register one more user
+        assertDoesNotThrow(() -> identityManagementFacade.register(registrationCommand));
+
+        // Must have one more user whe count() again
+        assertEquals(previousCount + 1, identityManagementFacade.countUsers());
+    }
+
 }
