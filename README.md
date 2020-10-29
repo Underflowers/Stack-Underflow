@@ -10,7 +10,7 @@
   <img src="https://forthebadge.com/images/badges/ctrl-c-ctrl-v.svg" alt="platform">
   <img src="https://forthebadge.com/images/badges/powered-by-black-magic.svg" alt="platform">
 </p>
-![Tests](https://github.com/Underflowers/Stack-Underflow/workflows/Maven%20&%20Codeceptjs%20Continuous%20Integration/badge.svg?branch=develop)
+![Tests](https://github.com/Underflowers/Stack-Underflow/workflows/Tests/badge.svg?branch=develop)
 
 
 ## About
@@ -46,10 +46,6 @@ $ docker-compose up -d
 > Note: If you decide to use our docker-compose.yml, you'll need to updated it with the database environment variables and most likely adapt the paths to the different files.
 
 ## Contributing
-
-### Structure
-
-TODO
 
 ### Prerequisites
 
