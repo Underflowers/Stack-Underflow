@@ -4,19 +4,15 @@ import underflowers.stackunderflow.application.question.QuestionsQuery;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
-import underflowers.stackunderflow.domain.user.User;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
-import javax.swing.text.DateFormatter;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -103,7 +99,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
             stmt.setString(2, question.getTitle());
             stmt.setString(3, question.getContent());
             stmt.setString(4, question.getCreationDate().toString());
-            stmt.setString(5, question.getAuthorUUID().asString());
+            stmt.setString(5, question.getAuthorId().asString());
 
             stmt.execute();
         } catch (SQLException throwables) {
@@ -192,7 +188,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     private Question buildQuestion(ResultSet res) throws SQLException {
         return Question.builder()
                 .id(new QuestionId(res.getString("uuid")))
-                .authorUUID(new UserId(res.getString("users_uuid")))
+                .authorId(new UserId(res.getString("users_uuid")))
                 .title(res.getString("title"))
                 .content(res.getString("description"))
                 .creationDate(LocalDateTime.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))

@@ -67,7 +67,7 @@ public class QuestionFacadeTestIT {
         try {
             identityManagementFacade.register(registrationCommand);
             AuthenticatedUserDTO user = identityManagementFacade.authenticate(authenticateCommand);
-            return user.getUuid();
+            return user.getUserId();
         } catch (RegistrationFailedException | AuthenticationFailedException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class QuestionFacadeTestIT {
 
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand command = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Hey, how are you today ?")
                 .text("Let me now more about you")
                 .build();
@@ -95,12 +95,12 @@ public class QuestionFacadeTestIT {
 
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand questionCommand1 = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question 1")
                 .text("Content 1")
                 .build();
         ProposeQuestionCommand questionCommand2 = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question 2")
                 .text("Question 2")
                 .build();
@@ -123,7 +123,7 @@ public class QuestionFacadeTestIT {
 
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand questionCommand = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question 1")
                 .text("Content 1")
                 .build();
@@ -146,7 +146,7 @@ public class QuestionFacadeTestIT {
         String searchTerm = String.valueOf(System.currentTimeMillis());
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand questionCommand = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question " + searchTerm + " test")
                 .text("Content of the question")
                 .build();

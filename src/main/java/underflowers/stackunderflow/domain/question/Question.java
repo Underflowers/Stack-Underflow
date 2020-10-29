@@ -4,7 +4,6 @@ import lombok.*;
 import underflowers.stackunderflow.domain.IEntity;
 import underflowers.stackunderflow.domain.user.UserId;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -13,7 +12,7 @@ public class Question implements IEntity<Question, QuestionId> {
 
     @Setter(AccessLevel.NONE)
     private QuestionId id = new QuestionId();
-    private UserId authorUUID;
+    private UserId authorId;
     private String title;
     private String content;
     private LocalDateTime creationDate;
@@ -23,7 +22,7 @@ public class Question implements IEntity<Question, QuestionId> {
             if (id == null)
                 id = new QuestionId();
 
-            if (authorUUID == null)
+            if (authorId == null)
                 throw new IllegalArgumentException("Author is mandatory");
 
             if (title == null || title.isEmpty())
@@ -35,7 +34,7 @@ public class Question implements IEntity<Question, QuestionId> {
             if (creationDate == null)
                 creationDate = LocalDateTime.now();
 
-            return new Question(id, authorUUID, title, content, creationDate);
+            return new Question(id, authorId, title, content, creationDate);
         }
     }
 
@@ -43,7 +42,7 @@ public class Question implements IEntity<Question, QuestionId> {
     public Question deepClone() {
         return Question.builder()
                 .id(new QuestionId(this.id.asString()))
-                .authorUUID(authorUUID)
+                .authorId(authorId)
                 .content(content)
                 .title(title)
                 .creationDate(creationDate)

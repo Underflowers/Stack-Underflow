@@ -8,7 +8,6 @@ import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
 import underflowers.stackunderflow.domain.user.UserId;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class InMemoryQuestionRepositoryTest {
@@ -24,7 +23,7 @@ public class InMemoryQuestionRepositoryTest {
                 .id(questionId)
                 .title("test")
                 .content("test")
-                .authorUUID(new UserId())
+                .authorId(new UserId())
                 .creationDate(LocalDateTime.now())
                 .build();
         repo.save(question);

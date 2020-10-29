@@ -6,7 +6,6 @@ import underflowers.stackunderflow.domain.question.answer.Answer;
 import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.user.UserId;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,17 +18,17 @@ public class CommentTest {
     @Before
     public void init() {
         question = Question.builder()
-                .authorUUID(new UserId())
+                .authorId(new UserId())
                 .creationDate(LocalDateTime.now())
                 .title("Question title")
                 .content("Question 4 tests")
                 .build();
 
         answer = Answer.builder()
-                .authorUUID(new UserId())
+                .authorId(new UserId())
                 .createdAt(LocalDateTime.now())
                 .content("Answer 4 tests")
-                .questionUUID(question.getId())
+                .questionId(question.getId())
                 .build();
     }
 

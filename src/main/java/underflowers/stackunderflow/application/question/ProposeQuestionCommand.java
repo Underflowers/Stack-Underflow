@@ -12,10 +12,10 @@ import underflowers.stackunderflow.domain.user.UserId;
 public class ProposeQuestionCommand {
 
     @Builder.Default
-    private QuestionId questionUUID = null;
+    private QuestionId questionId = null;
 
     @Builder.Default
-    private UserId authorUUID = null;
+    private UserId authorId = null;
 
     @Builder.Default
     private String title = "No title";

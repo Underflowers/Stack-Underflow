@@ -41,7 +41,7 @@ public class ProfileServlet extends HttpServlet {
 
         // User's questions
         QuestionsQuery query = QuestionsQuery.builder()
-                .authorId(currentUser.getUuid())
+                .authorId(currentUser.getUserId())
                 .limit(5)
                 .build();
         QuestionsDTO userQuestions = questionFacade.getQuestions(query);
@@ -50,7 +50,7 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("questionsCount", questionFacade.countQuestions(query));
 
         // User's answers count
-        AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authUser(currentUser.getUuid()).build());
+        AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authUserId(currentUser.getUserId()).build());
         request.setAttribute("answersCount", userAnswers.getAnswers().size());
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }

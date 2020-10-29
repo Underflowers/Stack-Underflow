@@ -32,14 +32,14 @@ public class QuestionServlet extends HttpServlet {
         UserId authUser = null;
 
         if (request.getSession().getAttribute("authUser") != null) {
-            authUser = ((AuthenticatedUserDTO) request.getSession().getAttribute("authUser")).getUuid();
+            authUser = ((AuthenticatedUserDTO) request.getSession().getAttribute("authUser")).getUserId();
         }
 
         // Retrieve question
         QuestionsDTO.QuestionDTO questionDTO = questionFacade.getQuestion(
                 GetQuestionQuery.builder()
                         .id(questionId)
-                        .authUser(authUser)
+                        .authUserId(authUser)
                         .build());
         request.setAttribute("question", questionDTO);
 

@@ -66,12 +66,12 @@ public class AnswerFacadeTestIT {
                     .email(email)
                     .clearPassword(pwd)
                     .build()
-            ).getUuid();
+            ).getUserId();
 
             // Create a question
             questionFacade.proposeQuestion(ProposeQuestionCommand.builder()
-                    .questionUUID(qid)
-                    .authorUUID(uid)
+                    .questionId(qid)
+                    .authorId(uid)
                     .title("What is the meaning of life?")
                     .text("I really don't get it, please someone clarify this nonsense. Thank you.")
                     .build()
@@ -88,8 +88,8 @@ public class AnswerFacadeTestIT {
 
         assertDoesNotThrow(() -> answerFacade.giveAnswer(
                 GiveAnswerCommand.builder()
-                        .questionUUID(qid)
-                        .authorUUID(uid)
+                        .questionId(qid)
+                        .authorId(uid)
                         .text("I am kindly giving an answer to this question")
                         .build()
         ));
@@ -109,8 +109,8 @@ public class AnswerFacadeTestIT {
         try {
             for (int i = 0; i < nbAnswersToAdd; ++i)
                 answerFacade.giveAnswer(GiveAnswerCommand.builder()
-                        .authorUUID(uid)
-                        .questionUUID(qid)
+                        .authorId(uid)
+                        .questionId(qid)
                         .text("I am kindly giving an answer to this question #" + (i + 1))
                         .build()
                 );
@@ -131,15 +131,15 @@ public class AnswerFacadeTestIT {
 
         int nbAnswersToAdd = 3;
         int nbAnswersBeforeTest = answerFacade.getAnswers(AnswersQuery.builder()
-                .authUser(uid)
+                .authUserId(uid)
                 .build()
         ).getAnswers().size();
 
         try {
             for (int i = 0; i < nbAnswersToAdd; ++i)
                 answerFacade.giveAnswer(GiveAnswerCommand.builder()
-                        .authorUUID(uid)
-                        .questionUUID(qid)
+                        .authorId(uid)
+                        .questionId(qid)
                         .text("I am kindly giving an answer to this question #" + (i + 1))
                         .build()
                 );
@@ -148,7 +148,7 @@ public class AnswerFacadeTestIT {
         }
 
         AnswersQuery answersQuery = AnswersQuery.builder()
-                .authUser(uid)
+                .authUserId(uid)
                 .build();
         assertEquals(nbAnswersBeforeTest + nbAnswersToAdd, answerFacade.getAnswers(answersQuery).getAnswers().size());
     }
@@ -162,8 +162,8 @@ public class AnswerFacadeTestIT {
         // Add new answer
         assertDoesNotThrow(() -> answerFacade.giveAnswer(
                 GiveAnswerCommand.builder()
-                        .questionUUID(qid)
-                        .authorUUID(uid)
+                        .questionId(qid)
+                        .authorId(uid)
                         .text("I am kindly giving an answer to this question")
                         .build()
         ));

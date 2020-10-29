@@ -13,13 +13,13 @@ import underflowers.stackunderflow.domain.user.UserId;
 public class GiveAnswerCommand {
 
     @Builder.Default
-    private AnswerId uuid = null;
+    private AnswerId id = null;
 
     @Builder.Default
-    private UserId authorUUID = null;
+    private UserId authorId = null;
 
     @Builder.Default
-    private QuestionId questionUUID = null;
+    private QuestionId questionId = null;
 
     @Builder.Default
     private String text = "No content";
