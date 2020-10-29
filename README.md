@@ -119,7 +119,7 @@ And voila!
 
 #### Unit
 
-Unit tests are using JUnit 5. You can run them all with the mvn command `mvn test`
+Unit tests are using JUnit 5. You can run them all with the mvn command `mvn test`.
 
 #### Integration
 
@@ -137,7 +137,24 @@ Now, to run the tests, you can simply use  `run-integration-tests.sh`.
 
 #### e2e
 
-TODO
+For the end to end tests, we're using [CodeceptJS](https://codecept.io/)). 
+
+To run the e2e tests, run the following:
+
+```bash
+$ cd e2e/
+$ npx codeceptjs run --steps
+```
+
+> Note: If don't like that a chromium window opens to run the tests, you can run this instead: 
+>
+> ```bash
+> $ npx codeceptjs run --override '{"helpers": {"Puppeteer": {"show": false}}}' --steps
+> ```
+
+## Documentation
+
+Apart from this readme, you can find more documents in the `doc/` folder.
 
 ## Main contributors
 
