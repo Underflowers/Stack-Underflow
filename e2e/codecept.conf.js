@@ -14,6 +14,7 @@ exports.config = {
     LoginPage: './pages/login.page.js',
     AskPage: './pages/ask.page.js',
     QuestionsPage: './pages/questions.page.js',
+    QuestionPage: './pages/question.page.js',
     Navigation: './helpers/navigation.js'
   },
   bootstrap: null,

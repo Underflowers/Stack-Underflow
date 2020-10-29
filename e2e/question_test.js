@@ -43,5 +43,25 @@ Scenario('See the detail of a question', (I, LoginPage, QuestionsPage) => {
     LoginPage.login(u.email, u.password);
     LoginPage.success(u.email);
 
-    QuestionsPage.gotoQuestion(title);
+    QuestionsPage.gotoFirstQuestion(title);
 });
+
+Scenario('Answer question', (LoginPage, QuestionsPage, QuestionPage) => {
+    LoginPage.goto();
+    LoginPage.login(u.email, u.password);
+    LoginPage.success(u.email);
+
+    QuestionsPage.gotoFirstQuestion(title);
+
+    QuestionPage.answer('Some cool answer');
+});
+
+Scenario('Add comment', (LoginPage, QuestionsPage, QuestionPage) => {
+    LoginPage.goto();
+    LoginPage.login(u.email, u.password);
+    LoginPage.success(u.email);
+
+    QuestionsPage.gotoFirstQuestion(title);
+
+    QuestionPage.comment('Some cool comment');
+})

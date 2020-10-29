@@ -11,7 +11,7 @@ module.exports = {
         Navigation.landOnPageSafely('/questions', 'All questions');
     },
 
-    gotoQuestion(title) {
+    gotoFirstQuestion(title) {
         I.clickLink('div.card:first-of-type');
         I.see(title);
     }
