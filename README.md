@@ -10,7 +10,7 @@
   <img src="https://forthebadge.com/images/badges/ctrl-c-ctrl-v.svg" alt="platform">
   <img src="https://forthebadge.com/images/badges/powered-by-black-magic.svg" alt="platform">
 </p>
-
+![Tests](https://github.com/Underflowers/Stack-Underflow/workflows/Maven%20&%20Codeceptjs%20Continuous%20Integration/badge.svg?branch=develop)
 
 
 ## About
