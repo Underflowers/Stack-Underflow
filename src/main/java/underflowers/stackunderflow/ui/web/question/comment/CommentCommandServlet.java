@@ -43,7 +43,7 @@ public class CommentCommandServlet extends HttpServlet {
                 .authorId(currentUser.getUuid())
                 .answerId(answerId)
                 .questionId(questionId)
-                .content(request.getParameter("content"))
+                .content(request.getParameter("comment"))
                 .build();
 
         try {
