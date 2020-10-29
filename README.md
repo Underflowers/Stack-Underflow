@@ -11,7 +11,9 @@
   <img src="https://forthebadge.com/images/badges/powered-by-black-magic.svg" alt="platform">
 </p>
 
-![Tests](https://github.com/Underflowers/Stack-Underflow/workflows/Tests/badge.svg?branch=develop)
+<p align="center">
+  <img src="https://github.com/Underflowers/Stack-Underflow/workflows/Tests/badge.svg?branch=develop" alt="Tests">
+</p>
 
 ## About
 
