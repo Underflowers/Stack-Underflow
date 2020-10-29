@@ -10,8 +10,8 @@
   <img src="https://forthebadge.com/images/badges/ctrl-c-ctrl-v.svg" alt="platform">
   <img src="https://forthebadge.com/images/badges/powered-by-black-magic.svg" alt="platform">
 </p>
-![Tests](https://github.com/Underflowers/Stack-Underflow/workflows/Tests/badge.svg?branch=develop)
 
+![Tests](https://github.com/Underflowers/Stack-Underflow/workflows/Tests/badge.svg?branch=develop)
 
 ## About
 
