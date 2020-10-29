@@ -74,20 +74,20 @@ public class VoteFacadeTestIT {
                     .email(email)
                     .clearPassword(pwd)
                     .build()
-            ).getUuid();
+            ).getUserId();
 
             questionFacade.proposeQuestion(ProposeQuestionCommand.builder()
-                    .questionUUID(qid)
-                    .authorUUID(uid)
+                    .questionId(qid)
+                    .authorId(uid)
                     .title("Second Course Grenadillo Smash Cherry Bomb")
                     .text("Cherries Italian linguine puttanesca mediterranean luxury bowl springtime strawberry basil picnic salad lime mango crisp chia seeds apples spicy dessert overflowing berries dragon fruit crumbled lentils lemon tahini dressing.")
                     .build()
             );
 
             answerFacade.giveAnswer(GiveAnswerCommand.builder()
-                    .uuid(aid)
-                    .authorUUID(uid)
-                    .questionUUID(qid)
+                    .id(aid)
+                    .authorId(uid)
+                    .questionId(qid)
                     .text("You should add some avocado drizzle")
                     .build()
             );

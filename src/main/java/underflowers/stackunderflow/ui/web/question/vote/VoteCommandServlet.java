@@ -43,7 +43,7 @@ public class VoteCommandServlet extends HttpServlet {
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
 
         VoteCommand command = VoteCommand.builder()
-                .author(currentUser.getUuid())
+                .author(currentUser.getUserId())
                 .relatedQuestion(questionId)
                 .relatedAnswer(answerId)
                 .isUpvote(request.getParameter("voteType").equals("up"))

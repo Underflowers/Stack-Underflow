@@ -13,8 +13,8 @@ public class Answer implements IEntity<Answer, AnswerId> {
 
     @Setter(AccessLevel.NONE)
     private AnswerId id;
-    private UserId authorUUID;
-    private QuestionId questionUUID;
+    private UserId authorId;
+    private QuestionId questionId;
     private String content;
     private LocalDateTime createdAt;
 
@@ -23,10 +23,10 @@ public class Answer implements IEntity<Answer, AnswerId> {
             if (id == null)
                 id = new AnswerId();
 
-            if (authorUUID == null)
+            if (authorId == null)
                 throw new IllegalArgumentException("Answer must have an author ID.");
 
-            if (questionUUID == null)
+            if (questionId == null)
                 throw new IllegalArgumentException("Answer must have a question ID.");
 
             if (content == null || content.isEmpty())
@@ -35,7 +35,7 @@ public class Answer implements IEntity<Answer, AnswerId> {
             if (createdAt == null)
                 createdAt = LocalDateTime.now();
 
-            return new Answer(id, authorUUID, questionUUID, content, createdAt);
+            return new Answer(id, authorId, questionId, content, createdAt);
         }
     }
 
@@ -43,8 +43,8 @@ public class Answer implements IEntity<Answer, AnswerId> {
     public Answer deepClone() {
         return Answer.builder()
                 .id(new AnswerId(this.id.asString()))
-                .authorUUID(authorUUID)
-                .questionUUID(questionUUID)
+                .authorId(authorId)
+                .questionId(questionId)
                 .content(content)
                 .createdAt(createdAt)
                 .build();

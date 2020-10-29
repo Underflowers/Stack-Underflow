@@ -28,8 +28,8 @@ public class GiveAnswerCommandServlet extends HttpServlet {
 
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         GiveAnswerCommand command = GiveAnswerCommand.builder()
-                .authorUUID(currentUser.getUuid())
-                .questionUUID(new QuestionId(request.getParameter("questionUuid")))
+                .authorId(currentUser.getUserId())
+                .questionId(new QuestionId(request.getParameter("questionUuid")))
                 .text(request.getParameter("content"))
                 .build();
 

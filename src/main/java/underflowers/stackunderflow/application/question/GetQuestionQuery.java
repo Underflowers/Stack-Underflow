@@ -13,5 +13,5 @@ public class GetQuestionQuery {
     private QuestionId id;
 
     @Builder.Default
-    private UserId authUser = null;
+    private UserId authUserId = null;
 }

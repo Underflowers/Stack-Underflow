@@ -10,5 +10,5 @@ public class AuthenticatedUserDTO {
     private String firstname;
     private String lastname;
     private String email;
-    private UserId uuid;
+    private UserId userId;
 }

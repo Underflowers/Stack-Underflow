@@ -49,7 +49,7 @@ public class IdentityManagementFacade {
 
         // all gucci :D we can create a new DTO and return it
         return AuthenticatedUserDTO.builder()
-                .uuid(user.getId())
+                .userId(user.getId())
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .email(user.getEmail()).build();
@@ -111,7 +111,7 @@ public class IdentityManagementFacade {
         // 1 affected row -> successfully updated
         if(repository.update(updatedUser) == 1) {
              return AuthenticatedUserDTO.builder()
-                    .uuid(user.getId())
+                    .userId(user.getId())
                     .firstname(editUserCommand.getNewFirstname())
                     .lastname(editUserCommand.getNewLastname())
                     .email(editUserCommand.getNewEmail())
@@ -120,7 +120,7 @@ public class IdentityManagementFacade {
         // no affected row, return old User values
         else {
             return AuthenticatedUserDTO.builder()
-                    .uuid(user.getId())
+                    .userId(user.getId())
                     .firstname(user.getFirstname())
                     .lastname(user.getLastname())
                     .email(user.getEmail())

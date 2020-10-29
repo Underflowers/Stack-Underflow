@@ -34,9 +34,9 @@ public class AnswerFacade {
     public void giveAnswer(GiveAnswerCommand command) throws InvalidAnswerException {
         try {
             Answer givenAnswer = Answer.builder()
-                    .id(command.getUuid())
-                    .authorUUID(command.getAuthorUUID())
-                    .questionUUID(command.getQuestionUUID())
+                    .id(command.getId())
+                    .authorId(command.getAuthorId())
+                    .questionId(command.getQuestionId())
                     .content(command.getText())
                     .createdAt(LocalDateTime.now())
                     .build();
@@ -50,17 +50,17 @@ public class AnswerFacade {
         Collection<Answer> allAnswers = answerRepository.find(query);
 
         List<AnswersDTO.AnswerDTO> allAnswersDTO = allAnswers.stream().map(answer -> {
-                    User author = userRepository.findById(answer.getAuthorUUID()).get();
+                    User author = userRepository.findById(answer.getAuthorId()).get();
 
                     return AnswersDTO.AnswerDTO.builder()
-                            .uuid(answer.getId())
-                            .questionUuid(query.getId())
+                            .id(answer.getId())
+                            .questionId(query.getId())
                             .author(author.getFirstname() + " " + author.getLastname())
                             .content(answer.getContent())
                             .createdAt(answer.getCreatedAt())
                             .comments(commentFacade.getAnswerComments(answer.getId()))
                             .votes(voteFacade.getVotes(VotesQuery.builder()
-                                    .user(query.getAuthUser())
+                                    .user(query.getAuthUserId())
                                     .relatedAnswer(answer.getId())
                                     .build()))
                             .build();
