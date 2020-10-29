@@ -21,8 +21,8 @@ public class AnswersDTO {
     @Getter
     @EqualsAndHashCode
     public static class AnswerDTO {
-        private AnswerId uuid;
-        private QuestionId questionUuid;
+        private AnswerId id;
+        private QuestionId questionId;
         private String author;
         private String content;
         private LocalDateTime createdAt;

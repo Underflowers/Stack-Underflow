@@ -28,7 +28,7 @@ public class ProposeQuestionCommandServlet extends HttpServlet {
 
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         ProposeQuestionCommand command = ProposeQuestionCommand.builder()
-                .authorUUID(currentUser.getUuid())
+                .authorId(currentUser.getUserId())
                 .title(request.getParameter("title"))
                 .text(request.getParameter("content"))
                 .build();

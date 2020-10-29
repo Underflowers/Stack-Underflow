@@ -29,20 +29,29 @@ public class ProfileServlet extends HttpServlet {
 
         request.getSession().removeAttribute("errors");
 
+        // Updated profile successfully
+        if(request.getSession().getAttribute("updated") != null){
+            request.getSession().removeAttribute("updated");
+            request.setAttribute("updated", true);
+        }
+
         // Retrieve current user
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
         request.setAttribute("user", currentUser);
 
         // User's questions
-        QuestionsDTO userQuestions = questionFacade.getQuestions(QuestionsQuery.builder()
-                .authorId(currentUser.getUuid())
-                .build());
+        QuestionsQuery query = QuestionsQuery.builder()
+                .authorId(currentUser.getUserId())
+                .limit(5)
+                .build();
+        QuestionsDTO userQuestions = questionFacade.getQuestions(query);
         request.setAttribute("questions", userQuestions);
+        query.setLimit(0);
+        request.setAttribute("questionsCount", questionFacade.countQuestions(query));
 
         // User's answers count
-        AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authUser(currentUser.getUuid()).build());
+        AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authUserId(currentUser.getUserId()).build());
         request.setAttribute("answersCount", userAnswers.getAnswers().size());
-
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }
 }

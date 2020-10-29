@@ -1,39 +1,35 @@
-const faker = require('faker');
-const registerPage = require("./pages/registerPage");
-const common = require("./pages/common");
+const genuser = require("./helpers/genuser");
 
 Feature('register');
 
-Scenario('Login link redirect', (I) => {
-    common.landOnPageSafely("/register", "Register");
+Scenario('Login link redirect', (I, RegisterPage) => {
+    RegisterPage.goto();
     I.see("Already have an account?");
     I.clickLink("Already have an account?");
     I.amOnPage("/login")
     I.see("Login");
 });
 
-Scenario('Both passwords dont match', (I) => {
-    common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser('John', 'Doe', 'john.doe@me.com', 'john', 'doe');
+const u1 = genuser();
+Scenario('Both passwords dont match', (I, RegisterPage) => {
+    RegisterPage.goto();
+    RegisterPage.register(u1.firstname, u1.lastname, `${u1.email}`, 'miss', 'match');
     I.seeElement('.error');
-    I.see('Error: Passwords don\'t match');
+    I.see('Error: Password and password repeat must be the same');
 });
 
-const firstname = faker.name.firstName();
-const lastname = faker.name.lastName();
-const emailAlreadyUse = firstname + '.' + lastname + '@me.com'; // Further test will try to use it once more
-Scenario('Created successfully', (I) => {
-    common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser(firstname, lastname, emailAlreadyUse, 'pwd', 'pwd');
+const u2 = genuser();
+Scenario('Created successfully', (I, LoginPage, RegisterPage) => {
+    RegisterPage.goto();
+    RegisterPage.register(u2.firstname, u2.lastname, u2.email, u2.password, u2.password);
     I.dontSeeElement('.error');
-    common.checkLoggedIn(emailAlreadyUse);
+    LoginPage.success(u2.email);
     I.amOnPage("/questions");
 });
 
-Scenario('Email already used', (I) => {
-    // Already used email address is john.doe@me.com and has been created in test above
-    common.landOnPageSafely("/register", "Register");
-    registerPage.fillAndRegisterUser('test', 'test', emailAlreadyUse, 'test', 'test');
+Scenario('Email already used', (I, RegisterPage) => {
+    RegisterPage.goto();
+    RegisterPage.register(u2.firstname, u2.lastname, u2.email, u2.password, u2.password);
     I.seeElement('.error');
     I.see('Error: Email address already in use!');
 });

@@ -36,8 +36,8 @@ public class QuestionFacade {
     public void proposeQuestion(ProposeQuestionCommand command) throws IncompleteQuestionException {
         try {
             Question submittedQuestion = Question.builder()
-                    .id(command.getQuestionUUID())
-                    .authorUUID(command.getAuthorUUID())
+                    .id(command.getQuestionId())
+                    .authorId(command.getAuthorId())
                     .title(command.getTitle())
                     .content(command.getText())
                     .build();
@@ -51,7 +51,7 @@ public class QuestionFacade {
         Collection<Question> allQuestions = questionRepository.find(query);
 
         List<QuestionsDTO.QuestionDTO> allQuestionsDTO = allQuestions.stream().map(question -> {
-                    User author = userRepository.findById(question.getAuthorUUID()).get();
+                    User author = userRepository.findById(question.getAuthorId()).get();
 
                     return QuestionsDTO.QuestionDTO.builder()
                             .uuid(question.getId().getId())
@@ -77,7 +77,7 @@ public class QuestionFacade {
 
     public QuestionsDTO.QuestionDTO getQuestion(GetQuestionQuery command) {
         Question question = questionRepository.findById(command.getId()).orElse(null);
-        User author = userRepository.findById(question.getAuthorUUID()).get();
+        User author = userRepository.findById(question.getAuthorId()).get();
 
 
         return QuestionsDTO.QuestionDTO.builder()
@@ -88,14 +88,18 @@ public class QuestionFacade {
                 .creationDate(question.getCreationDate())
                 .answers(answerFacade.getAnswers(AnswersQuery.builder()
                         .id(command.getId())
-                        .authUser(command.getAuthUser())
+                        .authUserId(command.getAuthUserId())
                         .build()))
                 .comments(commentFacade.getQuestionComments(question.getId()))
                 .votes(voteFacade.getVotes(VotesQuery.builder()
-                        .user(command.getAuthUser())
+                        .user(command.getAuthUserId())
                         .relatedQuestion(command.getId())
                         .build()))
                 .build();
+    }
+
+    public int countQuestions(QuestionsQuery query) {
+        return this.questionRepository.count(query);
     }
 
     public int countQuestions() {

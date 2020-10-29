@@ -6,27 +6,33 @@
 <div class="container container-content">
 
     <div class="oneLineContainer mb-5">
-        <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${questions.questions.size()})</span></h1>
+        <h1 class="h1">All questions <span class="text-xl font-normal align-middle">(${count})</span></h1>
 
         <c:if test="${authUser != null}">
-            <a href="ask" class="btn btn--primary my-2">+ New Question</a>
+            <a href="${pageContext.request.contextPath}/ask" class="btn btn--primary my-2">+ New Question</a>
         </c:if>
     </div>
 
     <div class="flex justify-center flex-wrap">
         <c:forEach var="question" items="${questions.questions}">
-                <div class="card card--hover my-4 w-full" onclick="location.href='/question?uuid=${question.uuid}';">
-                    <span class="subtitle">${question.author} asks</span>
-                    <h2 class="h2 textLimiter">${question.title}</h2>
-                    <p class="textLimiter textLimiter--2 text-gray-700">${question.content}</p>
-                    <hr class="my-3 border-gray-300">
-                    <div class="oneLineContainer">
-                        <span class="subtitle">${question.votes.count} votes • ${question.answers.answers.size()} answers</span>
-                        <span class="subtitle">${question.creationDate.toString()}</span>
-                    </div>
-                </div>
+            <jsp:include page="fragments/questionSummary.jsp">
+                <jsp:param name="uuid" value="${question.uuid}"/>
+                <jsp:param name="author" value="${question.author}"/>
+                <jsp:param name="title" value="${question.title}"/>
+                <jsp:param name="content" value="${question.content}"/>
+                <jsp:param name="votes" value="${question.votes.count}"/>
+                <jsp:param name="answers" value="${question.answers.answers.size()}"/>
+                <jsp:param name="creationDate" value="${question.creationDate.toString()}"/>
+            </jsp:include>
         </c:forEach>
     </div>
+
+    <jsp:include page="fragments/pagination.jsp">
+        <jsp:param name="previousPage" value="${previousPage}"/>
+        <jsp:param name="nextPage" value="${nextPage}"/>
+        <jsp:param name="page" value="questions"/>
+    </jsp:include>
+
 </div>
 
 <jsp:include page="fragments/footer.jsp"/>

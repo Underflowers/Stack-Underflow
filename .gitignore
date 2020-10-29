@@ -29,3 +29,6 @@ target/
 node_modules/
 
 server.env
+arquillian.xml
+
+e2e/output/

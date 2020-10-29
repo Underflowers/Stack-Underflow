@@ -44,8 +44,8 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         "VALUES(?,?,?,?,?)");
             stmt.setString(1, answer.getId().asString());
             stmt.setString(2, answer.getContent());
-            stmt.setString(3, answer.getAuthorUUID().asString());
-            stmt.setString(4, answer.getQuestionUUID().asString());
+            stmt.setString(3, answer.getAuthorId().asString());
+            stmt.setString(4, answer.getQuestionId().asString());
             stmt.setString(5, answer.getCreatedAt().toString());
 
             stmt.execute();
@@ -171,11 +171,11 @@ public class JdbcAnswerRepository implements IAnswerRepository {
                         "SELECT * FROM answers WHERE questions_uuid=? ORDER BY created_at DESC"
                 );
                 stmt.setString(1, query.getId().asString());
-            } else if(query.getAuthUser() != null) { // Answers from a specific user
+            } else if(query.getAuthUserId() != null) { // Answers from a specific user
                 stmt = conn.prepareStatement(
                         "SELECT * FROM answers WHERE users_uuid=? ORDER BY created_at DESC"
                 );
-                stmt.setString(1, query.getAuthUser().asString());
+                stmt.setString(1, query.getAuthUserId().asString());
             } else { // All answers
                 stmt = conn.prepareStatement(
                         "SELECT * FROM answers"
@@ -201,8 +201,8 @@ public class JdbcAnswerRepository implements IAnswerRepository {
     private Answer buildAnswer(ResultSet rs) throws SQLException {
         return Answer.builder()
                 .id(new AnswerId(rs.getString("uuid")))
-                .authorUUID(new UserId(rs.getString("users_uuid")))
-                .questionUUID(new QuestionId(rs.getString("questions_uuid")))
+                .authorId(new UserId(rs.getString("users_uuid")))
+                .questionId(new QuestionId(rs.getString("questions_uuid")))
                 .content(rs.getString("content"))
                 .createdAt(LocalDateTime.parse(rs.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();

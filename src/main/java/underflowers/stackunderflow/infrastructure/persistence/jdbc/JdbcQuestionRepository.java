@@ -4,18 +4,15 @@ import underflowers.stackunderflow.application.question.QuestionsQuery;
 import underflowers.stackunderflow.domain.question.IQuestionRepository;
 import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.question.QuestionId;
-import underflowers.stackunderflow.domain.user.User;
 import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
-import javax.swing.text.DateFormatter;
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -43,13 +40,8 @@ public class JdbcQuestionRepository implements IQuestionRepository {
 
         try {
             conn = dataSource.getConnection();
-            if(query.getAuthorId() != null) { // Question from specific user
-                stmt = conn.prepareStatement("SELECT * FROM questions WHERE users_uuid=? ORDER BY created_at DESC");
-                stmt.setString(1, query.getAuthorId().asString());
-            } else { // All questions
-                stmt = conn.prepareStatement("SELECT * FROM questions ORDER BY created_at DESC");
-            }
-
+            stmt = conn.prepareStatement(buildQuery("SELECT * FROM questions", query,
+                    "ORDER BY created_at DESC"));
             rs = stmt.executeQuery();
 
             while (rs.next())
@@ -66,14 +58,14 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     }
 
     @Override
-    public int count() {
+    public int count(QuestionsQuery query) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
             conn = dataSource.getConnection();
-            stmt = conn.prepareStatement("SELECT COUNT(*) AS countEntity FROM questions");
+            stmt = conn.prepareStatement(buildQuery("SELECT COUNT(*) AS countEntity FROM questions", query, ""));
             rs = stmt.executeQuery();
             rs.next();
             return rs.getInt("countEntity");
@@ -86,6 +78,11 @@ public class JdbcQuestionRepository implements IQuestionRepository {
         }
 
         return 0;
+    }
+
+    @Override
+    public int count() {
+        return count(QuestionsQuery.builder().build());
     }
 
     @Override
@@ -102,7 +99,7 @@ public class JdbcQuestionRepository implements IQuestionRepository {
             stmt.setString(2, question.getTitle());
             stmt.setString(3, question.getContent());
             stmt.setString(4, question.getCreationDate().toString());
-            stmt.setString(5, question.getAuthorUUID().asString());
+            stmt.setString(5, question.getAuthorId().asString());
 
             stmt.execute();
         } catch (SQLException throwables) {
@@ -191,10 +188,37 @@ public class JdbcQuestionRepository implements IQuestionRepository {
     private Question buildQuestion(ResultSet res) throws SQLException {
         return Question.builder()
                 .id(new QuestionId(res.getString("uuid")))
-                .authorUUID(new UserId(res.getString("users_uuid")))
+                .authorId(new UserId(res.getString("users_uuid")))
                 .title(res.getString("title"))
                 .content(res.getString("description"))
-                .creationDate(LocalDate.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .creationDate(LocalDateTime.parse(res.getString("created_at"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
+    }
+
+    private String buildQuery(String baseQuery, QuestionsQuery query, String commands) {
+        StringBuilder q = new StringBuilder(baseQuery);
+        q.append(" WHERE 1=1");
+
+        if (query.getSearchTerm() != null) {
+            q.append(" AND title LIKE '%");
+            q.append(query.getSearchTerm());
+            q.append("%'");
+        } else if(query.getAuthorId() != null) { // Question from specific user
+            q.append(" AND users_uuid='");
+            q.append(query.getAuthorId().asString());
+            q.append("'");
+        }
+
+        q.append(" ");
+        q.append(commands);
+
+        if (query.getLimit() != 0) {
+            q.append(" LIMIT ");
+            q.append(query.getLimit());
+            q.append(" OFFSET ");
+            q.append(query.getOffset());
+        }
+
+        return q.toString();
     }
 }

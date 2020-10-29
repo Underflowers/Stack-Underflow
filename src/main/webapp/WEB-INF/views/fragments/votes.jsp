@@ -5,7 +5,7 @@
     <div class="subtitle mr-2">${param.count} votes</div>
 
     <c:if test="${authUser != null}">
-        <form action="vote.do" method="post">
+        <form action="${pageContext.request.contextPath}/vote.do" method="post">
             <input id="type" name="voteType" type="hidden" value="up"/>
             <input id="answerUuid" name="answerUuid" type="hidden" value="${param.answerUuid}"/>
             <input id="questionUuid" name="questionUuid" type="hidden" value="${param.questionUuid}" />
@@ -20,7 +20,7 @@
             </c:choose>
         </form>
 
-        <form action="vote.do" method="post">
+        <form action="${pageContext.request.contextPath}/vote.do" method="post">
             <input id="type" name="voteType" type="hidden" value="down"/>
             <input id="answerUuid" name="answerUuid" type="hidden" value="${param.answerUuid}"/>
             <input id="questionUuid" name="questionUuid" type="hidden" value="${param.questionUuid}" />

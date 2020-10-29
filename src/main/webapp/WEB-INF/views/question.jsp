@@ -40,7 +40,7 @@
                         <jsp:param name="isUpvote" value="${answer.votes.isAuthUserUpvote.orElse(false)}"/>
                         <jsp:param name="count" value="${answer.votes.count}"/>
                         <jsp:param name="isDownvote" value="${answer.votes.isAuthUserUpvote.orElse(true)}"/>
-                        <jsp:param name="answerUuid" value="${answer.uuid.asString()}"/>
+                        <jsp:param name="answerUuid" value="${answer.id.asString()}"/>
                         <jsp:param name="redirectUuid" value="${question.uuid}"/>
                     </jsp:include>
                     <span class="subtitle">${answer.createdAt.toString()}</span>
@@ -48,18 +48,20 @@
 
                 <c:set var="comments" value="${answer.comments.comments}" scope="request" />
                 <jsp:include page="fragments/comment.jsp">
-                    <jsp:param name="answerUuid" value="${answer.uuid.asString()}"/>
+                    <jsp:param name="answerUuid" value="${answer.id.asString()}"/>
                     <jsp:param name="questionuuid" value="${question.uuid}"/>
                 </jsp:include>
             </div>
         </c:forEach>
 
-        <form action="answer.do" method="post">
-            <input id="questionUuid" name="questionUuid" type="hidden" value="${question.uuid}" />
-            <textarea id="content" name="content" type="text" placeholder="Write your answer here..." class="input-text w-full" rows="7"></textarea>
-            <br/>
-            <button id="submitBtn" name="submitBtn" type="submit" class="btn btn--primary my-2">Submit</button>
-        </form>
+        <c:if test="${authUser != null}">
+            <form action="${pageContext.request.contextPath}/answer.do" method="post">
+                <input id="questionUuid" name="questionUuid" type="hidden" value="${question.uuid}" />
+                <textarea id="content" name="content" type="text" placeholder="Write your answer here..." class="input-text w-full" rows="7"></textarea>
+                <br/>
+                <button id="submitBtn" name="submitBtn" type="submit" class="btn btn--primary my-2">Submit</button>
+            </form>
+        </c:if>
     </div>
 </div>
 

@@ -40,10 +40,10 @@ public class CommentCommandServlet extends HttpServlet {
         AuthenticatedUserDTO currentUser = (AuthenticatedUserDTO) request.getSession().getAttribute("authUser");
 
         CommentCommand command = CommentCommand.builder()
-                .authorId(currentUser.getUuid())
+                .authorId(currentUser.getUserId())
                 .answerId(answerId)
                 .questionId(questionId)
-                .content(request.getParameter("content"))
+                .content(request.getParameter("comment"))
                 .build();
 
         try {

@@ -67,7 +67,7 @@ public class QuestionFacadeTestIT {
         try {
             identityManagementFacade.register(registrationCommand);
             AuthenticatedUserDTO user = identityManagementFacade.authenticate(authenticateCommand);
-            return user.getUuid();
+            return user.getUserId();
         } catch (RegistrationFailedException | AuthenticationFailedException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class QuestionFacadeTestIT {
 
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand command = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Hey, how are you today ?")
                 .text("Let me now more about you")
                 .build();
@@ -95,12 +95,12 @@ public class QuestionFacadeTestIT {
 
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand questionCommand1 = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question 1")
                 .text("Content 1")
                 .build();
         ProposeQuestionCommand questionCommand2 = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question 2")
                 .text("Question 2")
                 .build();
@@ -123,22 +123,20 @@ public class QuestionFacadeTestIT {
 
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand questionCommand = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question 1")
                 .text("Content 1")
                 .build();
 
-        try {
-            // Fetch all questions
-            QuestionsDTO oldQuestions = questionFacade.getQuestions(QuestionsQuery.builder().build());
-            // Propose one question
-            questionFacade.proposeQuestion(questionCommand);
-            // Count and assert
-            int afterCount = questionFacade.countQuestions();
-            assertEquals(oldQuestions.getQuestions().size() + 1, afterCount);
-        } catch (IncompleteQuestionException e) {
-            e.printStackTrace();
-        }
+            assertDoesNotThrow(() -> {
+                // Fetch all questions count
+                int oldQuestions = questionFacade.countQuestions();
+                // Propose one question
+                questionFacade.proposeQuestion(questionCommand);
+                // Count again and assert
+                int afterCount = questionFacade.countQuestions();
+                assertEquals(oldQuestions + 1, afterCount);
+            });
     }
 
     @Test
@@ -148,22 +146,18 @@ public class QuestionFacadeTestIT {
         String searchTerm = String.valueOf(System.currentTimeMillis());
         QuestionFacade questionFacade = serviceRegistry.getQuestionFacade();
         ProposeQuestionCommand questionCommand = ProposeQuestionCommand.builder()
-                .authorUUID(userId)
+                .authorId(userId)
                 .title("Question " + searchTerm + " test")
                 .text("Content of the question")
                 .build();
 
-        // Ask the question contains the search term in title
-        try {
+        assertDoesNotThrow(() -> {
+            // Ask the question contains the search term in title
             questionFacade.proposeQuestion(questionCommand);
-        } catch (IncompleteQuestionException e) {
-            e.printStackTrace();
-        }
-
-        QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder().searchTerm(searchTerm).build());
-
-        // We want at least 1 question result for the search term
-        assertTrue(questionsDTO.getQuestions().size() >= 1);
+            QuestionsDTO questionsDTO = questionFacade.getQuestions(QuestionsQuery.builder().searchTerm(searchTerm).build());
+            // We want at least 1 question result for the search term
+            assertTrue(questionsDTO.getQuestions().size() >= 1);
+        });
     }
 
 }

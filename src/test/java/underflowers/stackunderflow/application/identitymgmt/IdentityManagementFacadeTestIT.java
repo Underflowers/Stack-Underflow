@@ -10,6 +10,7 @@ import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticateCommand;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticationFailedException;
+import underflowers.stackunderflow.application.identitymgmt.profile.EditUserCommand;
 import underflowers.stackunderflow.application.identitymgmt.registration.RegistrationCommand;
 import underflowers.stackunderflow.application.identitymgmt.registration.RegistrationFailedException;
 import underflowers.stackunderflow.application.question.ProposeQuestionCommand;
@@ -59,22 +60,93 @@ public class IdentityManagementFacadeTestIT {
                 .clearPassword(password)
                 .build();
 
-        try {
-            // Register user
-            identityManagementFacade.register(registrationCommand);
-            // Authenticate user
-            assertDoesNotThrow(() -> identityManagementFacade.authenticate(authenticateCommand));
 
+        // Register user
+        assertDoesNotThrow(() -> identityManagementFacade.register(registrationCommand));
+        // Authenticate user
+        assertDoesNotThrow(() -> {
             AuthenticatedUserDTO userDTO = identityManagementFacade.authenticate(authenticateCommand);
-
             // Authenticate user must be same as the created one
             assertEquals(firstname, userDTO.getFirstname());
             assertEquals(lastname, userDTO.getLastname());
             assertEquals(email, userDTO.getEmail());
+        });
+    }
 
-        } catch (RegistrationFailedException | AuthenticationFailedException e) {
-            e.printStackTrace();
-        }
+    @Test
+    public void canUpdateUserAndAuthWithNewPassword() {
+        String firstname = "john";
+        String newFirstname = "john2";
+        String lastname = "doe";
+        String newLastname = "doe2";
+        String email = firstname + lastname + "@" + System.currentTimeMillis() + ".com";
+        String password = "john";
+        String newPassword = "john2";
+
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+        RegistrationCommand registrationCommand = RegistrationCommand.builder()
+                .email(email)
+                .firstname(firstname)
+                .lastname(lastname)
+                .clearPassword(password)
+                .build();
+
+
+        // Register user
+        assertDoesNotThrow(() ->identityManagementFacade.register(registrationCommand));
+
+        // Update the user with a new firstname, lastname and same email / password
+        assertDoesNotThrow(() -> {
+                AuthenticatedUserDTO updatedUser = identityManagementFacade.editUser(EditUserCommand.builder()
+                    .newFirstname(newFirstname)
+                    .newLastname(newLastname)
+                    .oldEmail(email)
+                    .newEmail(email)
+                    .clearOldPassword(password)
+                    .clearNewPassword(newPassword)
+                    .build());
+
+                assertEquals(newFirstname, updatedUser.getFirstname());
+                assertEquals(newLastname, updatedUser.getLastname());
+            }
+        );
+
+        // Cannot authenticate with old password
+        assertThrows(AuthenticationFailedException.class, () -> identityManagementFacade.authenticate(AuthenticateCommand.builder()
+                .email(email)
+                .clearPassword(password)
+                .build()));
+
+        // Can authenticate with new password
+        assertDoesNotThrow(() -> identityManagementFacade.authenticate(AuthenticateCommand.builder()
+                .email(email)
+                .clearPassword(newPassword)
+                .build()));
+
+    }
+
+    @Test
+    public void countMustWorks() {
+        IdentityManagementFacade identityManagementFacade = serviceRegistry.getIdentityManagementFacade();
+        int previousCount = identityManagementFacade.countUsers();
+
+        String firstname = "john";
+        String lastname = "doe";
+        String email = firstname + lastname + "@" + System.currentTimeMillis() + ".com";
+        String password = "john";
+
+        RegistrationCommand registrationCommand = RegistrationCommand.builder()
+                .email(email)
+                .firstname(firstname)
+                .lastname(lastname)
+                .clearPassword(password)
+                .build();
+
+        // Register one more user
+        assertDoesNotThrow(() -> identityManagementFacade.register(registrationCommand));
+
+        // Must have one more user whe count() again
+        assertEquals(previousCount + 1, identityManagementFacade.countUsers());
     }
 
 }

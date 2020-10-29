@@ -3,7 +3,7 @@ package underflowers.stackunderflow.domain.question;
 import org.junit.jupiter.api.Test;
 import underflowers.stackunderflow.domain.user.UserId;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +20,7 @@ public class QuestionTest {
     @Test
     void buildWithNoTitleMustThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Question.builder()
-                .authorUUID(new UserId())
+                .authorId(new UserId())
                 .content("Content")
                 .build());
     }
@@ -28,7 +28,7 @@ public class QuestionTest {
     @Test
     void buildWithNoContentMustThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Question.builder()
-                .authorUUID(new UserId())
+                .authorId(new UserId())
                 .title("title")
                 .build());
     }
@@ -36,7 +36,7 @@ public class QuestionTest {
     @Test
     void buildWithNoIdAndCreationDateMustWorks() {
         assertDoesNotThrow(() -> Question.builder()
-                .authorUUID(new UserId())
+                .authorId(new UserId())
                 .title("title")
                 .content("content")
                 .build());
@@ -49,8 +49,8 @@ public class QuestionTest {
                         .id(new QuestionId())
                         .title("Question title")
                         .content("Question content")
-                        .creationDate(LocalDate.now())
-                        .authorUUID(new UserId())
+                        .creationDate(LocalDateTime.now())
+                        .authorId(new UserId())
                         .build();
         Question q2 = q1.deepClone();
 
@@ -59,7 +59,7 @@ public class QuestionTest {
         assertEquals(q1.getTitle(), q2.getTitle());
         assertEquals(q1.getContent(), q2.getContent());
         assertEquals(q1.getCreationDate(), q2.getCreationDate());
-        assertEquals(q1.getAuthorUUID().asString(), q2.getAuthorUUID().asString());
+        assertEquals(q1.getAuthorId().asString(), q2.getAuthorId().asString());
         // Object reference must be different
         assertNotSame(q1, q2);
     }
