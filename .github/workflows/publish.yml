@@ -63,9 +63,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/underflowers/stackunderflow:testing
+          tags: ghcr.io/underflowers/stackunderflow:latest
 
       - name: Stop underification
         run: |
           docker-compose -f docker-compose.underification.yml down
-          
