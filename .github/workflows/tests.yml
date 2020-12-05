@@ -71,5 +71,4 @@ jobs:
       - name: Stop servers
         run: |
           mvn liberty:stop
-          docker-compose down
-          docker-compose -f docker-compose.underification.yml down
+          docker-compose down --remove-orphans
