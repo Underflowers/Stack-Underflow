@@ -52,6 +52,8 @@ jobs:
           mvn liberty:create liberty:install-feature liberty:deploy
           mvn liberty:start
           docker-compose up -d db
+          wget https://raw.githubusercontent.com/Underflowers/Underification/master/docker-compose.yml -O docker-compose.underification.yml
+          docker-compose -f docker-compose.underfication.yml up -d
 
       - name: Run maven tests
         run: |
@@ -67,3 +69,4 @@ jobs:
         run: |
           mvn liberty:stop
           docker-compose down
+          docker-compose -f docker-compose.underification.yml down

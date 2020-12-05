@@ -39,7 +39,9 @@ jobs:
         run: npm run build
       
       - name: Build with maven
-        run: mvn clean package 
+        run: |
+          export SPECS_URL=https://raw.githubusercontent.com/Underflowers/Underification/master/api-impl/src/main/resources/api-spec.yaml
+          mvn clean package 
         
       - name: Set up Docker build
         uses: docker/setup-buildx-action@v1
