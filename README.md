@@ -11,7 +11,9 @@
   <img src="https://forthebadge.com/images/badges/powered-by-black-magic.svg" alt="platform">
 </p>
 
-![Tests](https://github.com/Underflowers/Stack-Underflow/workflows/Tests/badge.svg?branch=develop)
+<p align="center">
+  <img src="https://github.com/Underflowers/Stack-Underflow/workflows/Tests/badge.svg?branch=develop" alt="Tests">
+</p>
 
 ## About
 
@@ -25,7 +27,7 @@ We've generated (well..we were forced to) a Docker image that contain the latest
 $ docker pull ghcr.io/underflowers/stackunderflow:latest
 ```
 
-As is, the application will most likely not work. Why you ask? Well the database isn't packaged in the image we offer. So all you need to do is setup a database yourself. The schema can be found [here](./docker/init/database/schema.sql). Once the you have a db running, you'll need to add an environment file (server.env) with the information needed so that  Open Liberty can establish a connection with it. it should look something like this:
+As is, the application will most likely not work. Why you ask? Well the database isn't packaged in the image we offer. So all you need to do is setup a database yourself. But don't worry, you can find the schema [here](./docker/init/database/schema.sql). Once the you have a db running, you'll need to add an environment file (server.env) with the information needed so that  Open Liberty can establish a connection with it. it should look something like this:
 
 ```
 DB_HOST=127.0.0.1
@@ -37,13 +39,15 @@ DB_PASSWORD=root
 
 > Note: You'll need to place the file in `/config/server.env` on the server
 
-To help with this tedious task, we've created a [docker-compose.yml]() which does everything explained above.
+To help with this tedious task, we've created a [docker-compose.yml](./docker-compose.yml) which does everything explained above.
 
 ```bash
 $ docker-compose up -d
 ```
 
-> Note: If you decide to use our docker-compose.yml, you'll need to updated it with the database environment variables and most likely adapt the paths to the different files.
+> Note: If you decide to use our docker-compose.yml, you'll need to updated it with the database environment variables. Make sure that in the `server.env` file you've set the `DB_HOST` to **db** (it's the name of the service in the docker-compose.yml), otherwise it won't work (Yes we forgot to change and yes we lost 30min..don't judge). 
+>
+> The paths used in the docker-compose.yml are relative to the project structure, but if you don't wont to have all of the project locally, don't forget to update them.
 
 ## Contributing
 

@@ -43,6 +43,11 @@ jobs:
       - name: Build CSS 
         run: npm run build
 
+      - name: Start Underification
+        run: |
+          wget https://raw.githubusercontent.com/Underflowers/Underification/master/docker-compose.yml -O docker-compose.underification.yml
+          docker-compose -f docker-compose.underification.yml up -d
+
       - name: Build with maven
         run: mvn clean package 
 
@@ -66,4 +71,4 @@ jobs:
       - name: Stop servers
         run: |
           mvn liberty:stop
-          docker-compose down
+          docker-compose down --remove-orphans
