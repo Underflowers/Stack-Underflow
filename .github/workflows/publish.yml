@@ -37,10 +37,14 @@ jobs:
               
       - name: Build CSS 
         run: npm run build
+
+      - name: Start Underification
+        run: |
+          wget https://raw.githubusercontent.com/Underflowers/Underification/master/docker-compose.yml -O docker-compose.underification.yml
+          docker-compose -f docker-compose.underification.yml up -d
       
       - name: Build with maven
         run: |
-          export SPECS_URL=https://raw.githubusercontent.com/Underflowers/Underification/master/api-impl/src/main/resources/api-spec.yaml
           mvn clean package 
         
       - name: Set up Docker build
@@ -59,5 +63,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/underflowers/stackunderflow:latest
+          tags: ghcr.io/underflowers/stackunderflow:testing
 
+      - name: Stop underification
+        run: |
+          docker-compose -f docker-compose.underification.yml down
+          
