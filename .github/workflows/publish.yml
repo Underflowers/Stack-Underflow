@@ -42,6 +42,7 @@ jobs:
         run: |
           wget https://raw.githubusercontent.com/Underflowers/Underification/master/docker-compose.yml -O docker-compose.underification.yml
           docker-compose -f docker-compose.underification.yml up -d
+          timeout 90 bash -c 'while [ "$(docker logs underification | grep -F "JVM running")" == "" ]; do sleep 1; done'
       
       - name: Build with maven
         run: |
