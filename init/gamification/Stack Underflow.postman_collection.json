@@ -1,0 +1,982 @@
+{
+	"info": {
+		"_postman_id": "6ebea3cf-6ef7-445c-82b9-e7a69a4abed7",
+		"name": "Stack Underflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Rules",
+			"item": [
+				{
+					"name": "New user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"newUser\",\n   \"badgeName\": \"Newbie\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upVoted",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"upVoted\",\n   \"badgeName\": \"\",\n   \"scaleName\": \"Reputation\",\n   \"scalePoints\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "A user got his question/answer/comment upvoted"
+					},
+					"response": []
+				},
+				{
+					"name": "downVoted",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"downVoted\",\n   \"badgeName\": \"\",\n   \"scaleName\": \"Reputation\",\n   \"scalePoints\": \"-2\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "A user got his question/answer/comment downvoted"
+					},
+					"response": []
+				},
+				{
+					"name": "Voted",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"voted\",\n   \"badgeName\": \"\",\n   \"scaleName\": \"Activity\",\n   \"scalePoints\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "A user voted on a question/answer/comment"
+					},
+					"response": []
+				},
+				{
+					"name": "Bad question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"badQuestion\",\n   \"badgeName\": \"Eejit\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a dumb question"
+					},
+					"response": []
+				},
+				{
+					"name": "Great question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"greatQuestion\",\n   \"badgeName\": \"Awesome question\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a great question"
+					},
+					"response": []
+				},
+				{
+					"name": "Asted a question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"askedQuestion\",\n   \"badgeName\": \"\",\n   \"scaleName\": \"Activity\",\n   \"scalePoints\": \"5\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a question"
+					},
+					"response": []
+				},
+				{
+					"name": "Answered",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"answeredQuestion\",\n   \"badgeName\": \"Nice guy\",\n   \"scaleName\": \"Activity\",\n   \"scalePoints\": \"5\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user answered a question"
+					},
+					"response": []
+				},
+				{
+					"name": "Commented",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"commented\",\n   \"badgeName\": \"\",\n   \"scaleName\": \"Activity\",\n   \"scalePoints\": \"2\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user commented on something"
+					},
+					"response": []
+				},
+				{
+					"name": "C++",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"cpp\",\n   \"badgeName\": \"C++\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a C++ related question"
+					},
+					"response": []
+				},
+				{
+					"name": "Python",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"python\",\n   \"badgeName\": \"Python\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a python related question"
+					},
+					"response": []
+				},
+				{
+					"name": "Java",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"java\",\n   \"badgeName\": \"Java\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a java related question"
+					},
+					"response": []
+				},
+				{
+					"name": "Rust",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"rust\",\n   \"badgeName\": \"Rust\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a rust related question"
+					},
+					"response": []
+				},
+				{
+					"name": "Javascript",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"javascript\",\n   \"badgeName\": \"Javascript\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a javascript related question"
+					},
+					"response": []
+				},
+				{
+					"name": "x86",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"x86\",\n   \"badgeName\": \"x86\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a x86 related question"
+					},
+					"response": []
+				},
+				{
+					"name": "ARM",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"eventType\": \"arm\",\n   \"badgeName\": \"ARM\",\n   \"scaleName\": \"\",\n   \"scalePoints\": \"\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/rules",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rules"
+							]
+						},
+						"description": "The user asked a arm related question"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Badges",
+			"item": [
+				{
+					"name": "Newbie",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Newbie\",\n    \"description\": \"Newly created account\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Awesome question",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Awesome question\",\n    \"description\": \"User asked a question that got a lot of upvotes\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nice guy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Nice guy\",\n    \"description\": \"User helped out by answering a question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eejit",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Eejit\",\n    \"description\": \"User asked a very dumb question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "C++",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"C++\",\n    \"description\": \"User asked a C++ related question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Python",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Python\",\n    \"description\": \"User asked a Python related question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Java",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Java\",\n    \"description\": \"User asked a Java related question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rust",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rust\",\n    \"description\": \"User asked a Rust related question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Javascript",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Javascript\",\n    \"description\": \"User asked a Javascript related question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "x86",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"x86\",\n    \"description\": \"User asked a x86 related question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ARM",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ARM\",\n    \"description\": \"User asked a ARM related question\",\n    \"image\": \"n/a\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"badges"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Scale points",
+			"item": [
+				{
+					"name": "Reputation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Reputation\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/pointScales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pointScales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Activity\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/pointScales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pointScales"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Register new application",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Stack Underflow\",\n    \"description\": \"Stack underflow is a Chinese clone of stack overflow.\",\n    \"url\": \"flow.io\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/applications",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"applications"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-API-KEY",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "zTNnVtz4yLBHxnkbvUjehdkfnuDQ6cUijRzBMfdo5wfn7TpT5K",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ab2f37fd-1ebe-46a4-8dc7-eb4286a394af",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "25198e9c-b259-43b6-8e8b-cbd7854cd460",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
