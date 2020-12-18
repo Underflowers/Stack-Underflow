@@ -1,5 +1,10 @@
 package underflowers.stackunderflow.ui.web.profile;
 
+import io.underflowers.underification.ApiClient;
+import io.underflowers.underification.ApiException;
+import io.underflowers.underification.Configuration;
+import io.underflowers.underification.api.UsersApiControllerApi;
+import io.underflowers.underification.api.dto.UserScore;
 import underflowers.stackunderflow.application.ServiceRegistry;
 import underflowers.stackunderflow.application.question.answer.AnswerFacade;
 import underflowers.stackunderflow.application.question.answer.AnswersDTO;
@@ -16,6 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "ProfileServlet", urlPatterns = "/profile")
 public class ProfileServlet extends HttpServlet {
@@ -52,6 +59,17 @@ public class ProfileServlet extends HttpServlet {
         // User's answers count
         AnswersDTO userAnswers = answerFacade.getAnswers(AnswersQuery.builder().authUserId(currentUser.getUserId()).build());
         request.setAttribute("answersCount", userAnswers.getAnswers().size());
+
+        // Call the gameification API to fetch all scales scores
+        List<UserScore> scores = new ArrayList<>();
+        UsersApiControllerApi usersApiControllerApi = new UsersApiControllerApi();
+        try {
+            scores = usersApiControllerApi.getUserScores(currentUser.getUserId().asString());
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("scores", scores);
+
         request.getRequestDispatcher("/WEB-INF/views/profile.jsp").forward(request, response);
     }
 }
