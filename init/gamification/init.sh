@@ -2,6 +2,7 @@
 
 # Register application
 token=$(curl --location --request POST 'localhost:8080/applications' \
+--silent \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name": "Stack Underflow",
@@ -9,8 +10,11 @@ token=$(curl --location --request POST 'localhost:8080/applications' \
     "url": "flow.io"
 }' | sed -e 's/[{""}]/''/g' | awk -F: '{ print $2 }')
 
+echo $token
+
 # Create badges
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -20,6 +24,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -29,6 +34,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -38,6 +44,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -47,6 +54,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -56,6 +64,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -65,6 +74,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -74,6 +84,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -83,6 +94,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -92,6 +104,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -101,6 +114,7 @@ curl --location --request POST 'localhost:8080/badges' \
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -112,6 +126,7 @@ curl --location --request POST 'localhost:8080/badges' \
 
 # Create scale points
 curl --location --request POST 'http://localhost:8080/pointScales' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -119,6 +134,7 @@ curl --location --request POST 'http://localhost:8080/pointScales' \
 }'
 
 curl --location --request POST 'http://localhost:8080/pointScales' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -128,6 +144,7 @@ curl --location --request POST 'http://localhost:8080/pointScales' \
 
 # Creat rules
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -138,6 +155,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -148,6 +166,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -158,6 +177,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -168,6 +188,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -178,6 +199,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -188,6 +210,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -198,6 +221,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -208,6 +232,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -218,6 +243,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -228,6 +254,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -238,6 +265,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -248,6 +276,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -258,6 +287,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -268,6 +298,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
@@ -278,6 +309,7 @@ curl --location --request POST 'localhost:8080/rules' \
 }'
 
 curl --location --request POST 'localhost:8080/rules' \
+--silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
