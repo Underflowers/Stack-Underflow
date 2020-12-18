@@ -139,4 +139,12 @@ body {
     -webkit-line-clamp: 2;
 }
 
+.profile-scale {
+    border-right: 1px solid;
+    @apply border-gray-400 pr-6 mt-2;
+}
+.profile-scale:last-child {
+    @apply border-0 pl-6;
+}
+
 @tailwind utilities;

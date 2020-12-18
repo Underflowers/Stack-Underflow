@@ -17,6 +17,18 @@
         </div>
         <p>${user.email}</p>
 
+        <h2 class="h2 mt-6">Scales points</h2>
+        <c:if test="${scores.size() == 0}">
+            No points for the moment
+        </c:if>
+        <div class="flex">
+            <c:forEach var="scale" items="${scores}">
+                <div class="profile-scale">
+                    <div class="text-gray-700">${scale.pointScaleName}</div>
+                    <div class="text-rausch text-xl text-center">${scale.score} <span class="text-sm">pts</span></div>
+                </div>
+            </c:forEach>
+        </div>
         <!-- Statistics -->
         <hr class="my-8">
 
