@@ -1,5 +1,7 @@
 package underflowers.stackunderflow.application.identitymgmt;
 
+import io.underflowers.underification.api.EventApiControllerApi;
+import io.underflowers.underification.api.dto.Event;
 import org.mindrot.jbcrypt.BCrypt;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticateCommand;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
@@ -11,9 +13,14 @@ import underflowers.stackunderflow.application.identitymgmt.registration.Registr
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
+import javax.inject.Inject;
+
 public class IdentityManagementFacade {
     IUserRepository repository;
 
+    EventApiControllerApi underificationApiController = new EventApiControllerApi();
+
+    @Inject
     public IdentityManagementFacade(IUserRepository repository) {
         this.repository = repository;
     }
@@ -33,6 +40,7 @@ public class IdentityManagementFacade {
                     .clearTextPassword(command.getClearPassword())
                     .build();
 
+            underificationApiController.triggerEvent(new Event().appUserId(user.getId().asString()).eventType("newUser"));
             repository.save(user);
         } catch (Exception e) {
             throw new RegistrationFailedException(e.getMessage());

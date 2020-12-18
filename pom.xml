@@ -248,7 +248,7 @@
                             <language>java</language>
                             <library>okhttp-gson</library>
                             <configOptions>
-                                <sourceFolder>.</sourceFolder>
+                                <!-- <sourceFolder>.</sourceFolder> -->
                                 <modelPackage>io.underflowers.underification.api.dto</modelPackage>
                                 <apiPackage>io.underflowers.underification.api</apiPackage>
                                 <dateLibrary>java8</dateLibrary>
