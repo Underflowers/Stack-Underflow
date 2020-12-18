@@ -52,16 +52,21 @@ jobs:
       - name: Build with maven
         run: mvn clean package 
 
-      - name: Start servers
+      - name: Configuration
         run: |
           cp src/main/liberty/config/server.env.example src/main/liberty/config/server.env
+          cp src/test/resources/arquillian.xml.example src/test/resources/arquillian.xml
+          ./init/gamification/init.sh >> ./src/main/liberty/config/server.env
+
+      - name: Start servers
+        run: |
+          
           mvn liberty:create liberty:install-feature liberty:deploy
           mvn liberty:start
           docker-compose up -d db
 
       - name: Run maven tests
         run: |
-          cp src/test/resources/arquillian.xml.example src/test/resources/arquillian.xml
           mvn verify
 
       - name: Run e2e tests
