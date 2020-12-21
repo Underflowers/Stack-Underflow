@@ -965,6 +965,20 @@ body {
   padding-left: 1.5rem;
 }
 
+.badge-count {
+  --bg-opacity: 1;
+  background-color: #00A699;
+  background-color: rgba(0, 166, 153, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  border-radius: 9999px;
+  position: absolute;
+  padding: 2px 9px 2px 9px;
+  left: 70%;
+  top: -6px;
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));

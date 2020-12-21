@@ -20,7 +20,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Newbie",
     "description": "Newly created account",
-    "image": "n/a"
+    "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/47-512.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -30,7 +30,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Awesome question",
     "description": "User asked a question that got a lot of upvotes",
-    "image": "n/a"
+    "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/54-512.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -40,7 +40,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Nice guy",
     "description": "User helped out by answering a question",
-    "image": "n/a"
+    "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/17-512.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -50,7 +50,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Eejit",
     "description": "User asked a very dumb question",
-    "image": "n/a"
+    "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/40-512.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -60,7 +60,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "C++",
     "description": "User asked a C++ related question",
-    "image": "n/a"
+    "image": "https://isocpp.org/assets/images/cpp_logo.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -70,7 +70,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Python",
     "description": "User asked a Python related question",
-    "image": "n/a"
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGvGShLAJbL5g1fezQUTHYX7zWX7XRXmNv8A&usqp=CAU"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -80,7 +80,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Java",
     "description": "User asked a Java related question",
-    "image": "n/a"
+    "image": "https://www.solutions-numeriques.com/wp-content/uploads/2016/03/java.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -90,7 +90,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Rust",
     "description": "User asked a Rust related question",
-    "image": "n/a"
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1200px-Rust_programming_language_black_logo.svg.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -100,7 +100,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "Javascript",
     "description": "User asked a Javascript related question",
-    "image": "n/a"
+    "image": "https://qph.fs.quoracdn.net/main-qimg-b9bc9b7d8164c862b48c772daa8e81e1.webp"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -108,9 +108,9 @@ curl --location --request POST 'localhost:8080/badges' \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
 --data-raw '{
-    "name": "x86",
-    "description": "User asked a x86 related question",
-    "image": "n/a"
+    "name": "x86-64",
+    "description": "User asked a x86-64 related question",
+    "image": "https://assets.exercism.io/tracks/x86-64-assembly-hex-turquoise.png"
 }'
 
 curl --location --request POST 'localhost:8080/badges' \
@@ -120,7 +120,7 @@ curl --location --request POST 'localhost:8080/badges' \
 --data-raw '{
     "name": "ARM",
     "description": "User asked a ARM related question",
-    "image": "n/a"
+    "image": "https://electrosome.com/wp-content/uploads/2012/02/ARM-Cortex-A15-Processor.jpg"
 }'
 
 

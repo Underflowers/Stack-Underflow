@@ -146,5 +146,11 @@ body {
 .profile-scale:last-child {
     @apply border-0 pl-6;
 }
+.badge-count {
+    @apply bg-babu text-white rounded-full absolute;
+    padding: 2px 9px 2px 9px;
+    left: 70%;
+    top: -6px;
+}
 
 @tailwind utilities;

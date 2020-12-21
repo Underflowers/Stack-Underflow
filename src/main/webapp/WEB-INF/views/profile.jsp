@@ -17,18 +17,46 @@
         </div>
         <p>${user.email}</p>
 
-        <h2 class="h2 mt-6">Scales points</h2>
-        <c:if test="${scores.size() == 0}">
-            No points for the moment
-        </c:if>
         <div class="flex">
-            <c:forEach var="scale" items="${scores}">
-                <div class="profile-scale">
-                    <div class="text-gray-700">${scale.pointScaleName}</div>
-                    <div class="text-rausch text-xl text-center">${scale.score} <span class="text-sm">pts</span></div>
+
+            <!-- Scales points -->
+            <div class="left">
+                <h2 class="h2 mt-6">Scales points</h2>
+                <c:if test="${scores.size() == 0}">
+                    No points for the moment
+                </c:if>
+                <div class="scales flex">
+                    <c:forEach var="scale" items="${scores}">
+                        <div class="profile-scale">
+                            <div class="text-gray-700">${scale.pointScaleName}</div>
+                            <div class="text-rausch text-xl text-center">${scale.score} <span class="text-sm">pts</span></div>
+                        </div>
+                    </c:forEach>
                 </div>
-            </c:forEach>
+            </div>
+
+            <!-- Badges (img from : https://www.iconfinder.com/iconsets/badges-9 )-->
+            <div class="ml-10 right">
+                <h2 class="h2 mt-6">Badges (${badges.size()})</h2>
+                <c:if test="${badges.size() == 0}">
+                    No badges for the moment
+                </c:if>
+                <div class="badges flex flex-wrap">
+                    <c:forEach var="badge" items="${badges}">
+                        <div class="mt-2 mx-4 text-center relative" title="${badge.key.description}">
+                            <img class="inline w-20" src="${badge.key.image}" alt="Badge '${badge.key.name}'">
+                            <span class="badge-count">${badge.value}</span>
+                            <div class="text-gray-700">${badge.key.name}</div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+
         </div>
+
+
+
+
         <!-- Statistics -->
         <hr class="my-8">
 
