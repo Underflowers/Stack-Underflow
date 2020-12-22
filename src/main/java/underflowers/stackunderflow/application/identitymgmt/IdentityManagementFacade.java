@@ -6,12 +6,14 @@ import org.mindrot.jbcrypt.BCrypt;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticateCommand;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticatedUserDTO;
 import underflowers.stackunderflow.application.identitymgmt.authenticate.AuthenticationFailedException;
+import underflowers.stackunderflow.application.identitymgmt.authenticate.PublicUserDTO;
 import underflowers.stackunderflow.application.identitymgmt.profile.EditUserCommand;
 import underflowers.stackunderflow.application.identitymgmt.profile.EditUserFailedException;
 import underflowers.stackunderflow.application.identitymgmt.registration.RegistrationCommand;
 import underflowers.stackunderflow.application.identitymgmt.registration.RegistrationFailedException;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
+import underflowers.stackunderflow.domain.user.UserId;
 
 import javax.inject.Inject;
 
@@ -61,6 +63,20 @@ public class IdentityManagementFacade {
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .email(user.getEmail()).build();
+    }
+
+    public PublicUserDTO getPublicUser(UserId userId) {
+        User user = repository.findById(userId).orElse(null);
+
+        if(user == null) { // ID doesn't belong to any user
+            return null;
+        }
+
+        return  PublicUserDTO.builder()
+                .userId(user.getId())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .build();
     }
 
     public int countUsers() {
