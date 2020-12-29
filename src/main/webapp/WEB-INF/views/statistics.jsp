@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="fragments/header.jsp" />
 
-    <div class="container mx-auto text-center">
+    <div class="container mx-auto text-center mb-16">
 
         <h1 class="pt-8 h1">Statistics</h1>
 
@@ -33,38 +33,27 @@
 
         <!-- Leaderboards -->
         <h1 class="mt-16 mb-8 pt-8 h1">Leaderboards</h1>
-        <div class="flex justify-evenly">
+        <div class="flex items-start justify-evenly">
             <!-- Reputation -->
-            <div class="flex justify-center text-left flex-col">
+            <div class="flex justify-center flex-col">
                 <h1 class="h1 text-3xl">${reputationLeaderboard.name}</h1>
                 <c:forEach var="entry" items="${reputationLeaderboard.entries}" varStatus="loop">
-                    <c:choose>
-                        <c:when test="${loop.index == 0}">
-                            <b class="flex justify-between text-arches text-xl">
-                                <span>${loop.index + 1}. ${entry.firstname} ${entry.lastname} </span>
-                                <span class="ml-2">${entry.score}pts</span>
-                            </b>
-                        </c:when>
-                        <c:when test="${loop.index == 1 || loop.index == 2}">
-                            <b class="flex justify-between text-xl">
-                                <span>${loop.index + 1}. ${entry.firstname} ${entry.lastname} </span>
-                                <span class="ml-2">${entry.score}pts</span>
-                            </b>
-                        </c:when>
-                        <c:otherwise>
-                            <b class="flex justify-between">
-                                <span>${loop.index + 1}. ${entry.firstname} ${entry.lastname} </span>
-                                <span class="ml-2">${entry.score}pts</span>
-                            </b>
-                        </c:otherwise>
-                    </c:choose>
+                    <jsp:include page="fragments/leaderboardEntry.jsp">
+                        <jsp:param name="name" value="${entry.firstname} ${entry.lastname}"/>
+                        <jsp:param name="score" value="${entry.score}"/>
+                        <jsp:param name="index" value="${loop.index}"/>
+                    </jsp:include>
                 </c:forEach>
             </div>
             <!-- Activity -->
-            <div>
+            <div class="flex justify-center flex-col">
                 <h1 class="h1 text-3xl">${activityLeaderboard.name}</h1>
                 <c:forEach var="entry" items="${activityLeaderboard.entries}" varStatus="loop">
-                    <%-- TODO --%>
+                    <jsp:include page="fragments/leaderboardEntry.jsp">
+                        <jsp:param name="name" value="${entry.firstname} ${entry.lastname}"/>
+                        <jsp:param name="score" value="${entry.score}"/>
+                        <jsp:param name="index" value="${loop.index}"/>
+                    </jsp:include>
                 </c:forEach>
             </div>
         </div>
