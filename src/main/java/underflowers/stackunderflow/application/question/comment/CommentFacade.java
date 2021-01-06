@@ -1,5 +1,7 @@
 package underflowers.stackunderflow.application.question.comment;
 
+import io.underflowers.underification.api.EventApiControllerApi;
+import io.underflowers.underification.api.dto.Event;
 import underflowers.stackunderflow.domain.question.answer.AnswerId;
 import underflowers.stackunderflow.domain.question.comment.Comment;
 import underflowers.stackunderflow.domain.question.comment.ICommentRepository;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 public class CommentFacade {
     private ICommentRepository repository;
     private IUserRepository userRepository;
+
+    private EventApiControllerApi underificationApiController = new EventApiControllerApi();
 
     public CommentFacade(ICommentRepository repository, IUserRepository userRepository) {
         this.repository = repository;
@@ -44,6 +48,10 @@ public class CommentFacade {
                     .createdAt(LocalDateTime.now())
                     .build();
             repository.save(comment);
+
+            // Trigger underification API
+            underificationApiController.triggerEvent(new Event().appUserId(command.getAuthorId().asString())
+                    .eventType("commented"));
         } catch (Exception e) {
             throw new InvalidCommentException(e.getMessage());
         }

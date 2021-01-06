@@ -1,5 +1,7 @@
 package underflowers.stackunderflow.application.question.answer;
 
+import io.underflowers.underification.api.EventApiControllerApi;
+import io.underflowers.underification.api.dto.Event;
 import underflowers.stackunderflow.application.question.comment.CommentFacade;
 import underflowers.stackunderflow.application.question.vote.VotesQuery;
 import underflowers.stackunderflow.application.question.vote.VoteFacade;
@@ -21,6 +23,7 @@ public class AnswerFacade {
     private CommentFacade commentFacade;
     private VoteFacade voteFacade;
 
+    private EventApiControllerApi underificationApiController = new EventApiControllerApi();
 
     public AnswerFacade(IAnswerRepository answerRepository, IQuestionRepository questionRepository,
                         IUserRepository userRepository, CommentFacade commentFacade, VoteFacade voteFacade) {
@@ -41,6 +44,10 @@ public class AnswerFacade {
                     .createdAt(LocalDateTime.now())
                     .build();
             answerRepository.save(givenAnswer);
+
+            // Trigger underification API
+            underificationApiController.triggerEvent(new Event().appUserId(command.getAuthorId().asString())
+                    .eventType("answeredQuestion"));
         } catch (Exception e) {
             throw new InvalidAnswerException(e.getMessage());
         }

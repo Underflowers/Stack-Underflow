@@ -303,7 +303,7 @@ curl --location --request POST 'localhost:8080/rules' \
 --header "X-API-KEY: $token" \
 --data-raw '{
    "eventType": "x86",
-   "badgeName": "x86",
+   "badgeName": "x86-64",
    "scaleName": "",
    "scalePoints": ""
 }'

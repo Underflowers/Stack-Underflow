@@ -85,7 +85,7 @@ public class JdbcAnswerRepository implements IAnswerRepository {
 
         try {
             conn = dataSource.getConnection();
-            stmt = conn.prepareStatement("SELECT * FROM questions WHERE uuid=?");
+            stmt = conn.prepareStatement("SELECT * FROM answers WHERE uuid=?");
             stmt.setString(1, id.asString());
             rs = stmt.executeQuery();
 

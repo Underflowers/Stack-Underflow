@@ -18,9 +18,9 @@ import underflowers.stackunderflow.domain.user.UserId;
 import javax.inject.Inject;
 
 public class IdentityManagementFacade {
-    IUserRepository repository;
+    private IUserRepository repository;
 
-    EventApiControllerApi underificationApiController = new EventApiControllerApi();
+    private EventApiControllerApi underificationApiController = new EventApiControllerApi();
 
     @Inject
     public IdentityManagementFacade(IUserRepository repository) {
