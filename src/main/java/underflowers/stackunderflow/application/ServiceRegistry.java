@@ -53,6 +53,6 @@ public class ServiceRegistry {
     }
 
     public VoteFacade getVoteFacade() {
-        return new VoteFacade(voteRepository);
+        return new VoteFacade(voteRepository, questionRepository, answerRepository);
     }
 }

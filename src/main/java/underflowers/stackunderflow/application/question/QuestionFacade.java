@@ -1,5 +1,7 @@
 package underflowers.stackunderflow.application.question;
 
+import io.underflowers.underification.api.EventApiControllerApi;
+import io.underflowers.underification.api.dto.Event;
 import underflowers.stackunderflow.application.question.answer.AnswerFacade;
 import underflowers.stackunderflow.application.question.answer.AnswersQuery;
 import underflowers.stackunderflow.application.question.comment.CommentFacade;
@@ -10,8 +12,7 @@ import underflowers.stackunderflow.domain.question.Question;
 import underflowers.stackunderflow.domain.user.IUserRepository;
 import underflowers.stackunderflow.domain.user.User;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class QuestionFacade {
@@ -23,6 +24,16 @@ public class QuestionFacade {
     private AnswerFacade answerFacade;
     private CommentFacade commentFacade;
     private VoteFacade voteFacade;
+
+    private EventApiControllerApi underificationApiController = new EventApiControllerApi();
+    private final static Map<String, String> languageEvents = Map.of(
+            "c++", "cpp",
+            "python", "python",
+            "java", "java",
+            "rust", "rust",
+            "javascript", "javascript",
+            "x86", "x86",
+            "arm", "arm");
 
     public QuestionFacade(IQuestionRepository questionRepository, IUserRepository userRepository,
                           AnswerFacade answerFacade, CommentFacade commentFacade, VoteFacade voteFacade) {
@@ -42,6 +53,17 @@ public class QuestionFacade {
                     .content(command.getText())
                     .build();
             questionRepository.save(submittedQuestion);
+
+            // Trigger underification API
+            underificationApiController.triggerEvent(new Event().appUserId(command.getAuthorId().asString())
+                .eventType("askedQuestion"));
+
+            for (String language : languageEvents.keySet()) {
+                if (command.getTitle().toLowerCase().contains(language)) {
+                    underificationApiController.triggerEvent(new Event().appUserId(command.getAuthorId().asString())
+                        .eventType(languageEvents.get(language)));
+                }
+            }
         } catch (Exception e) {
             throw new IncompleteQuestionException(e.getMessage());
         }
