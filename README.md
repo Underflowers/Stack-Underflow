@@ -49,6 +49,8 @@ $ docker-compose up -d
 >
 > The paths used in the docker-compose.yml are relative to the project structure, but if you don't wont to have all of the project locally, don't forget to update them.
 
+Finally, this project uses the gaminifaction engine [Underification](https://github.com/Underflowers/Underification/). Just make sure that you have a version of it running, you can follow the deployment instruction [here](https://github.com/Underflowers/Underification/tree/fb-documentation#deployment).
+
 ## Contributing
 
 ### Prerequisites
