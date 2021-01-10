@@ -951,6 +951,34 @@ body {
   -webkit-line-clamp: 2;
 }
 
+.profile-scale {
+  border-right: 1px solid;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+  padding-right: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.profile-scale:last-child {
+  border-width: 0;
+  padding-left: 1.5rem;
+}
+
+.badge-count {
+  --bg-opacity: 1;
+  background-color: #00A699;
+  background-color: rgba(0, 166, 153, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  border-radius: 9999px;
+  position: absolute;
+  padding: 2px 9px 2px 9px;
+  left: 70%;
+  top: -6px;
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));

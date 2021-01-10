@@ -40,7 +40,12 @@ public class VoteFacadeTestIT {
         // Best way if we have lot of dependencies -> ShrinkWrap all pom.xml dependencies
         WebArchive archive = ShrinkWrap.create(WebArchive.class, WARNAME)
                 .addPackages(true, "underflowers.stackunderflow")
+                .addPackages(true, "io.underflowers.underification")
                 .addPackages(true, "org.mindrot")
+                .addPackages(true, "okhttp3")
+                .addPackages(true, "com.google.gson")
+                .addPackages(true, "okio")
+                .addPackages(true, "io.gsonfire")
                 .addPackages(true, "org.opentest4j");
         return archive;
     }

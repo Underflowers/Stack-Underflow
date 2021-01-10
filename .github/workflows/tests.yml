@@ -43,19 +43,30 @@ jobs:
       - name: Build CSS 
         run: npm run build
 
+      - name: Start Underification
+        run: |
+          wget https://raw.githubusercontent.com/Underflowers/Underification/master/docker-compose.yml -O docker-compose.underification.yml
+          docker-compose -f docker-compose.underification.yml up -d
+          timeout 90 bash -c 'while [ "$(docker logs underification | grep -F "JVM running")" == "" ]; do sleep 1; done'
+
       - name: Build with maven
         run: mvn clean package 
 
-      - name: Start servers
+      - name: Configuration
         run: |
           cp src/main/liberty/config/server.env.example src/main/liberty/config/server.env
+          cp src/test/resources/arquillian.xml.example src/test/resources/arquillian.xml
+          ./init/gamification/init.sh >> ./src/main/liberty/config/server.env
+
+      - name: Start servers
+        run: |
+          
           mvn liberty:create liberty:install-feature liberty:deploy
           mvn liberty:start
           docker-compose up -d db
 
       - name: Run maven tests
         run: |
-          cp src/test/resources/arquillian.xml.example src/test/resources/arquillian.xml
           mvn verify
 
       - name: Run e2e tests
@@ -66,4 +77,4 @@ jobs:
       - name: Stop servers
         run: |
           mvn liberty:stop
-          docker-compose down
+          docker-compose down --remove-orphans
