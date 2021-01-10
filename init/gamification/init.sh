@@ -1,7 +1,12 @@
 #!/bin/bash
 
+if [ "$UNDERIFICATION_URL" == "" ]
+then
+   UNDERIFICATION_URL=localhost:8080
+fi
+
 # Register application
-token=$(curl --location --request POST 'localhost:8080/applications' \
+token=$(curl --location --request POST $UNDERIFICATION_URL'/applications' \
 --silent \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -13,7 +18,7 @@ token=$(curl --location --request POST 'localhost:8080/applications' \
 echo $token
 
 # Create badges
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -23,7 +28,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/47-512.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -33,7 +38,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/54-512.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -43,7 +48,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/17-512.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -53,7 +58,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://cdn4.iconfinder.com/data/icons/badges-9/66/40-512.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -63,7 +68,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://isocpp.org/assets/images/cpp_logo.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -73,7 +78,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGvGShLAJbL5g1fezQUTHYX7zWX7XRXmNv8A&usqp=CAU"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -83,7 +88,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://www.solutions-numeriques.com/wp-content/uploads/2016/03/java.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -93,7 +98,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1200px-Rust_programming_language_black_logo.svg.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -103,7 +108,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://qph.fs.quoracdn.net/main-qimg-b9bc9b7d8164c862b48c772daa8e81e1.webp"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -113,7 +118,7 @@ curl --location --request POST 'localhost:8080/badges' \
     "image": "https://assets.exercism.io/tracks/x86-64-assembly-hex-turquoise.png"
 }'
 
-curl --location --request POST 'localhost:8080/badges' \
+curl --location --request POST $UNDERIFICATION_URL'/badges' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -125,7 +130,7 @@ curl --location --request POST 'localhost:8080/badges' \
 
 
 # Create scale points
-curl --location --request POST 'http://localhost:8080/pointScales' \
+curl --location --request POST $UNDERIFICATION_URL'/pointScales' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -133,7 +138,7 @@ curl --location --request POST 'http://localhost:8080/pointScales' \
     "name": "Reputation"
 }'
 
-curl --location --request POST 'http://localhost:8080/pointScales' \
+curl --location --request POST $UNDERIFICATION_URL'/pointScales' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -143,7 +148,7 @@ curl --location --request POST 'http://localhost:8080/pointScales' \
 
 
 # Creat rules
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -154,7 +159,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -165,7 +170,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": "1"
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -176,7 +181,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": "-2"
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -187,7 +192,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": "1"
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -198,7 +203,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -209,7 +214,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -220,7 +225,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": "5"
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -231,7 +236,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": "5"
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -242,7 +247,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": "2"
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -253,7 +258,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -264,7 +269,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -275,7 +280,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -286,7 +291,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -297,7 +302,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
@@ -308,7 +313,7 @@ curl --location --request POST 'localhost:8080/rules' \
    "scalePoints": ""
 }'
 
-curl --location --request POST 'localhost:8080/rules' \
+curl --location --request POST $UNDERIFICATION_URL'/rules' \
 --silent --output /dev/null \
 --header 'Content-Type: application/json' \
 --header "X-API-KEY: $token" \
