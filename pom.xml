@@ -32,11 +32,11 @@
             <id>ci</id>
             <activation>
                 <property>
-                    <name>env.SPECS_URL</name>
+                    <name>env.UNDERIFICATION_URL</name>
                 </property>
             </activation>
             <properties>
-                <io.underflowers.underification.specs-url>${env.SPECS_URL}</io.underflowers.underification.specs-url>
+                <io.underflowers.underification.specs-url>${env.UNDERIFICATION_URL}/v3/api-docs</io.underflowers.underification.specs-url>
             </properties>
         </profile>
     </profiles>

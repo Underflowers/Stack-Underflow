@@ -35,9 +35,10 @@ DB_PORT=3306
 DB_DATABASE=MyDatabase
 DB_USERNAME=root
 DB_PASSWORD=root
+UNDERIFICATION_AUTH_TOKEN=token # See below
 ```
 
-> Note: You'll need to place the file in `/config/server.env` on the server
+> Note: You'll need to place the file in `/config/server.env` on the server. We recommend the usage of a volume.
 
 To help with this tedious task, we've created a [docker-compose.yml](./docker-compose.yml) which does everything explained above.
 
@@ -49,7 +50,9 @@ $ docker-compose up -d
 >
 > The paths used in the docker-compose.yml are relative to the project structure, but if you don't wont to have all of the project locally, don't forget to update them.
 
-Finally, this project uses the gaminifaction engine [Underification](https://github.com/Underflowers/Underification/). Just make sure that you have a version of it running, you can follow the deployment instruction [here](https://github.com/Underflowers/Underification/tree/fb-documentation#deployment).
+Finally, this project uses the gamification engine [Underification](https://github.com/Underflowers/Underification/). Just make sure that you have a version of it running, you can follow the deployment instruction [here](https://github.com/Underflowers/Underification/tree/fb-documentation#deployment). The integration is quite straightforward, just run the `init.sh` script (you can find it in the `init/gamification/` folder in the repository) and copy the returned token in your `server.env` file.
+
+>Note: If you do not host the gamification engine on `http://localhost:8080` (default deployment), you'll have to export an environment variable `UNDERIFICATION_URL`
 
 ## Contributing
 
@@ -84,17 +87,17 @@ Now you'll need to setup the database environement variables so Open Liberty can
 $ cp src/main/liberty/config/server.env.example src/main/liberty/config/server.env
 ```
 
+Of course, you'll need the gamification engine here too, have a look at [the deployment section](##Deployment).
+
 #### Backend
 
 To help with development you can use Open Liberty hot reloading server
 
 ```bash
-$ mvn liberty:dev
+$ mvn compile liberty:dev
 ```
 
-> Note: Make sure you've set the correct 
-
-And now you can access the application at `http://localhost:8080`.
+And now you can access the application at `http://localhost:9080`.
 
 #### Frontend
 
