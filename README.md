@@ -36,6 +36,7 @@ DB_DATABASE=MyDatabase
 DB_USERNAME=root
 DB_PASSWORD=root
 UNDERIFICATION_AUTH_TOKEN=token # See below
+UNDERIFICATION_URL=http://localhost:8080
 ```
 
 > Note: You'll need to place the file in `/config/server.env` on the server. We recommend the usage of a volume.
@@ -46,13 +47,13 @@ To help with this tedious task, we've created a [docker-compose.yml](./docker-co
 $ docker-compose up -d
 ```
 
-> Note: If you decide to use our docker-compose.yml, you'll need to updated it with the database environment variables. Make sure that in the `server.env` file you've set the `DB_HOST` to **db** (it's the name of the service in the docker-compose.yml), otherwise it won't work (Yes we forgot to change and yes we lost 30min..don't judge). 
+> Note: If you decide to use our docker-compose.yml, you'll need to updated it with the database environment variables. 
 >
 > The paths used in the docker-compose.yml are relative to the project structure, but if you don't wont to have all of the project locally, don't forget to update them.
 
 Finally, this project uses the gamification engine [Underification](https://github.com/Underflowers/Underification/). Just make sure that you have a version of it running, you can follow the deployment instruction [here](https://github.com/Underflowers/Underification/tree/fb-documentation#deployment). The integration is quite straightforward, just run the `init.sh` script (you can find it in the `init/gamification/` folder in the repository) and copy the returned token in your `server.env` file.
 
->Note: If you do not host the gamification engine on `http://localhost:8080` (default deployment), you'll have to export an environment variable `UNDERIFICATION_URL`
+>Note: If you do not host the gamification engine on `http://localhost:8080` (default deployment), you'll have to export an environment variable `UNDERIFICATION_URL` before running the init script **and** update the `server.env` file.
 
 ## Contributing
 
