@@ -18,12 +18,11 @@ services:
   web:
     image: ghcr.io/underflowers/stackunderflow:latest
     container_name: stackunderflow
-    ports:
-      - "9088:9080"
     volumes:
       - ./src/main/liberty/config/server.env:/config/server.env
     depends_on:
       - db
+    network_mode: "host"
 
 volumes:
   stackunderflow_db:
