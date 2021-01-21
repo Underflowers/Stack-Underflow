@@ -156,7 +156,7 @@ $ npx codeceptjs run --steps
 
 ## Documentation
 
-Apart from this readme, you can find more documents in the `doc/` folder.
+Apart from this readme, you can find more documents in the `doc/` folder and in the [wiki](https://github.com/Underflowers/Stack-Underflow/wiki) of the project. For the awesome person that will grade us, you can find extra information there (e.g. what we implemented, problems we had  etc...).
 
 ## Main contributors
 
