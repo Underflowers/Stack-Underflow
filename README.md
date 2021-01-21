@@ -21,39 +21,35 @@ Stack underflow is a <s>Chinese</s> clone of [stack overflow](https://stackoverf
 
 ## Deployment
 
-We've generated (well..we were forced to) a Docker image that contain the latest version of Stack underflow and [Open Liberty](https://openliberty.io/) as the application server.
+### Underication
+
+This project uses the gamification engine [Underification](https://github.com/Underflowers/Underification/). Just make sure that you have a version of it running somewhere, you can follow the deployment instruction [here](https://github.com/Underflowers/Stack-Underflow#deployment).
+
+### Configuration
+
+If you've cloned our repository, juste copy our `server.env` example file:
 
 ```bash
-$ docker pull ghcr.io/underflowers/stackunderflow:latest
+$ cp src/main/liberty/config/server.env.example src/main/liberty/config/server.env
 ```
 
-As is, the application will most likely not work. Why you ask? Well the database isn't packaged in the image we offer. So all you need to do is setup a database yourself. But don't worry, you can find the schema [here](./docker/init/database/schema.sql). Once the you have a db running, you'll need to add an environment file (server.env) with the information needed so that  Open Liberty can establish a connection with it. it should look something like this:
+Then you'll need to register the application in the Underification engine. This is quite straightforward, just run the `init.sh` script (you can find it in the `init/gamification/` folder in the repository) and copy the returned token in your `server.env` (`UNDERIFICATION_AUTH_TOKEN` variable).
 
-```
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=MyDatabase
-DB_USERNAME=root
-DB_PASSWORD=root
-UNDERIFICATION_AUTH_TOKEN=token # See below
-UNDERIFICATION_URL=http://localhost:8080
-```
+>Note: If you do not host the gamification engine on `http://localhost:8080` (default deployment), you'll have to export an environment variable `UNDERIFICATION_URL` before running the init script **and** update the `server.env` file.
 
-> Note: You'll need to place the file in `/config/server.env` on the server. We recommend the usage of a volume.
+### Run
 
-To help with this tedious task, we've created a [docker-compose.yml](./docker-compose.yml) which does everything explained above.
+We've generated (well..we were forced to) a Docker image that contain the latest version of Stack underflow and [Open Liberty](https://openliberty.io/) as the application server. Additionaly, we provide a compose file which starts up a MySQL database and the application server.
 
 ```bash
 $ docker-compose up -d
 ```
 
-> Note: If you decide to use our docker-compose.yml, you'll need to updated it with the database environment variables. 
+> Note: You may want to change the database credentials (we recommend it too), just don't forget to update your `server.env`.
 >
 > The paths used in the docker-compose.yml are relative to the project structure, but if you don't wont to have all of the project locally, don't forget to update them.
 
-Finally, this project uses the gamification engine [Underification](https://github.com/Underflowers/Underification/). Just make sure that you have a version of it running, you can follow the deployment instruction [here](https://github.com/Underflowers/Underification/tree/fb-documentation#deployment). The integration is quite straightforward, just run the `init.sh` script (you can find it in the `init/gamification/` folder in the repository) and copy the returned token in your `server.env` file.
-
->Note: If you do not host the gamification engine on `http://localhost:8080` (default deployment), you'll have to export an environment variable `UNDERIFICATION_URL` before running the init script **and** update the `server.env` file.
+The server should now be running on `localhost:9080`.
 
 ## Contributing
 
@@ -88,7 +84,7 @@ Now you'll need to setup the database environement variables so Open Liberty can
 $ cp src/main/liberty/config/server.env.example src/main/liberty/config/server.env
 ```
 
-Of course, you'll need the gamification engine here too, have a look at [the deployment section](##Deployment).
+Of course, you'll need the gamification engine here too, have a look at [the deployment section](#Deployment).
 
 #### Backend
 
