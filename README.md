@@ -21,7 +21,7 @@ Stack underflow is a <s>Chinese</s> clone of [stack overflow](https://stackoverf
 
 ## Deployment
 
-### Underication
+### Underification
 
 This project uses the gamification engine [Underification](https://github.com/Underflowers/Underification/). Just make sure that you have a version of it running somewhere, you can follow the deployment instruction [here](https://github.com/Underflowers/Stack-Underflow#deployment).
 
